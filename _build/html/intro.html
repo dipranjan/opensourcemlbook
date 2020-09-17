@@ -26,6 +26,8 @@
     <script src="_static/copybutton.js"></script>
     <script src="_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -140,6 +142,24 @@
 </div>
         <!-- Source interaction buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/dipranjan/opensourcemlbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/dipranjan/opensourcemlbook/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/dipranjan/opensourcemlbook/edit/master/intro.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
@@ -167,9 +187,11 @@
                 
   <div class="section" id="about-this-book">
 <h1>About this Book<a class="headerlink" href="#about-this-book" title="Permalink to this headline">¶</a></h1>
-<p>This is book is a collection of the best open source Machine learning resources out there. The book does not belong to me, it belongs to the entire community, I have just taken it upon me to collect it in a book format.</p>
-<p>If you come across any Open Source Resource that you think should be here please feel free to create a pull request.</p>
-<p>All material in this book, including the images are checked for oopen source license post which they have been added here.</p>
+<p>This book is a collection of some good open source Machine learning resources out there. The book does not belong to me, it belongs to the entire community, I have just taken it upon me to collect the fantastic resources in a book format as a comprehensive source for someone starting out.</p>
+<p>To the best of my knowledge I have ensured that the resources used here are available under free-to-use license. Incase you feel that is not the case, please open an issue stating the same and I will take a look into it.</p>
+<p>Every book contains within it the author’s style, which makes reading the book a seamless experience or brings some sort of uniformity to the book. However given the nature of this book it will not be the case, this book will be a mish-mash of different styles depending on the original source.</p>
+<p>If you come across any Open Source Resource that you think should be here or even if you have a way to explain things better, please feel free to create a pull request.</p>
+<p>The online version of the book is available at <a class="reference external" href="https://dipranjan.github.io/opensourcemlbook/intro.html">this link.</a></p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -211,7 +233,7 @@
         
           By The Open Source Community<br/>
         
-            &copy; Copyright 2020.<br/>
+            &copy; Copyright MIT License.<br/>
       </p>
     </div>
   </footer>
