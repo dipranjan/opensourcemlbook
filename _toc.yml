@@ -1,0 +1,6 @@
+- file: intro
+
+- part: Deep Learning
+  chapters:
+  - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Convolutional Neural Networks for Visual Recognition
+
