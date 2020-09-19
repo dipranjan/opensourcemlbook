@@ -1,7 +1,7 @@
 # Understanding and Visualizing Convolutional Neural Networks
 
 ```{warning}
-Source Material is yet to fully updated. Waiting for completion.
+Source Material is yet to be fully updated. Waiting for completion.
 ```
 
 ```{admonition} Original Source:
