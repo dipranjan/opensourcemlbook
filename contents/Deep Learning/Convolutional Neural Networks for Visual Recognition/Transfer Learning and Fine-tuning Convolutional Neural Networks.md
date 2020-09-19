@@ -1,7 +1,7 @@
 # Transfer Learning and Fine-tuning Convolutional Neural Network
 
 ```{warning}
-Source Material is yet to fully updated. Waiting for completion.
+Source Material is yet to be fully updated. Waiting for completion.
 ```
 
 ```{admonition} Original Source:
