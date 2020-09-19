@@ -6,25 +6,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About this Book &#8212; The Open Source Machine Learning Book</title>
+    <title>Understanding and Visualizing Convolutional Neural Networks &#8212; The Open Source Machine Learning Book</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
-    <link href="_static/css/index.css" rel="stylesheet">
-    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-dropdown.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/sphinx-book-theme.js"></script>
+    <link href="../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
@@ -34,11 +34,12 @@
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="shortcut icon" href="_static/logo.gif"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Convolutional Neural Networks" href="contents/Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html" />
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../../_static/logo.gif"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Transfer Learning and Fine-tuning Convolutional Neural Network" href="Transfer%20Learning%20and%20Fine-tuning%20Convolutional%20Neural%20Networks.html" />
+    <link rel="prev" title="Convolutional Neural Networks" href="Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -55,9 +56,9 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="index.html">
+<a class="navbar-brand text-wrap" href="../../../index.html">
   
-  <img src="_static/logo.gif" class="logo" alt="logo">
+  <img src="../../../_static/logo.gif" class="logo" alt="logo">
   
   
   <h1 class="site-logo" id="site-title">The Open Source Machine Learning Book</h1>
@@ -65,7 +66,7 @@
 </a>
 </div>
 
-<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form>
@@ -73,7 +74,7 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="#">
+  <a class="reference internal" href="../../../intro.html">
    About this Book
   </a>
  </li>
@@ -83,24 +84,24 @@
   Convolutional Neural Networks
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="contents/Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html">
+  <a class="reference internal" href="Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html">
    Convolutional Neural Networks
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="contents/Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20and%20Visualizing%20Convolutional%20Neural%20Networks.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Understanding and Visualizing Convolutional Neural Networks
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="contents/Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Transfer%20Learning%20and%20Fine-tuning%20Convolutional%20Neural%20Networks.html">
+  <a class="reference internal" href="Transfer%20Learning%20and%20Fine-tuning%20Convolutional%20Neural%20Networks.html">
    Transfer Learning and Fine-tuning Convolutional Neural Network
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="contents/Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20Convolutions%20in%20Depth.html">
+  <a class="reference internal" href="Understanding%20Convolutions%20in%20Depth.html">
    Understanding Convolutions in Depth
   </a>
  </li>
@@ -146,7 +147,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
+        <a class="dropdown-buttons" href="../../../_sources/contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Understanding and Visualizing Convolutional Neural Networks.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -166,10 +167,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/dipranjan/opensourcemlbook/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/dipranjan/opensourcemlbook/issues/new?title=Issue%20on%20page%20%2Fcontents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Understanding and Visualizing Convolutional Neural Networks.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/dipranjan/opensourcemlbook/edit/master/intro.md"><button
+        <a class="edit-button" href="https://github.com/dipranjan/opensourcemlbook/edit/master/contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Understanding and Visualizing Convolutional Neural Networks.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -200,14 +201,15 @@
         
               <div>
                 
-  <div class="section" id="about-this-book">
-<h1>About this Book<a class="headerlink" href="#about-this-book" title="Permalink to this headline">¶</a></h1>
-<p>This book is a collection of some good open source Machine learning resources out there. The book does not belong to me, it belongs to the entire community, I have just taken it upon me to collect the fantastic resources in a book format as a comprehensive source for someone starting out.</p>
-<p>To the best of my knowledge I have ensured that the resources used here are available under free-to-use license. Incase you feel that is not the case, please open an issue stating the same and I will take a look into it.</p>
-<p>Every book contains within it the author’s style, which makes reading the book a seamless experience or brings some sort of uniformity to the book. However given the nature of this book it will not be the case, this book will be a mish-mash of different styles depending on the original source.</p>
-<p>If you come across any Open Source Resource that you think should be here or even if you have a way to explain things better, please feel free to create a pull request.</p>
-<p>The online version of the book is available at <a class="reference external" href="https://dipranjan.github.io/opensourcemlbook/intro.html">this link.</a></p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="understanding-and-visualizing-convolutional-neural-networks">
+<h1>Understanding and Visualizing Convolutional Neural Networks<a class="headerlink" href="#understanding-and-visualizing-convolutional-neural-networks" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Source Material is yet to fully updated. Waiting for completion.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Original Source:</p>
+<p><a class="reference external" href="https://cs231n.github.io/understanding-cnn/">CS231n of Stanford</a></p>
 </div>
 </div>
 
@@ -224,7 +226,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./."
+            path: "./contents/Deep Learning/Convolutional Neural Networks for Visual Recognition"
         },
         predefinedOutput: true
     }
@@ -239,7 +241,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="contents/Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html" title="next page">Convolutional Neural Networks</a>
+    <a class='left-prev' id="prev-link" href="Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html" title="previous page">Convolutional Neural Networks</a>
+    <a class='right-next' id="next-link" href="Transfer%20Learning%20and%20Fine-tuning%20Convolutional%20Neural%20Networks.html" title="next page">Transfer Learning and Fine-tuning Convolutional Neural Network</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
@@ -258,7 +261,7 @@
       </div>
     </div>
 
-    <script src="_static/js/index.js"></script>
+    <script src="../../../_static/js/index.js"></script>
     
   </body>
 </html>
