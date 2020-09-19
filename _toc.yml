@@ -1,6 +1,8 @@
 - file: intro
-
-- part: Deep Learning
+- part: Convolutional Neural Networks
   chapters:
   - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Convolutional Neural Networks for Visual Recognition
+  - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Understanding and Visualizing Convolutional Neural Networks
+  - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Transfer Learning and Fine-tuning Convolutional Neural Networks
+  - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Understanding Convolutions in Depth
 
