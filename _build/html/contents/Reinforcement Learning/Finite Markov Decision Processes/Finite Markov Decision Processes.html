@@ -1,0 +1,564 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finite Markov Decision Processes &#8212; The Open Source Machine Learning Book</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../../_static/logo.gif"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="Understanding Convolutions in Depth" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20Convolutions%20in%20Depth.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/logo.gif" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">The Open Source Machine Learning Book</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../intro.html">
+   About this Book
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Convolutional Neural Networks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html">
+   Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20and%20Visualizing%20Convolutional%20Neural%20Networks.html">
+   Understanding and Visualizing Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Transfer%20Learning%20and%20Fine-tuning%20Convolutional%20Neural%20Networks.html">
+   Transfer Learning and Fine-tuning Convolutional Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20Convolutions%20in%20Depth.html">
+   Understanding Convolutions in Depth
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Reinforcement Learning
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Finite Markov Decision Processes
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/contents/Reinforcement Learning/Finite Markov Decision Processes/Finite Markov Decision Processes.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/dipranjan/opensourcemlbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/dipranjan/opensourcemlbook/issues/new?title=Issue%20on%20page%20%2Fcontents/Reinforcement Learning/Finite Markov Decision Processes/Finite Markov Decision Processes.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/dipranjan/opensourcemlbook/edit/master/contents/Reinforcement Learning/Finite Markov Decision Processes/Finite Markov Decision Processes.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-agentenvironment-interface">
+   The Agent–Environment Interface
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-1-bioreactor">
+     Example 1: Bioreactor
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-2-pick-and-place-robot">
+     Example 2: Pick-and-Place Robot
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-3-recycling-robot">
+     Example 3: Recycling Robot
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-and-rewards">
+   Goals and Rewards
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#returns">
+   Returns
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-pole-balancing-state">
+     Example: Pole-Balancing State
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#unified-notation-for-episodic-and-continuing-tasks">
+   Unified Notation for Episodic and Continuing Tasks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-markov-property">
+   The Markov Property
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Example: Pole-Balancing State
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-draw-poker">
+     Example: Draw Poker
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#markov-decision-processes">
+   Markov Decision Processes
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-recycling-robot-mdp">
+     Example: Recycling Robot MDP
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#value-functions">
+   Value Functions
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="finite-markov-decision-processes">
+<h1>Finite Markov Decision Processes<a class="headerlink" href="#finite-markov-decision-processes" title="Permalink to this headline">¶</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Original Source:</p>
+<p><a class="reference external" href="https://web.stanford.edu/class/psych209/Readings/SuttonBartoIPRLBook2ndEd.pdf">Reinforcement Learning: An Introduction Second edition by Richard S. Sutton and Andrew G. Barto</a></p>
+</div>
+<p>In this chapter we introduce the problem that we try to solve in the rest of the book. For us, this problem defines the field of reinforcement learning: any method that is suited to solving this problem we consider to be a reinforcement learning method. Our objective in this chapter is to describe the reinforcement learning problem in a broad sense. We try to convey the wide range of possible applications that can be framed as reinforcement learning tasks. We also describe mathematically idealized forms of the reinforcement learning problem for which precise theoretical statements can be made. We introduce key elements of the problem’s mathematical structure, such as value functions and Bellman equations. As in all of artificial intelligence, there is a tension between breadth of applicability and mathematical tractability. In this chapter we introduce this
+tension and discuss some of the trade-offs and challenges that it implies.</p>
+<div class="section" id="the-agentenvironment-interface">
+<h2>The Agent–Environment Interface<a class="headerlink" href="#the-agentenvironment-interface" title="Permalink to this headline">¶</a></h2>
+<p>The reinforcement learning problem is meant to be a straightforward framing of the problem of learning from interaction to achieve a goal. The learner and decision-maker is called the <strong>agent</strong>. The thing it interacts with, comprising everything outside the agent, is called the <strong>environment</strong>. These interact continually, the agent selecting actions and the environment responding to those actions and presenting new situations to the agent. The environment also gives rise to rewards, special numerical values that the agent tries to maximize over time. A complete specification of an environment defines a task , one instance of the reinforcement learning problem.</p>
+<p>More specifically, the agent and environment interact at each of a sequence of discrete time steps, <span class="math notranslate nohighlight">\(t = 0, 1, 2, 3, ....\)</span> At each time step <span class="math notranslate nohighlight">\(t\)</span>, the agent receives some representation of the environment’s <strong>state</strong>, <span class="math notranslate nohighlight">\(S_t ∈ S\)</span>, where <span class="math notranslate nohighlight">\(S\)</span> is the set of possible states, and on that basis selects an action, <span class="math notranslate nohighlight">\(A_t ∈ A(S_t), where A(S_t)\)</span> is the set of actions available in state <span class="math notranslate nohighlight">\(S_t\)</span> . One time step later, in part as a consequence of its action, the agent receives a numerical reward , <span class="math notranslate nohighlight">\(R_{t+1} ∈ R\)</span>, and finds itself in a new state, <span class="math notranslate nohighlight">\(S_{t+1}\)</span>.</p>
+<div class="figure align-default" id="image1">
+<a class="reference internal image-reference" href="../../../_images/image11.png"><img alt="../../../_images/image11.png" src="../../../_images/image11.png" style="height: 150px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">The agent–environment interaction in reinforcement learning.</span><a class="headerlink" href="#image1" title="Permalink to this image">¶</a></p>
+</div>
+<p>At each time step, the agent implements a mapping from states to probabilities of selecting each possible action. This mapping is called the agent’s <strong>policy</strong> and is denoted <span class="math notranslate nohighlight">\(\pi_t\)</span> , where <span class="math notranslate nohighlight">\(\pi_t(a|s)\)</span> is the probability that <span class="math notranslate nohighlight">\(A_t = a\)</span> if <span class="math notranslate nohighlight">\(S_t = s\)</span>. Reinforcement learning methods specify how the agent changes its policy as a result of its experience. The agent’s goal, roughly speaking, is to maximize the total amount of reward it receives over the long run. This framework is abstract and flexible and can be applied to many different problems in many different ways. For example, the time steps need not refer to fixed intervals of real time; they can refer to arbitrary successive stages of decision-making and acting. The actions can be low-level controls, such as the voltages applied to the motors of a robot arm, or high-level decisions, such
+as whether or not to have lunch or to go to graduate school. Similarly, the states can take a wide variety of forms. They can be completely determined by low-level sensations, such as direct sensor readings, or they can be more high-level and abstract, such as symbolic descriptions of objects in a room. Some of what makes up a state could be based on memory of past sensations or even be entirely mental or subjective. For example, an agent could be in the state of not being sure where an object is, or of having just been surprised in some clearly defined sense. Similarly, some actions might be totally mental or computational. For example, some actions might control what an agent chooses to think about, or where it focuses its attention. In general, actions can be any decisions we want to learn how to make, and the states can be anything we can know that might be useful in making them. In particular, the boundary between agent and environment is not often the same as the physical boundary of a robot’s or animal’s body. Usually, the boundary is drawn closer to the agent than that. For example, the motors and mechanical linkages of a robot and its sensing hardware should usually be considered parts of the environment rather than parts of the agent. Similarly, if we apply the framework to a person or animal, the muscles, skeleton, and sensory organs should be considered part of the environment. Rewards, too,
+presumably are computed inside the physical bodies of natural and artificial learning systems, but are considered external to the agent.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The general rule we follow is that anything that cannot be changed arbitrarily by the agent is considered to be outside of it and thus part of its
+environment. We do not assume that everything in the environment is unknown to the agent. For example, the agent often knows quite a bit about
+how its rewards are computed as a function of its actions and the states in which they are taken. But we always consider the reward computation to be external to the agent because it defines the task facing the agent and thus must be beyond its ability to change arbitrarily. In fact, in some cases the agent may know everything about how its environment works and still face a difficult reinforcement learning task, just as we may know exactly how a puzzle like Rubik’s cube works, but still be unable to solve it. The agent–environment boundary represents the limit of the agent’s absolute control, not of its knowledge.</p>
+</div>
+<p>The agent–environment boundary can be located at different places for different purposes. In a complicated robot, many different agents may be operating at once, each with its own boundary. For example, one agent may make high-level decisions which form part of the states faced by a lower-level agent that implements the high-level decisions. In practice, the agent–environment boundary is determined once one has selected particular states, actions, and rewards, and thus has identified a specific decision-making task of interest. The reinforcement learning framework is a considerable abstraction of the problem of goal-directed learning from interaction. It proposes that whatever the details of the sensory, memory, and control apparatus, and whatever objective one is trying to achieve, any problem of learning goal-directed behavior can be reduced to three signals passing back and forth between an agent and its environment:</p>
+<ul class="simple">
+<li><p>one signal to represent the choices made by the agent (the actions)</p></li>
+<li><p>one signal to represent the basis on which the choices are made (the states)</p></li>
+<li><p>one signal to define the agent’s goal (the rewards).
+This framework may not be sufficient to represent all decision-learning problems usefully, but it has proved to be widely useful and applicable.</p></li>
+</ul>
+<p>Of course, the particular states and actions vary greatly from task to task, and how they are represented can strongly affect performance. In reinforcement learning, as in other kinds of learning, such representational choices are at present more art than science. In this book we offer some advice and examples regarding good ways of representing states and actions, but our primary focus is on general principles for learning how to behave once the representations have been selected.</p>
+<div class="section" id="example-1-bioreactor">
+<h3>Example 1: Bioreactor<a class="headerlink" href="#example-1-bioreactor" title="Permalink to this headline">¶</a></h3>
+<p>Suppose reinforcement learning is being applied to determine moment-by-moment temperatures and stirring rates for a bioreactor (a large vat of nutrients and bacteria used to produce useful chemicals). The actions in such an application might be target temperatures and target stirring rates that are passed to lower-level control systems that, in turn, directly activate heating elements and motors to attain the targets. The states
+are likely to be thermocouple and other sensory readings, perhaps filtered and delayed, plus symbolic inputs representing the ingredients in the vat and the target chemical. The rewards might be moment-by-moment measures of the rate at which the useful chemical is produced by the bioreactor. Notice that here each state is a list, or vector, of sensor readings and symbolic inputs, and each action is a vector consisting of a target temperature and a stirring rate. It is typical of reinforcement learning tasks to have states and actions with such structured representations. Rewards, on the other hand, are always single numbers.</p>
+</div>
+<div class="section" id="example-2-pick-and-place-robot">
+<h3>Example 2: Pick-and-Place Robot<a class="headerlink" href="#example-2-pick-and-place-robot" title="Permalink to this headline">¶</a></h3>
+<p>Consider using reinforcement learning to control the motion of a robot arm in a repetitive pick-and-place task. If we want to learn movements that are fast and smooth, the learning agent will have to control the motors directly and have low-latency information about the current positions and velocities of the mechanical linkages. The actions in this case might be the voltages applied to each motor at each joint, and the states might be the latest readings of joint angles and velocities. The reward might be +1 for each object successfully picked up and placed. To encourage smooth movements, on each time step a small, negative reward can be given as a function of the moment-to-moment “jerkiness” of the motion.</p>
+</div>
+<div class="section" id="example-3-recycling-robot">
+<h3>Example 3: Recycling Robot<a class="headerlink" href="#example-3-recycling-robot" title="Permalink to this headline">¶</a></h3>
+<p>A mobile robot has the job of collecting empty soda cans in an office environment. It has sensors for detecting cans, and
+an arm and gripper that can pick them up and place them in an onboard bin; it runs on a rechargeable battery. The robot’s control system has components for interpreting sensory information, for navigating, and for controlling the arm and gripper. High-level decisions about how to search for cans are made by a reinforcement learning agent based on the current charge level of the battery. This agent has to decide whether the robot should:</p>
+<ul class="simple">
+<li><p>actively search for a can for a certain period of time</p></li>
+<li><p>remain stationary and wait for someone to bring it a can</p></li>
+<li><p>head back to its home base to recharge its battery</p></li>
+</ul>
+<p>This decision has to be made either periodically or whenever certain events occur, such as finding an empty can. The agent therefore has three actions, and its state is determined by the state of the battery. The rewards might be zero most of the time, but then become positive when the robot secures an empty can, or large and negative if the battery runs all the way down. In this example, the reinforcement learning agent is not the entire robot. The states it monitors describe conditions within the robot itself, not conditions of the robot’s external environment. The agent’s environment therefore includes the rest of the robot, which might contain other complex decision-making systems, as well as the robot’s external environment.</p>
+</div>
+</div>
+<div class="section" id="goals-and-rewards">
+<h2>Goals and Rewards<a class="headerlink" href="#goals-and-rewards" title="Permalink to this headline">¶</a></h2>
+<p>In reinforcement learning, the purpose or goal of the agent is formalized in terms of a special reward signal passing from the environment to the agent. At each time step, the reward is a simple number, <span class="math notranslate nohighlight">\(R_t ∈ \mathbb{R}\)</span>. Informally, <strong>the agent’s goal is to maximize the total amount of reward it receives. This means maximizing not immediate reward, but cumulative reward in the long run.</strong> We can clearly state this informal idea as the reward hypothesis:</p>
+<p><em>That all of what we mean by goals and purposes can be well thought of as the maximization of the expected value of the cumulative sum of 	a received scalar signal (called reward).</em></p>
+<p>The use of a reward signal to formalize the idea of a goal is one of the most distinctive features of reinforcement learning.</p>
+<p>Although formulating goals in terms of reward signals might at first appear limiting, in practice it has proved to be flexible and widely applicable. The best way to see this is to consider examples of how it has been, or could be, used. For example, to make a robot learn to walk, researchers have provided reward on each time step proportional to the robot’s forward motion. In making a robot learn how to escape from a maze, the reward is often −1 for every time step that passes prior to escape; this encourages the agent to escape as quickly as possible. To make a robot learn to find and collect empty soda cans for recycling, one might give it a reward of zero most of the time, and then a reward of +1 for each can collected. One might also want to give the robot negative rewards when it bumps into things or when somebody yells at it. For an agent to learn to play checkers or chess, the natural rewards are +1 for winning, −1 for losing, and 0 for drawing and for all nonterminal positions.</p>
+<p>You can see what is happening in all of these examples. The agent always learns to maximize its reward. If we want it to do something for us, we must provide rewards to it in such a way that in maximizing them the agent will also achieve our goals. It is thus critical that the rewards we set up truly indicate what we want accomplished. In particular, <strong>the reward signal is not the place to impart to the agent prior knowledge about how to achieve what we want it to do.</strong> For example, a chess-playing agent should be rewarded only for actually winning, not for achieving subgoals such taking its opponent’s pieces or gaining control of the center of the board. If achieving these sorts of subgoals were rewarded, then the agent might find a way to achieve them without achieving the real goal. For example, it might find a way to take the opponent’s pieces even at the cost of losing the game. The reward signal is your way of communicating to the robot <em>what</em> you want it to achieve, not <em>how</em> you want it achieved.</p>
+<p>Newcomers to reinforcement learning are sometimes surprised that the rewards—which define of the goal of learning—are computed in the environment rather than in the agent. Certainly most ultimate goals for animals are recognized by computations occurring inside their bodies, for example, by
+sensors for recognizing food, hunger, pain, and pleasure. Nevertheless, as we discussed in the previous section, one can redraw the agent–environment interface in such a way that these parts of the body are considered to be outside of the agent (and thus part of the agent’s environment). For example, if the goal concerns a robot’s internal energy reservoirs, then these are considered to be part of the environment; if the goal concerns the positions of the robot’s limbs, then these too are considered to be part of the environment—that is, the agent’s boundary is drawn at the interface between the limbs and their control systems. These things are considered internal to the robot but external to the learning agent. For our purposes, it is convenient to place the boundary of the learning agent not at the limit of its physical body, but at the limit of its control.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The reason we do this is that the agent’s ultimate goal should be something over which it has imperfect control: it should not be able, for example, to simply decree that the reward has been received in the same way that it might arbitrarily change its actions. Therefore, we place the reward source outside of the agent. This does not preclude the agent from defining for itself a kind of internal reward, or a sequence of internal rewards. Indeed, this is exactly what many reinforcement learning methods do.</p>
+</div>
+</div>
+<div class="section" id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
+<p>So far we have discussed the objective of learning informally. We have said that the agent’s goal is to maximize the cumulative reward it receives in the long run. How might this be defined formally? If the sequence of rewards received after time step <span class="math notranslate nohighlight">\(t\)</span> is denoted <span class="math notranslate nohighlight">\(R_{t+1}, R_{t+2}, R_{t+3}, . . .,\)</span> then what precise aspect of this sequence do we wish to maximize? In general, we seek to maximize the expected return, where the return <span class="math notranslate nohighlight">\(G_t\)</span> is defined as some specific function of the reward sequence. In the simplest case the return is the sum of the rewards:</p>
+<div class="math notranslate nohighlight" id="equation-eq1">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq1" title="Permalink to this equation">¶</a></span>\[
+G_t = R_{t+1} + R_{t+2}· · · + R_T
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(T\)</span> is a final time step. This approach makes sense in applications in which there is a natural notion of final time step, that is, when the agent–environment interaction breaks naturally into subsequences, which we call <strong>episodes or trials</strong>, such as plays of a game, trips through a maze, or any sort of repeated interactions. <strong>Each episode ends in a special state called the terminal state, followed by a reset to a standard starting state or to a sample from a standard distribution of starting states. Tasks with episodes of this kind are called <em>episodic tasks</em>.</strong> In episodic tasks we sometimes need to distinguish the set of all nonterminal states, denoted <span class="math notranslate nohighlight">\(S\)</span>, from the set of all states plus the terminal state, denoted <span class="math notranslate nohighlight">\(S^+\)</span> .</p>
+<p>On the other hand, in many cases the agent–environment interaction does not break naturally into identifiable episodes, but goes on continually without limit. For example, this would be the natural way to formulate a continual process-control task, or an application to a robot with a long life span. We call these continuing tasks. The return formulation is problematic for continuing tasks because the final time step would be <span class="math notranslate nohighlight">\(T = \infty\)</span>, and the return, which is what we are trying to maximize, could itself easily be infinite. (For example, suppose the agent receives a reward of +1 at each time step.) Thus, in this book we usually use a definition of return that is slightly more complex conceptually but much simpler mathematically.</p>
+<p>The additional concept that we need is that of discounting. According to this approach, the agent tries to select actions so that the sum of the discounted rewards it receives over the future is maximized. In particular, it chooses <span class="math notranslate nohighlight">\(A_t\)</span> to maximize the expected discounted return:</p>
+<div class="math notranslate nohighlight" id="equation-eq2">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq2" title="Permalink to this equation">¶</a></span>\[
+G_t = R_{t+1} + \gamma R_{t+2} +  \gamma^2R_{t+3} + · · · = \sum_{k=0}^{\infty}\gamma^kR_{t+k+1}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\gamma\)</span> is a parameter, <span class="math notranslate nohighlight">\(0 ≤ \gamma ≤ 1\)</span>, called the discount rate.</p>
+<p>The discount rate determines the present value of future rewards: a reward received <span class="math notranslate nohighlight">\(k\)</span> time steps in the future is worth only <span class="math notranslate nohighlight">\(\gamma k−1\)</span> times what it would be worth if it were received immediately. If <span class="math notranslate nohighlight">\(\gamma &lt; 1\)</span>, the infinite sum has a finite value as long as the reward sequence <span class="math notranslate nohighlight">\(\{R_k\}\)</span> is bounded. If <span class="math notranslate nohighlight">\(\gamma = 0\)</span>, the agent is “myopic” in being concerned only with maximizing immediate rewards: its objective in this case is to learn how to choose <span class="math notranslate nohighlight">\(A_t\)</span> so as to maximize only <span class="math notranslate nohighlight">\(R_{t+1}\)</span> . If each of the agent’s actions happened to influence only the immediate
+reward, not future rewards as well, then a myopic agent could maximize by separately maximizing each immediate reward. But in general, acting to
+maximize immediate reward can reduce access to future rewards so that the return may actually be reduced. As <span class="math notranslate nohighlight">\(\gamma\)</span> approaches 1, the objective takes future rewards into account more strongly: the agent becomes more farsighted.</p>
+<div class="section" id="example-pole-balancing-state">
+<h3>Example: Pole-Balancing State<a class="headerlink" href="#example-pole-balancing-state" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="image2">
+<a class="reference internal image-reference" href="../../../_images/image21.png"><img alt="../../../_images/image21.png" src="../../../_images/image21.png" style="height: 150px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">The pole-balancing task.</span><a class="headerlink" href="#image2" title="Permalink to this image">¶</a></p>
+</div>
+<p>The above figure shows a task that served as an early illustration of reinforcement learning. The objective here is to apply forces to a cart moving along a track so as to keep a pole hinged to the cart from falling over. A failure is said to occur if the pole falls past a given angle from vertical or if the cart runs off the track. The pole is reset to vertical after each failure. This task could be treated as episodic, where the natural episodes are the repeated attempts to balance the pole. The reward in this case could be +1 for every time step on which failure did not occur, so that the return at each time would be the number of steps until failure. Alternatively, we could treat pole-balancing as a continuing task, using discounting. In this case the reward would be −1 on each failure and zero at all other times. The return at each time would then be related to <span class="math notranslate nohighlight">\(-\gamma^K\)</span> , where <span class="math notranslate nohighlight">\(K\)</span> is the number of time steps before failure. In either case, the return is maximized by keeping the pole balanced for as long as possible.</p>
+</div>
+</div>
+<div class="section" id="unified-notation-for-episodic-and-continuing-tasks">
+<h2>Unified Notation for Episodic and Continuing Tasks<a class="headerlink" href="#unified-notation-for-episodic-and-continuing-tasks" title="Permalink to this headline">¶</a></h2>
+<p>In the preceding section we described two kinds of reinforcement learning tasks, one in which the agent–environment interaction naturally breaks down into a sequence of separate episodes (episodic tasks), and one in which it does not (continuing tasks). The former case is mathematically easier because each action affects only the finite number of rewards subsequently received during the episode. Here we consider sometimes one kind of problem and sometimes the other, but often both. It is therefore useful to establish one notation that enables us to talk precisely about both cases simultaneously. To be precise about episodic tasks requires some additional notation. Rather than one long sequence of time steps, we need to consider a series of episodes, each of which consists of a finite sequence of time steps. We number the time steps of each episode starting anew from zero. Therefore, we have to refer not just to <span class="math notranslate nohighlight">\(S_t\)</span> , the state representation at time <span class="math notranslate nohighlight">\(t\)</span>, but to <span class="math notranslate nohighlight">\(S_{t,i}\)</span>, the state representation at time <span class="math notranslate nohighlight">\(t\)</span> of episode <span class="math notranslate nohighlight">\(i\)</span> (and similarly for <span class="math notranslate nohighlight">\(A_{t,i}, R_{t,i}, \pi_{t,i}, T_i\)</span>, etc.). However, it turns out that, when we discuss episodic tasks we will almost never have to distinguish between different episodes. We will almost always be considering a particular single episode, or stating something that is true for all episodes. Accordingly, in practice we will almost always abuse notation slightly by dropping the explicit reference to episode number. That is, we will write <span class="math notranslate nohighlight">\(S_{t}\)</span> to refer to <span class="math notranslate nohighlight">\(S_{t,i}\)</span>, and so on.</p>
+<p>We need one other convention to obtain a single notation that covers both episodic and continuing tasks. We have defined the return as a sum over a finite number of terms in one case <a class="reference internal" href="#equation-eq1">(1)</a> and as a sum over an infinite number of terms in the other <a class="reference internal" href="#equation-eq2">(2)</a>. These can be unified by considering episode termination to be the entering of a special absorbing state that transitions only to itself and that generates only rewards of zero. For example, consider the state transition diagram:</p>
+<div class="figure align-default" id="image3">
+<a class="reference internal image-reference" href="../../../_images/image31.png"><img alt="../../../_images/image31.png" src="../../../_images/image31.png" style="height: 100px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">State Transition diagram</span><a class="headerlink" href="#image3" title="Permalink to this image">¶</a></p>
+</div>
+<p>Here the solid square represents the special absorbing state corresponding to the end of an episode. Starting from <span class="math notranslate nohighlight">\(S_0\)</span> , we get the reward sequence <span class="math notranslate nohighlight">\(+1, +1, +1, 0, 0, 0, . . .\)</span>. Summing these, we get the same return whether we sum over the first <span class="math notranslate nohighlight">\(T\)</span> rewards (here <span class="math notranslate nohighlight">\(T\)</span> = 3) or over the full infinite sequence. This remains true even if we introduce discounting. Thus, we can define the return, in general, using the convention of omitting episode numbers when they are not needed, and including the possibility that <span class="math notranslate nohighlight">\(\gamma = 1\)</span> if the sum remains defined (e.g., because all episodes terminate). Alternatively, we can also write the return as</p>
+<div class="math notranslate nohighlight" id="equation-eq3">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq3" title="Permalink to this equation">¶</a></span>\[
+G_t = \sum_{k=0}^{T-t-1}\gamma^kR_{t+k+1}
+\]</div>
+<p>including the possibility that <span class="math notranslate nohighlight">\(T = \infty\)</span> or <span class="math notranslate nohighlight">\(\gamma = 1\)</span>. We use these conventions throughout the rest of the book to simplify notation and to express the close parallels between episodic and continuing tasks.</p>
+</div>
+<div class="section" id="the-markov-property">
+<h2>The Markov Property<a class="headerlink" href="#the-markov-property" title="Permalink to this headline">¶</a></h2>
+<p>In the reinforcement learning framework, the agent makes its decisions as a function of a signal from the environment called the environment’s state. In this section we discuss what is required of the state signal, and what kind of information we should and should not expect it to provide. In particular, we formally define a property of environments and their state signals that is of particular interest, called the <strong>Markov property.</strong></p>
+<p>Here, by “the state” we mean whatever information is available to the agent. We assume that the state is given by some preprocessing system that is nominally part of the environment. We do not address the issues of constructing, changing, or learning the state signal in this book. We take this approach not because we consider state representation to be unimportant, but in order to focus fully on the decision-making issues. In other words, our main concern is not with designing the state signal, but with deciding what action to take as a function of whatever state signal is available.</p>
+<p>Certainly the state signal should include immediate sensations such as sensory measurements, but it can contain much more than that. State representations can be highly processed versions of original sensations, or they can be complex structures built up over time from the sequence of sensations. For example, we can move our eyes over a scene, with only a tiny spot corresponding to the fovea visible in detail at any one time, yet build up a rich and detailed representation of a scene. Or, more obviously, we can look at an object, then look away, and know that it is still there. We can hear the word “yes” and consider ourselves to be in totally different states depending on the question that came before and which is no longer audible. At a more mundane level, a control system can measure position at two different times to produce a state
+representation including information about velocity. In all of these cases the state is constructed and maintained on the basis of immediate sensations together with the previous state or some other memory of past sensations. In this book, we do not explore how that is done, but certainly it can be and has been done. There is no reason to restrict the state representation to immediate sensations; in typical applications we should expect the state representation to be able to inform the agent of more than that.</p>
+<p>On the other hand, the state signal should not be expected to inform the agent of everything about the environment, or even everything that would be useful to it in making decisions. If the agent is playing blackjack, we should not expect it to know what the next card in the deck is. If the agent is answering the phone, we should not expect it to know in advance who the caller is. If the agent is a paramedic called to a road accident, we should not expect it to know immediately the internal injuries of an unconscious victim. In all of these cases there is hidden state information in the environment, and that information would be useful if the agent knew it, but the agent cannot know it because it has never received any relevant sensations. In short, we don’t fault an agent for not knowing something that matters, but only for having known something and then forgotten it!</p>
+<p>What we would like, ideally, is a state signal that summarizes past sensations compactly, yet in such a way that all relevant information is retained. This normally requires more than the immediate sensations, but never more than the complete history of all past sensations. <strong>A state signal that succeeds in retaining all relevant information is said to be Markov</strong>, or to have the Markov property (we define this formally below). For example, a checkers position—the current configuration of all the pieces on the board—would serve as a Markov state because it summarizes everything important about the complete sequence of positions that led to it. Much of the information about the sequence is lost, but all that really matters for the future of the game is retained. Similarly, the current position and velocity of a cannonball is all that matters for its future flight. It doesn’t matter how that position and velocity came about. <em>This is sometimes also referred to as an “independence of path” property because all that matters is in the current state signal; its meaning is independent of the “path,” or history, of signals that have led up to it.</em></p>
+<p>We now formally define the Markov property for the reinforcement learning problem. To keep the mathematics simple, we assume here that there are a
+finite number of states and reward values. This enables us to work in terms of sums and probabilities rather than integrals and probability densities, but the argument can easily be extended to include continuous states and rewards. Consider how a general environment might respond at time <span class="math notranslate nohighlight">\(t + 1\)</span> to the action taken at time <span class="math notranslate nohighlight">\(t\)</span>. In the most general, causal case this response may depend on everything that has happened earlier. In this case the dynamics can be defined only by specifying the complete probability distribution:</p>
+<div class="math notranslate nohighlight" id="equation-eq4">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq4" title="Permalink to this equation">¶</a></span>\[
+Pr \{R_{t+1} = r, S_{t+1} = s^\prime | S_0 , A_0 , R_1 , . . . , S_{t−1} , A_{t−1} , R_t , S_t , A_t \}
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(r, s^\prime, A_t\)</span> and all possible values of the past events: <span class="math notranslate nohighlight">\(S_0 , A_0 , R_1 , ..., S_{t−1} ,A_{t−1} , R_t , S_t , A_t\)</span>. If the state signal has the Markov property, on the other hand, then the environment’s response at <span class="math notranslate nohighlight">\(t + 1\)</span> depends only on the state and action representations at <span class="math notranslate nohighlight">\(t\)</span>, in which case the environment’s dynamics can bedefined by specifying only</p>
+<div class="math notranslate nohighlight" id="equation-eq5">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq5" title="Permalink to this equation">¶</a></span>\[
+p(s^\prime , r|s, a) = Pr{R_{t+1} = r, S_{t+1} = s^\prime | S_t , A_t },
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(r, s^\prime, S_t, A_t\)</span> . In other words, a state signal has the Markov property, and is a Markov state, if and only if <a class="reference internal" href="#equation-eq5">(5)</a> is equal to <a class="reference internal" href="#equation-eq4">(4)</a> for all <span class="math notranslate nohighlight">\(s^\prime , r\)</span> and histories, <span class="math notranslate nohighlight">\(S_0 , A_0 , R_1 , ..., S_{t−1} ,A_{t−1} , R_t , S_t , A_t\)</span>. In this case, the environment
+and task as a whole are also said to have the Markov property.</p>
+<p>If an environment has the Markov property, then its one-step dynamics <a class="reference internal" href="#equation-eq5">(5)</a> enable us to predict the next state and expected next reward given the current state and action. One can show that, by iterating this equation, one can predict all future states and expected rewards from knowledge only of the current state as well as would be possible given the complete history up to the current time. <span style="color:blue">It also follows that Markov states provide the best possible basis for choosing actions. That is, the best policy for choosing actions as a function of a Markov state is just as good as the best policy for choosing actions as a function of complete histories.</span></p>
+<p>Even when the state signal is non-Markov, it is still appropriate to think of the state in reinforcement learning as an approximation to a Markov state. In particular, we always want the state to be a good basis for predicting future rewards and for selecting actions. In cases in which a model of the environment is learned, we also want the state to be a good basis for predicting subsequent states. Markov states provide an unsurpassed basis for doing all of these things. To the extent that the state approaches the ability of Markov states in these ways, one will obtain better performance from reinforcement learning systems. For all of these reasons, it is useful to think of the state at each time step as an approximation to a Markov state, although one should remember that it may not fully satisfy the Markov property.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Markov property is important in reinforcement learning because decisions and values are assumed to be a function only of the current state. In
+order for these to be effective and informative, the state representation must be informative. All of the theory presented here assumes Markov state signals. This means that not all the theory strictly applies to cases in which the Markov property does not strictly apply. However, the theory developed for the Markov case still helps us to understand the behavior of the algorithms, and the algorithms can be successfully applied to many tasks with states that are not strictly Markov. A full understanding of the theory of the Markov case is an essential foundation for extending it to the more complex and realistic non-Markov case. Finally, we note that the assumption of Markov state representations is not unique to reinforcement learning but is also present in most if not all other approaches to artificial intelligence.</p>
+</div>
+<div class="section" id="id1">
+<h3>Example: Pole-Balancing State<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>In the pole-balancing task introduced earlier, a state signal would be Markov if it specified exactly, or made it possible to reconstruct exactly, the position and velocity of the cart along the track, the angle between the cart and the pole, and the rate at which this angle is changing (the angular velocity). In an idealized cart–pole system, this information would be sufficient to exactly predict the future behavior of the cart and pole, given the actions taken by the controller. In practice, however, it is never possible to know this information exactly because any real sensor would introduce some distortion and delay in its measurements. Furthermore, in any real cart–pole system there are always other effects, such as the bending of the pole, the temperatures of the wheel and pole bearings, and various forms of backlash, that slightly affect the behavior of the system. These factors would cause violations of the Markov property if the state signal were only the positions and velocities of the cart and the pole.</p>
+<p>However, often the positions and velocities serve quite well as states. Some early studies of learning to solve the pole-balancing task used a coarse state signal that divided cart positions into three regions: right, left, and middle (and similar rough quantizations of the other three intrinsic state variables). This distinctly non-Markov state was sufficient to allow the task to be solved easily by reinforcement learning methods. In fact, this coarse representation may have facilitated rapid learning by forcing the learning agent to ignore fine distinctions that would not have been useful in solving the task.</p>
+</div>
+<div class="section" id="example-draw-poker">
+<h3>Example: Draw Poker<a class="headerlink" href="#example-draw-poker" title="Permalink to this headline">¶</a></h3>
+<p>In draw poker, each player is dealt a hand of five cards. There is a round of betting, in which each player exchanges some of his cards for new ones, and then there is a final round of betting. At each round, each player must match or exceed the highest bets of the other players, or else drop out (fold). After the second round of betting, the player with the best hand who has not folded is the winner and collects all the bets.</p>
+<p>The state signal in draw poker is different for each player. Each player knows the cards in his own hand, but can only guess at those in the other
+players’ hands. A common mistake is to think that a Markov state signal should include the contents of all the players’ hands and the cards remaining in the deck. In a fair game, however, we assume that the players are in principle unable to determine these things from their past observations. If a player did know them, then she could predict some future events (such as the cards one could exchange for) better than by remembering all past observations.</p>
+<p>In addition to knowledge of one’s own cards, the state in draw poker should include the bets and the numbers of cards drawn by the other players. For example, if one of the other players drew three new cards, you may suspect he retained a pair and adjust your guess of the strength of his hand accordingly. The players’ bets also influence your assessment of their hands. In fact, much of your past history with these particular players is part of the Markov state. Does Ellen like to bluff, or does she play conservatively? Does her face or demeanor provide clues to the strength of her hand? How does Joe’s play change when it is late at night, or when he has already won a lot of money?</p>
+<p>Although everything ever observed about the other players may have an effect on the probabilities that they are holding various kinds of hands, in
+practice this is far too much to remember and analyze, and most of it will have no clear effect on one’s predictions and decisions. Very good poker players are adept at remembering just the key clues, and at sizing up new players quickly, but no one remembers everything that is relevant. As a result, the state representations people use to make their poker decisions are undoubtedly non-Markov, and the decisions themselves are presumably imperfect. Nevertheless, people still make very good decisions in such tasks. We conclude that the inability to have access to a perfect Markov state representation is probably not a severe problem for a reinforcement learning agent.</p>
+</div>
+</div>
+<div class="section" id="markov-decision-processes">
+<h2>Markov Decision Processes<a class="headerlink" href="#markov-decision-processes" title="Permalink to this headline">¶</a></h2>
+<p>A reinforcement learning task that satisfies the Markov property is called a <strong>Markov decision process, or MDP</strong>. If the state and action spaces are finite, then it is called a finite Markov decision process (finite MDP). Finite MDPs are particularly important to the theory of reinforcement learning. We treat them extensively throughout this book; they are all you need to understand <span class="math notranslate nohighlight">\(90\%\)</span> of modern reinforcement learning.</p>
+<p>A particular finite MDP is defined by its state and action sets and by the one-step dynamics of the environment. Given any state and action <span class="math notranslate nohighlight">\(s\)</span> and <span class="math notranslate nohighlight">\(a\)</span>, the probability of each possible pair of next state and reward, <span class="math notranslate nohighlight">\(s^\prime , r\)</span>, is denoted</p>
+<div class="math notranslate nohighlight" id="equation-eq6">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq6" title="Permalink to this equation">¶</a></span>\[
+p(s^\prime, r|s, a) = Pr\{S_{t+1} = s^\prime , R_{t+1} = r | S_t = s, A_t = a\}.
+\]</div>
+<p>These quantities completely specify the dynamics of a finite MDP. Most of the theory we present in the rest of this book implicitly assumes the environment is a finite MDP. Given the dynamics as specified by (3.6), one can compute anything else one might want to know about the environment, such as the expected rewards for state–action pairs,</p>
+<div class="math notranslate nohighlight" id="equation-eq7">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq7" title="Permalink to this equation">¶</a></span>\[
+r(s, a) = E[R_{t+1} | S_t = s, A_t = a] = \sum_{r∈R}\sum_{s^\prime∈S}p(s^\prime, r|s, a)
+\]</div>
+<p>the state-transition probabilities,</p>
+<div class="math notranslate nohighlight" id="equation-eq8">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq8" title="Permalink to this equation">¶</a></span>\[
+p(s^\prime |s, a) = Pr\{S_{t+1} = s^\prime | S_t = s, A_t = a\} = \sum_{r∈R}p(s^\prime , r|s, a)
+\]</div>
+<p>and the expected rewards for state–action–next-state triples,</p>
+<div class="math notranslate nohighlight" id="equation-eq9">
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq9" title="Permalink to this equation">¶</a></span>\[
+r(s, a, s^\prime) = E[R_{t+1} | S_t = s, A_t = a, S_{t+1} = s^\prime] = \frac{\sum_{r∈R}rp(s^\prime, r|s, a)}{p(s^\prime |s, a)}
+\]</div>
+<div class="section" id="example-recycling-robot-mdp">
+<h3>Example: Recycling Robot MDP<a class="headerlink" href="#example-recycling-robot-mdp" title="Permalink to this headline">¶</a></h3>
+<p>The recycling robot can be turned into a simple example of an MDP by simplifying it and providing some more details. (Our aim is to produce a simple example, not a particularly realistic one.) Recall that the agent makes a decision at times determined by external events (or by other parts of the robot’s control system). At each such time the robot decides whether it should</p>
+<ul class="simple">
+<li><p>actively search for a can</p></li>
+<li><p>remain stationary and wait for someone to bring it a can</p></li>
+<li><p>go back to home base to recharge its battery.</p></li>
+</ul>
+<p>Suppose the environment works as follows. The best way to find cans is to actively search for them, but this runs down the robot’s battery, whereas waiting does not. Whenever the robot is searching, the possibility exists that its battery will become depleted. In this case the robot must shut down and wait to be rescued (producing a low reward).</p>
+<p>The agent makes its decisions solely as a function of the energy level of the battery. It can distinguish two levels, high and low, so that the state set is <span class="math notranslate nohighlight">\(S = \{high, low\}\)</span>. Let us call the possible decisions—the agent’s actions— <span class="math notranslate nohighlight">\(\{wait, search, recharge\}\)</span>. When the energy level is high, recharging would always be foolish, so we do not include it in the action set for this state. The agent’s action sets are</p>
+<div class="math notranslate nohighlight">
+\[
+A(high) = \{search, wait\}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A(low) = \{search, wait, recharge\}
+\]</div>
+<p>If the energy level is high, then a period of active search can always be completed without risk of depleting the battery. A period of searching that begins with a high energy level leaves the energy level high with probability <span class="math notranslate nohighlight">\(\alpha\)</span> and reduces it to low with probability <span class="math notranslate nohighlight">\(1- \alpha\)</span>. On the other hand, a period of searching undertaken when the energy level is low leaves it low with probability <span class="math notranslate nohighlight">\(\beta\)</span> and depletes the battery with probability <span class="math notranslate nohighlight">\(1- \beta\)</span>. In the latter case, the robot must be rescued, and the battery is then recharged back to high. Each can collected by the robot counts as <span class="math notranslate nohighlight">\(+1\)</span> reward, whereas a reward of <span class="math notranslate nohighlight">\(−3\)</span> results whenever the robot has to be rescued. Let <span class="math notranslate nohighlight">\(r_{search}\)</span> and <span class="math notranslate nohighlight">\(r_{wait} \)</span>, with <span class="math notranslate nohighlight">\(r_{search} &gt; r_{wait} \)</span> , respectively denote the expected number of cans the robot will collect (and hence the expected reward) while searching and while waiting. Finally, to keep things simple, suppose that no cans can be collected during a run home for recharging, and that no cans can be collected on a step in which the battery is depleted. This system is then a finite MDP, and we can write down the transition probabilities and the expected rewards, as in the below table</p>
+<div class="figure align-default" id="image4">
+<a class="reference internal image-reference" href="../../../_images/image41.png"><img alt="../../../_images/image41.png" src="../../../_images/image41.png" style="height: 250px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Transition probabilities and expected rewards for the finite MDP of the recycling robot example. There is a row for each possible combination
+of current state, <span class="math notranslate nohighlight">\(s\)</span>, next state, <span class="math notranslate nohighlight">\(s^\prime\)</span> , and action possible in the current state, <span class="math notranslate nohighlight">\(a ∈ A(s)\)</span>.</span><a class="headerlink" href="#image4" title="Permalink to this image">¶</a></p>
+</div>
+<p>A transition graph is a useful way to summarize the dynamics of a finite MDP. Figure below shows the transition graph for the recycling robot example. There are two kinds of nodes:</p>
+<ul class="simple">
+<li><p>state nodes</p></li>
+<li><p>action nodes</p></li>
+</ul>
+<div class="figure align-default" id="image5">
+<a class="reference internal image-reference" href="../../../_images/image51.png"><img alt="../../../_images/image51.png" src="../../../_images/image51.png" style="height: 250px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">Transition graph for the recycling robot example</span><a class="headerlink" href="#image5" title="Permalink to this image">¶</a></p>
+</div>
+<p>There is a state node for each possible state (a large open circle labeled by the name of the state), and an action node for each state–action pair (a small solid circle labeled by the name of the action and connected by a line to the state node). Starting in state <span class="math notranslate nohighlight">\(s\)</span> and taking action <span class="math notranslate nohighlight">\(a\)</span> moves you along the line from state node <span class="math notranslate nohighlight">\(s\)</span> to action node <span class="math notranslate nohighlight">\((s, a)\)</span>. Then the environment responds with a transition to the next state’s node via one of the arrows leaving action node <span class="math notranslate nohighlight">\((s, a)\)</span>. Each arrow corresponds to a triple <span class="math notranslate nohighlight">\((s, s^\prime, a)\)</span>, where <span class="math notranslate nohighlight">\(s^\prime\)</span> is the next state, and we label the arrow with the transition probability, <span class="math notranslate nohighlight">\(p(s^\prime |s, a)\)</span>, and the expected reward for that transition <span class="math notranslate nohighlight">\(r(s, a, s^\prime)\)</span>. Note that the transition probabilities labeling the arrows leaving an action node always sum to <span class="math notranslate nohighlight">\(1\)</span>.</p>
+</div>
+</div>
+<div class="section" id="value-functions">
+<h2>Value Functions<a class="headerlink" href="#value-functions" title="Permalink to this headline">¶</a></h2>
+<p>Almost all reinforcement learning algorithms involve estimating <em>value functions</em>—functions of states (or of state–action pairs) that estimate how good it is for the agent to be in a given state (or how good it is to perform a given action in a given state). The notion of “how good” here is defined in terms of future rewards that can be expected, or, to be precise, in terms of expected return. Of course the rewards the agent can expect to receive in the future depend on what actions it will take. Accordingly, value functions are defined with respect to particular policies.
+Recall that a policy, <span class="math notranslate nohighlight">\(\pi\)</span>, is a mapping from each state, <span class="math notranslate nohighlight">\(s ∈ S\)</span>, and action, <span class="math notranslate nohighlight">\(a ∈ A(s)\)</span>, to the probability <span class="math notranslate nohighlight">\(\pi(a|s)\)</span> of taking action <span class="math notranslate nohighlight">\(a\)</span> when in state <span class="math notranslate nohighlight">\(s\)</span>. <mark>Informally, the value of a state <span class="math notranslate nohighlight">\(s\)</span> under a policy <span class="math notranslate nohighlight">\(\pi\)</span>, denoted <span class="math notranslate nohighlight">\(v_\pi(s)\)</span>, is the expected return when starting in <span class="math notranslate nohighlight">\(s\)</span> and following <span class="math notranslate nohighlight">\(\pi\)</span> thereafter.</mark> For MDPs, we can define <span class="math notranslate nohighlight">\(v_\pi(s)\)</span> formally as</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./contents/Reinforcement Learning/Finite Markov Decision Processes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20Convolutions%20in%20Depth.html" title="previous page">Understanding Convolutions in Depth</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Open Source Community<br/>
+        
+            &copy; Copyright MIT License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../../_static/js/index.js"></script>
+    
+  </body>
+</html>
