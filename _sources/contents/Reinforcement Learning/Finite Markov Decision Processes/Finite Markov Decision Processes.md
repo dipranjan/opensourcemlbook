@@ -5,6 +5,14 @@
 [Reinforcement Learning: An Introduction Second edition by Richard S. Sutton and Andrew G. Barto](https://web.stanford.edu/class/psych209/Readings/SuttonBartoIPRLBook2ndEd.pdf)
 ```
 
+```{admonition} About the Authors:
+:class: dropdown
+**Richard S. Sutton** is a Canadian computer scientist. Currently, he is a distinguished research scientist at DeepMind and a professor of computing science at the University of Alberta. Sutton is considered one of the founding fathers of modern computational reinforcement learning, having several significant contributions to the field, including temporal difference learning and policy gradient methods.
+
+**Andrew G. Barto** (born c. 1948) is a professor emeritus of computer science at University of Massachusetts Amherst, and chair of the department since January 2007. His main research area is reinforcement learning. He was the supervisor of Sutton during his MS and PhD days.
+
+```
+
 In this chapter we introduce the problem that we try to solve in the rest of the book. For us, this problem defines the field of reinforcement learning: any method that is suited to solving this problem we consider to be a reinforcement learning method. Our objective in this chapter is to describe the reinforcement learning problem in a broad sense. We try to convey the wide range of possible applications that can be framed as reinforcement learning tasks. We also describe mathematically idealized forms of the reinforcement learning problem for which precise theoretical statements can be made. We introduce key elements of the problem’s mathematical structure, such as value functions and Bellman equations. As in all of artificial intelligence, there is a tension between breadth of applicability and mathematical tractability. In this chapter we introduce this
 tension and discuss some of the trade-offs and challenges that it implies.
 
@@ -257,6 +265,184 @@ There is a state node for each possible state (a large open circle labeled by th
 ## Value Functions
 
 Almost all reinforcement learning algorithms involve estimating *value functions*—functions of states (or of state–action pairs) that estimate how good it is for the agent to be in a given state (or how good it is to perform a given action in a given state). The notion of “how good” here is defined in terms of future rewards that can be expected, or, to be precise, in terms of expected return. Of course the rewards the agent can expect to receive in the future depend on what actions it will take. Accordingly, value functions are defined with respect to particular policies.
-Recall that a policy, $\pi$, is a mapping from each state, $s ∈ S$, and action, $a ∈ A(s)$, to the probability $\pi(a|s)$ of taking action $a$ when in state $s$. <mark>Informally, the value of a state $s$ under a policy $\pi$, denoted $v_\pi(s)$, is the expected return when starting in $s$ and following $\pi$ thereafter.</mark> For MDPs, we can define $v_\pi(s)$ formally as
+Recall that a policy, $\pi$, is a mapping from each state, $s ∈ S$, and action, $a ∈ A(s)$, to the probability $\pi(a|s)$ of taking action $a$ when in state $s$. <span style="color:blue">Informally, the value of a state $s$ under a policy $\pi$, denoted $v_\pi(s)$, is the expected return when starting in $s$ and following $\pi$ thereafter.</span> For MDPs, we can define $v_\pi(s)$ formally as
+
+$$
+v_{\pi}(s) = E_{\pi}[G_t | S_t = s] = E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s\Big]
+$$ (eq10)
+
+where $E_{\pi}[·]$ denotes the expected value of a random variable given that the agent follows policy $\pi$, and $t$ is any time step. Note that the value of the terminal state, if any, is always zero. We call the function $v_{\pi}$ the state-value function for policy $\pi$.
+
+Similarly, we define the value of taking action $a$ in state $s$ under a policy $\pi$, denoted $q_\pi(s, a)$, as the expected return starting from $s$, taking the action $a$, and thereafter following policy $\pi$:
+
+$$
+q_\pi(s, a)= E_{\pi}[G_t | S_t = s, A_t = a] = E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s, A_t = a\Big]
+$$ (eq11)
+
+We call $q_\pi$ the action-value function for policy $\pi$.
+
+The value functions $v_\pi$ and $q_\pi$ can be estimated from experience. For example, if an agent follows policy $\pi$ and maintains an average, for each state encountered, of the actual returns that have followed that state, then the average will converge to the state’s value, $v_\pi(s)$, as the number of times that state is encountered approaches infinity. If separate averages are kept for each action taken in a state, then these averages will similarly converge to the action values, $q_\pi(s,a)$. We call estimation methods of this kind Monte Carlo methods because they involve averaging over many random samples of actual returns. Of course, if there are very many states, then it may not be practical to keep separate averages for each state individually. Instead, the agent would have to maintain $v_\pi$ and $q_\pi$ as parameterized functions and adjust the parameters to better match the observed returns. This can also produce accurate estimates, although much depends on the nature of the parameterized function approximator.
+
+A fundamental property of value functions used throughout reinforcement
+learning and dynamic programming is that they satisfy particular recursive
+relationships. For any policy $\pi$ and any state $s$, the following consistency
+condition holds between the value of $s$ and the value of its possible successor
+states:
+
+$$
+\begin{align*}
+v_{\pi}(s) = E_{\pi}[G_t | S_t = s]\\
+&= E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s\Big]\\
+&= E_{\pi}\Big[R_{t+1} + \gamma\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_t =s\Big]\\
+&= \sum_a \pi(a|s)\sum_{s^\prime}\sum_r p(s^\prime, r|s,a)\Big[r + \gamma E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_{t+1} =s^\prime\Big]\Big]\\
+&= \sum_a \pi(a|s)\sum_{s^\prime, r}p(s^\prime, r|s,a)[r + \gamma v_{\pi}(s^\prime)]
+\end{align*}
+$$ (eq12)
+
+where it is implicit that the actions, a, are taken from the set $A(s)$, the next
+states, $s^\prime$, are taken from the set $S$ (or from $S^+$ in the case of an episodic
+problem), and the rewards, $r$, are taken from the set $R$. Note also how in the
+last equation we have merged the two sums, one over all the values of $s^\prime$ and
+the other over all values of $r$, into one sum over all possible values of both.
+We will use this kind of merged sum often to simplify formulas. Note how
+the final expression can be read very easily as an expected value. It is really
+a sum over all values of the three variables, $a$, $s^\prime$ , and $r$. For each triple, we
+compute its probability, $\pi(a|s)p(s^\prime, r|s,a)$, weight the quantity in brackets by
+that probability, then sum over all possibilities to get an expected value.
+
+Equation (3.12) is the Bellman equation for $v_\pi$. It expresses a relationship
+between the value of a state and the values of its successor states. Think of
+looking ahead from one state to its possible successor states, as suggested by
+the figure below. Each open circle represents a state and each solid circle represents
+a state–action pair. Starting from state $s$, the root node at the top, the agent
+could take any of some set of actions—three are shown in Figure 3.4a. From
+each of these, the environment could respond with one of several next states,
+$s^\prime$ , along with a reward, $r$. The Bellman equation (3.12) averages over all the
+possibilities, weighting each by its probability of occurring. It states that the value of the start state must equal the (discounted) value of the expected next state, plus the reward expected along the way.
+
+```{figure} ./image6.png
+---
+height: 150px
+name: image6
+---
+Backup diagrams for (a) $v_\pi$ and (b) $q_\pi$
+```
+The value function $v_\pi$is the unique solution to its Bellman equation. We
+show in subsequent chapters how this Bellman equation forms the basis of a
+number of ways to compute, approximate, and learn $v_\pi$ . We call diagrams
+like those shown in the above figure as backup diagrams because they diagram relationships that form the basis of the update or backup operations that are at the heart of reinforcement learning methods. These operations transfer value
+information back to a state (or a state–action pair) from its successor states (or
+state–action pairs). We use backup diagrams throughout the book to provide
+graphical summaries of the algorithms we discuss. (Note that unlike transition graphs, the state nodes of backup diagrams do not necessarily represent distinct states; for example, a state might be its own successor. We also omit
+explicit arrowheads because time always flows downward in a backup diagram.)
+
+### Example: Gridworld
+
+```{figure} ./image7.png
+---
+height: 150px
+name: image7
+---
+Grid example: (a) exceptional reward dynamics; (b) state-value function for the equiprobable random policy.
+```
+The above figure uses a rectangular grid to illustrate
+value functions for a simple finite MDP. The cells of the grid correspond to
+the states of the environment. At each cell, four actions are possible: north,
+south, east, and west, which deterministically cause the agent to move one
+cell in the respective direction on the grid. Actions that would take the agent
+off the grid leave its location unchanged, but also result in a reward of $−1$.
+Other actions result in a reward of $0$, except those that move the agent out
+of the special states $A$ and $B$. From state $A$, all four actions yield a reward of
+$+10$ and take the agent to $A^\prime$ . From state $B$, all actions yield a reward of $+5$
+and take the agent to $B^\prime$.
+
+Suppose the agent selects all four actions with equal probability in all
+states. Figure 3.5b shows the value function, $v_\pi$ , for this policy, for the discounted reward case with $\gamma = 0.9$. This value function was computed by solving the system of equations (3.12). Notice the negative values near the lower edge; these are the result of the high probability of hitting the edge of the grid there under the random policy. State $A$ is the best state to be in under this policy, but its expected return is less than $10$, its immediate reward, because from $A$ the agent is taken to $A^\prime$ , from which it is likely to run into the edge of the grid. State $B$, on the other hand, is valued more than $5$, its immediate reward, because from $B$ the agent is taken to $B_\prime$ , which has a positive value. From $B_\prime$ the expected penalty (negative reward) for possibly running into an edge is more
+than compensated for by the expected gain for possibly stumbling onto $A$ or $B$.
+
+### Example: Golf
+
+```{figure} ./image8.png
+---
+height: 400px
+name: image8
+---
+A golf example: the state-value function for putting (above) and the optimal action-value function for using the driver (below).
+```
+
+To formulate playing a hole of golf as a reinforcement learning task, we count a penalty (negative reward) of $−1$ for each stroke until
+we hit the ball into the hole. The state is the location of the ball. The value of
+a state is the negative of the number of strokes to the hole from that location.
+Our actions are how we aim and swing at the ball, of course, and which club
+we select. Let us take the former as given and consider just the choice of club,
+which we assume is either a putter or a driver. The upper part of the above figure shows a possible state-value function, $v_{putt}(s)$, for the policy that always uses the putter. The terminal state in-the-hole has a value of $0$. From anywhere
+on the green we assume we can make a putt; these states have value $−1$. Off the green we cannot reach the hole by putting, and the value is greater. If we can reach the green from a state by putting, then that state must have
+value one less than the green’s value, that is, $−2$. For simplicity, let us assume
+we can putt very precisely and deterministically, but with a limited range.
+This gives us the sharp contour line labeled $−2$ in the figure; all locations
+between that line and the green require exactly two strokes to complete the
+hole. Similarly, any location within putting range of the $−2$ contour line
+must have a value of $−3$, and so on to get all the contour lines shown in the
+figure. Putting doesn’t get us out of sand traps, so they have a value of $-\infty$.
+Overall, it takes us six strokes to get from the tee to the hole by putting.
+
+## Optimal Value Functions
+
+Solving a reinforcement learning task means, roughly, finding a policy that
+achieves a lot of reward over the long run. For finite MDPs, we can precisely
+define an optimal policy in the following way. Value functions define a partial
+ordering over policies. A policy $\pi$ is defined to be better than or equal to a
+policy $\pi^\prime$ if its expected return is greater than or equal to that of $\pi^\prime$  for all
+states. In other words, $\pi ≥ \pi^\prime$  if and only if $v_\pi(s) ≥ v_\pi^{\prime}(s)$ for all $s ∈ S$. There
+is always at least one policy that is better than or equal to all other policies.
+This is an optimal policy. Although there may be more than one, we denote
+all the optimal policies by $\pi_*$ . They share the same state-value function, called
+the optimal state-value function, denoted $v_*$  , and defined as
+
+$$
+v_*(s) = max_{\pi} v_\pi(s)
+$$ (eq13)
+
+for all $s ∈ S$
+
+Optimal policies also share the same optimal action-value function, denoted $q_*$ , and defined as
+
+$$
+q_*(s,a) = max_{\pi} q_\pi(s,a)
+$$ (eq14)
+
+for all $s ∈ S$ and $a ∈ A(s)$. For the state–action pair $(s, a)$, this function gives
+the expected return for taking action $a$ in state $s$ and thereafter following an
+optimal policy. Thus, we can write $q_*$ in terms of $v_*$ as follows:
+
+$$
+q_*(s,a) = E\Big[R_{t+1} + \gamma v_*(S_{t+1}) | S_t = s, A_t = a\Big]
+$$ (eq15)
+
+### Example: Optimal Value Functions for Golf 
+The lower part of Figure in the golf example shows the contours of a possible optimal action-value function
+$q_*(s, driver)$. These are the values of each state if we first play a stroke with
+the driver and afterward select either the driver or the putter, whichever is
+better. The driver enables us to hit the ball farther, but with less accuracy.
+We can reach the hole in one shot using the driver only if we are already very
+close; thus the $−1$ contour for $q_*(s, driver)$ covers only a small portion of
+the green. If we have two strokes, however, then we can reach the hole from
+much farther away, as shown by the $−2$ contour. In this case we don’t have
+to drive all the way to within the small $−1$ contour, but only to anywhere
+on the green; from there we can use the putter. The optimal action-value
+function gives the values after committing to a particular first action, in this
+case, to the driver, but afterward using whichever actions are best. The $−3$
+contour is still farther out and includes the starting tee. From the tee, the best
+sequence of actions is two drives and one putt, sinking the ball in three strokes. 
+
+
+Because $v_*$ is the value function for a policy, it must satisfy the self-
+consistency condition given by the Bellman equation for state values (3.12).
+Because it is the optimal value function, however, $v_*$ ’s consistency condition
+can be written in a special form without reference to any specific policy. This
+is the Bellman equation for $v_*$ , or the Bellman optimality equation. Intuitively,
+the Bellman optimality equation expresses the fact that the value of a state
+under an optimal policy must equal the expected return for the best action
+from that state:
 
 
