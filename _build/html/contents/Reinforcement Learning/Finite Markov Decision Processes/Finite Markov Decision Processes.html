@@ -281,6 +281,30 @@
   <a class="reference internal nav-link" href="#value-functions">
    Value Functions
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-gridworld">
+     Example: Gridworld
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-golf">
+     Example: Golf
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optimal-value-functions">
+   Optimal Value Functions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-optimal-value-functions-for-golf">
+     Example: Optimal Value Functions for Golf
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -297,6 +321,11 @@
 <div class="tip admonition">
 <p class="admonition-title">Original Source:</p>
 <p><a class="reference external" href="https://web.stanford.edu/class/psych209/Readings/SuttonBartoIPRLBook2ndEd.pdf">Reinforcement Learning: An Introduction Second edition by Richard S. Sutton and Andrew G. Barto</a></p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">About the Authors:</p>
+<p><strong>Richard S. Sutton</strong> is a Canadian computer scientist. Currently, he is a distinguished research scientist at DeepMind and a professor of computing science at the University of Alberta. Sutton is considered one of the founding fathers of modern computational reinforcement learning, having several significant contributions to the field, including temporal difference learning and policy gradient methods.</p>
+<p><strong>Andrew G. Barto</strong> (born c. 1948) is a professor emeritus of computer science at University of Massachusetts Amherst, and chair of the department since January 2007. His main research area is reinforcement learning. He was the supervisor of Sutton during his MS and PhD days.</p>
 </div>
 <p>In this chapter we introduce the problem that we try to solve in the rest of the book. For us, this problem defines the field of reinforcement learning: any method that is suited to solving this problem we consider to be a reinforcement learning method. Our objective in this chapter is to describe the reinforcement learning problem in a broad sense. We try to convey the wide range of possible applications that can be framed as reinforcement learning tasks. We also describe mathematically idealized forms of the reinforcement learning problem for which precise theoretical statements can be made. We introduce key elements of the problem’s mathematical structure, such as value functions and Bellman equations. As in all of artificial intelligence, there is a tension between breadth of applicability and mathematical tractability. In this chapter we introduce this
 tension and discuss some of the trade-offs and challenges that it implies.</p>
@@ -507,7 +536,162 @@ of current state, <span class="math notranslate nohighlight">\(s\)</span>, next 
 <div class="section" id="value-functions">
 <h2>Value Functions<a class="headerlink" href="#value-functions" title="Permalink to this headline">¶</a></h2>
 <p>Almost all reinforcement learning algorithms involve estimating <em>value functions</em>—functions of states (or of state–action pairs) that estimate how good it is for the agent to be in a given state (or how good it is to perform a given action in a given state). The notion of “how good” here is defined in terms of future rewards that can be expected, or, to be precise, in terms of expected return. Of course the rewards the agent can expect to receive in the future depend on what actions it will take. Accordingly, value functions are defined with respect to particular policies.
-Recall that a policy, <span class="math notranslate nohighlight">\(\pi\)</span>, is a mapping from each state, <span class="math notranslate nohighlight">\(s ∈ S\)</span>, and action, <span class="math notranslate nohighlight">\(a ∈ A(s)\)</span>, to the probability <span class="math notranslate nohighlight">\(\pi(a|s)\)</span> of taking action <span class="math notranslate nohighlight">\(a\)</span> when in state <span class="math notranslate nohighlight">\(s\)</span>. <mark>Informally, the value of a state <span class="math notranslate nohighlight">\(s\)</span> under a policy <span class="math notranslate nohighlight">\(\pi\)</span>, denoted <span class="math notranslate nohighlight">\(v_\pi(s)\)</span>, is the expected return when starting in <span class="math notranslate nohighlight">\(s\)</span> and following <span class="math notranslate nohighlight">\(\pi\)</span> thereafter.</mark> For MDPs, we can define <span class="math notranslate nohighlight">\(v_\pi(s)\)</span> formally as</p>
+Recall that a policy, <span class="math notranslate nohighlight">\(\pi\)</span>, is a mapping from each state, <span class="math notranslate nohighlight">\(s ∈ S\)</span>, and action, <span class="math notranslate nohighlight">\(a ∈ A(s)\)</span>, to the probability <span class="math notranslate nohighlight">\(\pi(a|s)\)</span> of taking action <span class="math notranslate nohighlight">\(a\)</span> when in state <span class="math notranslate nohighlight">\(s\)</span>. <span style="color:blue">Informally, the value of a state <span class="math notranslate nohighlight">\(s\)</span> under a policy <span class="math notranslate nohighlight">\(\pi\)</span>, denoted <span class="math notranslate nohighlight">\(v_\pi(s)\)</span>, is the expected return when starting in <span class="math notranslate nohighlight">\(s\)</span> and following <span class="math notranslate nohighlight">\(\pi\)</span> thereafter.</span> For MDPs, we can define <span class="math notranslate nohighlight">\(v_\pi(s)\)</span> formally as</p>
+<div class="math notranslate nohighlight" id="equation-eq10">
+<span class="eqno">(10)<a class="headerlink" href="#equation-eq10" title="Permalink to this equation">¶</a></span>\[
+v_{\pi}(s) = E_{\pi}[G_t | S_t = s] = E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s\Big]
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(E_{\pi}[·]\)</span> denotes the expected value of a random variable given that the agent follows policy <span class="math notranslate nohighlight">\(\pi\)</span>, and <span class="math notranslate nohighlight">\(t\)</span> is any time step. Note that the value of the terminal state, if any, is always zero. We call the function <span class="math notranslate nohighlight">\(v_{\pi}\)</span> the state-value function for policy <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p>Similarly, we define the value of taking action <span class="math notranslate nohighlight">\(a\)</span> in state <span class="math notranslate nohighlight">\(s\)</span> under a policy <span class="math notranslate nohighlight">\(\pi\)</span>, denoted <span class="math notranslate nohighlight">\(q_\pi(s, a)\)</span>, as the expected return starting from <span class="math notranslate nohighlight">\(s\)</span>, taking the action <span class="math notranslate nohighlight">\(a\)</span>, and thereafter following policy <span class="math notranslate nohighlight">\(\pi\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-eq11">
+<span class="eqno">(11)<a class="headerlink" href="#equation-eq11" title="Permalink to this equation">¶</a></span>\[
+q_\pi(s, a)= E_{\pi}[G_t | S_t = s, A_t = a] = E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s, A_t = a\Big]
+\]</div>
+<p>We call <span class="math notranslate nohighlight">\(q_\pi\)</span> the action-value function for policy <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p>The value functions <span class="math notranslate nohighlight">\(v_\pi\)</span> and <span class="math notranslate nohighlight">\(q_\pi\)</span> can be estimated from experience. For example, if an agent follows policy <span class="math notranslate nohighlight">\(\pi\)</span> and maintains an average, for each state encountered, of the actual returns that have followed that state, then the average will converge to the state’s value, <span class="math notranslate nohighlight">\(v_\pi(s)\)</span>, as the number of times that state is encountered approaches infinity. If separate averages are kept for each action taken in a state, then these averages will similarly converge to the action values, <span class="math notranslate nohighlight">\(q_\pi(s,a)\)</span>. We call estimation methods of this kind Monte Carlo methods because they involve averaging over many random samples of actual returns. Of course, if there are very many states, then it may not be practical to keep separate averages for each state individually. Instead, the agent would have to maintain <span class="math notranslate nohighlight">\(v_\pi\)</span> and <span class="math notranslate nohighlight">\(q_\pi\)</span> as parameterized functions and adjust the parameters to better match the observed returns. This can also produce accurate estimates, although much depends on the nature of the parameterized function approximator.</p>
+<p>A fundamental property of value functions used throughout reinforcement
+learning and dynamic programming is that they satisfy particular recursive
+relationships. For any policy <span class="math notranslate nohighlight">\(\pi\)</span> and any state <span class="math notranslate nohighlight">\(s\)</span>, the following consistency
+condition holds between the value of <span class="math notranslate nohighlight">\(s\)</span> and the value of its possible successor
+states:</p>
+<div class="math notranslate nohighlight" id="equation-eq12">
+<span class="eqno">(12)<a class="headerlink" href="#equation-eq12" title="Permalink to this equation">¶</a></span>\[\begin{split}
+\begin{align*}
+v_{\pi}(s) = E_{\pi}[G_t | S_t = s]\\
+&amp;= E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s\Big]\\
+&amp;= E_{\pi}\Big[R_{t+1} + \gamma\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_t =s\Big]\\
+&amp;= \sum_a \pi(a|s)\sum_{s^\prime}\sum_r p(s^\prime, r|s,a)\Big[r + \gamma E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_{t+1} =s^\prime\Big]\Big]\\
+&amp;= \sum_a \pi(a|s)\sum_{s^\prime, r}p(s^\prime, r|s,a)[r + \gamma v_{\pi}(s^\prime)]
+\end{align*}
+\end{split}\]</div>
+<p>where it is implicit that the actions, a, are taken from the set <span class="math notranslate nohighlight">\(A(s)\)</span>, the next
+states, <span class="math notranslate nohighlight">\(s^\prime\)</span>, are taken from the set <span class="math notranslate nohighlight">\(S\)</span> (or from <span class="math notranslate nohighlight">\(S^+\)</span> in the case of an episodic
+problem), and the rewards, <span class="math notranslate nohighlight">\(r\)</span>, are taken from the set <span class="math notranslate nohighlight">\(R\)</span>. Note also how in the
+last equation we have merged the two sums, one over all the values of <span class="math notranslate nohighlight">\(s^\prime\)</span> and
+the other over all values of <span class="math notranslate nohighlight">\(r\)</span>, into one sum over all possible values of both.
+We will use this kind of merged sum often to simplify formulas. Note how
+the final expression can be read very easily as an expected value. It is really
+a sum over all values of the three variables, <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(s^\prime\)</span> , and <span class="math notranslate nohighlight">\(r\)</span>. For each triple, we
+compute its probability, <span class="math notranslate nohighlight">\(\pi(a|s)p(s^\prime, r|s,a)\)</span>, weight the quantity in brackets by
+that probability, then sum over all possibilities to get an expected value.</p>
+<p>Equation (3.12) is the Bellman equation for <span class="math notranslate nohighlight">\(v_\pi\)</span>. It expresses a relationship
+between the value of a state and the values of its successor states. Think of
+looking ahead from one state to its possible successor states, as suggested by
+the figure below. Each open circle represents a state and each solid circle represents
+a state–action pair. Starting from state <span class="math notranslate nohighlight">\(s\)</span>, the root node at the top, the agent
+could take any of some set of actions—three are shown in Figure 3.4a. From
+each of these, the environment could respond with one of several next states,
+<span class="math notranslate nohighlight">\(s^\prime\)</span> , along with a reward, <span class="math notranslate nohighlight">\(r\)</span>. The Bellman equation (3.12) averages over all the
+possibilities, weighting each by its probability of occurring. It states that the value of the start state must equal the (discounted) value of the expected next state, plus the reward expected along the way.</p>
+<div class="figure align-default" id="image6">
+<a class="reference internal image-reference" href="../../../_images/image61.png"><img alt="../../../_images/image61.png" src="../../../_images/image61.png" style="height: 150px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_\pi\)</span> and (b) <span class="math notranslate nohighlight">\(q_\pi\)</span></span><a class="headerlink" href="#image6" title="Permalink to this image">¶</a></p>
+</div>
+<p>The value function <span class="math notranslate nohighlight">\(v_\pi\)</span>is the unique solution to its Bellman equation. We
+show in subsequent chapters how this Bellman equation forms the basis of a
+number of ways to compute, approximate, and learn <span class="math notranslate nohighlight">\(v_\pi\)</span> . We call diagrams
+like those shown in the above figure as backup diagrams because they diagram relationships that form the basis of the update or backup operations that are at the heart of reinforcement learning methods. These operations transfer value
+information back to a state (or a state–action pair) from its successor states (or
+state–action pairs). We use backup diagrams throughout the book to provide
+graphical summaries of the algorithms we discuss. (Note that unlike transition graphs, the state nodes of backup diagrams do not necessarily represent distinct states; for example, a state might be its own successor. We also omit
+explicit arrowheads because time always flows downward in a backup diagram.)</p>
+<div class="section" id="example-gridworld">
+<h3>Example: Gridworld<a class="headerlink" href="#example-gridworld" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="image7">
+<a class="reference internal image-reference" href="../../../_images/image7.png"><img alt="../../../_images/image7.png" src="../../../_images/image7.png" style="height: 150px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Grid example: (a) exceptional reward dynamics; (b) state-value function for the equiprobable random policy.</span><a class="headerlink" href="#image7" title="Permalink to this image">¶</a></p>
+</div>
+<p>The above figure uses a rectangular grid to illustrate
+value functions for a simple finite MDP. The cells of the grid correspond to
+the states of the environment. At each cell, four actions are possible: north,
+south, east, and west, which deterministically cause the agent to move one
+cell in the respective direction on the grid. Actions that would take the agent
+off the grid leave its location unchanged, but also result in a reward of <span class="math notranslate nohighlight">\(−1\)</span>.
+Other actions result in a reward of <span class="math notranslate nohighlight">\(0\)</span>, except those that move the agent out
+of the special states <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. From state <span class="math notranslate nohighlight">\(A\)</span>, all four actions yield a reward of
+<span class="math notranslate nohighlight">\(+10\)</span> and take the agent to <span class="math notranslate nohighlight">\(A^\prime\)</span> . From state <span class="math notranslate nohighlight">\(B\)</span>, all actions yield a reward of <span class="math notranslate nohighlight">\(+5\)</span>
+and take the agent to <span class="math notranslate nohighlight">\(B^\prime\)</span>.</p>
+<p>Suppose the agent selects all four actions with equal probability in all
+states. Figure 3.5b shows the value function, <span class="math notranslate nohighlight">\(v_\pi\)</span> , for this policy, for the discounted reward case with <span class="math notranslate nohighlight">\(\gamma = 0.9\)</span>. This value function was computed by solving the system of equations (3.12). Notice the negative values near the lower edge; these are the result of the high probability of hitting the edge of the grid there under the random policy. State <span class="math notranslate nohighlight">\(A\)</span> is the best state to be in under this policy, but its expected return is less than <span class="math notranslate nohighlight">\(10\)</span>, its immediate reward, because from <span class="math notranslate nohighlight">\(A\)</span> the agent is taken to <span class="math notranslate nohighlight">\(A^\prime\)</span> , from which it is likely to run into the edge of the grid. State <span class="math notranslate nohighlight">\(B\)</span>, on the other hand, is valued more than <span class="math notranslate nohighlight">\(5\)</span>, its immediate reward, because from <span class="math notranslate nohighlight">\(B\)</span> the agent is taken to <span class="math notranslate nohighlight">\(B_\prime\)</span> , which has a positive value. From <span class="math notranslate nohighlight">\(B_\prime\)</span> the expected penalty (negative reward) for possibly running into an edge is more
+than compensated for by the expected gain for possibly stumbling onto <span class="math notranslate nohighlight">\(A\)</span> or <span class="math notranslate nohighlight">\(B\)</span>.</p>
+</div>
+<div class="section" id="example-golf">
+<h3>Example: Golf<a class="headerlink" href="#example-golf" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="image8">
+<a class="reference internal image-reference" href="../../../_images/image81.png"><img alt="../../../_images/image81.png" src="../../../_images/image81.png" style="height: 400px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">A golf example: the state-value function for putting (above) and the optimal action-value function for using the driver (below).</span><a class="headerlink" href="#image8" title="Permalink to this image">¶</a></p>
+</div>
+<p>To formulate playing a hole of golf as a reinforcement learning task, we count a penalty (negative reward) of <span class="math notranslate nohighlight">\(−1\)</span> for each stroke until
+we hit the ball into the hole. The state is the location of the ball. The value of
+a state is the negative of the number of strokes to the hole from that location.
+Our actions are how we aim and swing at the ball, of course, and which club
+we select. Let us take the former as given and consider just the choice of club,
+which we assume is either a putter or a driver. The upper part of the above figure shows a possible state-value function, <span class="math notranslate nohighlight">\(v_{putt}(s)\)</span>, for the policy that always uses the putter. The terminal state in-the-hole has a value of <span class="math notranslate nohighlight">\(0\)</span>. From anywhere
+on the green we assume we can make a putt; these states have value <span class="math notranslate nohighlight">\(−1\)</span>. Off the green we cannot reach the hole by putting, and the value is greater. If we can reach the green from a state by putting, then that state must have
+value one less than the green’s value, that is, <span class="math notranslate nohighlight">\(−2\)</span>. For simplicity, let us assume
+we can putt very precisely and deterministically, but with a limited range.
+This gives us the sharp contour line labeled <span class="math notranslate nohighlight">\(−2\)</span> in the figure; all locations
+between that line and the green require exactly two strokes to complete the
+hole. Similarly, any location within putting range of the <span class="math notranslate nohighlight">\(−2\)</span> contour line
+must have a value of <span class="math notranslate nohighlight">\(−3\)</span>, and so on to get all the contour lines shown in the
+figure. Putting doesn’t get us out of sand traps, so they have a value of <span class="math notranslate nohighlight">\(-\infty\)</span>.
+Overall, it takes us six strokes to get from the tee to the hole by putting.</p>
+</div>
+</div>
+<div class="section" id="optimal-value-functions">
+<h2>Optimal Value Functions<a class="headerlink" href="#optimal-value-functions" title="Permalink to this headline">¶</a></h2>
+<p>Solving a reinforcement learning task means, roughly, finding a policy that
+achieves a lot of reward over the long run. For finite MDPs, we can precisely
+define an optimal policy in the following way. Value functions define a partial
+ordering over policies. A policy <span class="math notranslate nohighlight">\(\pi\)</span> is defined to be better than or equal to a
+policy <span class="math notranslate nohighlight">\(\pi^\prime\)</span> if its expected return is greater than or equal to that of <span class="math notranslate nohighlight">\(\pi^\prime\)</span>  for all
+states. In other words, <span class="math notranslate nohighlight">\(\pi ≥ \pi^\prime\)</span>  if and only if <span class="math notranslate nohighlight">\(v_\pi(s) ≥ v_\pi^{\prime}(s)\)</span> for all <span class="math notranslate nohighlight">\(s ∈ S\)</span>. There
+is always at least one policy that is better than or equal to all other policies.
+This is an optimal policy. Although there may be more than one, we denote
+all the optimal policies by <span class="math notranslate nohighlight">\(\pi_*\)</span> . They share the same state-value function, called
+the optimal state-value function, denoted <span class="math notranslate nohighlight">\(v_*\)</span>  , and defined as</p>
+<div class="math notranslate nohighlight" id="equation-eq13">
+<span class="eqno">(13)<a class="headerlink" href="#equation-eq13" title="Permalink to this equation">¶</a></span>\[
+v_*(s) = max_{\pi} v_\pi(s)
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(s ∈ S\)</span></p>
+<p>Optimal policies also share the same optimal action-value function, denoted <span class="math notranslate nohighlight">\(q_*\)</span> , and defined as</p>
+<div class="math notranslate nohighlight" id="equation-eq14">
+<span class="eqno">(14)<a class="headerlink" href="#equation-eq14" title="Permalink to this equation">¶</a></span>\[
+q_*(s,a) = max_{\pi} q_\pi(s,a)
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(s ∈ S\)</span> and <span class="math notranslate nohighlight">\(a ∈ A(s)\)</span>. For the state–action pair <span class="math notranslate nohighlight">\((s, a)\)</span>, this function gives
+the expected return for taking action <span class="math notranslate nohighlight">\(a\)</span> in state <span class="math notranslate nohighlight">\(s\)</span> and thereafter following an
+optimal policy. Thus, we can write <span class="math notranslate nohighlight">\(q_*\)</span> in terms of <span class="math notranslate nohighlight">\(v_*\)</span> as follows:</p>
+<div class="math notranslate nohighlight" id="equation-eq15">
+<span class="eqno">(15)<a class="headerlink" href="#equation-eq15" title="Permalink to this equation">¶</a></span>\[
+q_*(s,a) = E\Big[R_{t+1} + \gamma v_*(S_{t+1}) | S_t = s, A_t = a\Big]
+\]</div>
+<div class="section" id="example-optimal-value-functions-for-golf">
+<h3>Example: Optimal Value Functions for Golf<a class="headerlink" href="#example-optimal-value-functions-for-golf" title="Permalink to this headline">¶</a></h3>
+<p>The lower part of Figure in the golf example shows the contours of a possible optimal action-value function
+<span class="math notranslate nohighlight">\(q_*(s, driver)\)</span>. These are the values of each state if we first play a stroke with
+the driver and afterward select either the driver or the putter, whichever is
+better. The driver enables us to hit the ball farther, but with less accuracy.
+We can reach the hole in one shot using the driver only if we are already very
+close; thus the <span class="math notranslate nohighlight">\(−1\)</span> contour for <span class="math notranslate nohighlight">\(q_*(s, driver)\)</span> covers only a small portion of
+the green. If we have two strokes, however, then we can reach the hole from
+much farther away, as shown by the <span class="math notranslate nohighlight">\(−2\)</span> contour. In this case we don’t have
+to drive all the way to within the small <span class="math notranslate nohighlight">\(−1\)</span> contour, but only to anywhere
+on the green; from there we can use the putter. The optimal action-value
+function gives the values after committing to a particular first action, in this
+case, to the driver, but afterward using whichever actions are best. The <span class="math notranslate nohighlight">\(−3\)</span>
+contour is still farther out and includes the starting tee. From the tee, the best
+sequence of actions is two drives and one putt, sinking the ball in three strokes.</p>
+<p>Because <span class="math notranslate nohighlight">\(v_*\)</span> is the value function for a policy, it must satisfy the self-
+consistency condition given by the Bellman equation for state values (3.12).
+Because it is the optimal value function, however, <span class="math notranslate nohighlight">\(v_*\)</span> ’s consistency condition
+can be written in a special form without reference to any specific policy. This
+is the Bellman equation for <span class="math notranslate nohighlight">\(v_*\)</span> , or the Bellman optimality equation. Intuitively,
+the Bellman optimality equation expresses the fact that the value of a state
+under an optimal policy must equal the expected return for the best action
+from that state:</p>
+</div>
 </div>
 </div>
 
