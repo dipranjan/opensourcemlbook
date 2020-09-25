@@ -15,7 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -704,6 +705,67 @@ is the Bellman equation for <span class="math notranslate nohighlight">\(v_*\)</
 the Bellman optimality equation expresses the fact that the value of a state
 under an optimal policy must equal the expected return for the best action
 from that state:</p>
+<div class="math notranslate nohighlight" id="equation-eq16">
+<span class="eqno">(16)<a class="headerlink" href="#equation-eq16" title="Permalink to this equation">¶</a></span>\[\begin{split}
+\begin{align*}
+v_{*}(s) = max_{a∈A(s)} q_{\pi_*}(s,a)\\
+&amp;= max_{a} E_{\pi_*}[G_t | S_t = s, A_t = a]\\
+&amp;= max_{a} E_{\pi_*}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s, A_t = a\Big]\\
+&amp;= max_{a} E_{\pi_*}\Big[R_{t+1} + \gamma\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_t =s, A_t = a\Big]\\
+&amp;= max_{a} E[R_{t+1} + \gamma v_*(S_{t+1}) | S_t =s, A_t = a\Big]\\
+&amp;= max_{a∈A(s)} \sum_{s^\prime, r}p(s^\prime, r|s,a)[r + \gamma v_{*}(s^\prime)]
+\end{align*}
+\end{split}\]</div>
+<p>The last two equations are two forms of the Bellman optimality equation for <span class="math notranslate nohighlight">\(v_*\)</span>. The Bellman optimality equation for <span class="math notranslate nohighlight">\(q_*\)</span> is</p>
+<div class="math notranslate nohighlight" id="equation-eq17">
+<span class="eqno">(17)<a class="headerlink" href="#equation-eq17" title="Permalink to this equation">¶</a></span>\[\begin{split}
+\begin{align*}
+q_{*}(s, a) = E[R_{t+1} + \gamma * max_a^\prime q_*(S_{t+1}, a^\prime) | S_t =s, A_t = a\Big]\\
+&amp;= \sum_{s^\prime, r}p(s^\prime, r|s,a)[r + \gamma * max_a^\prime q_* (s^\prime, a^\prime)]
+\end{align*}
+\end{split}\]</div>
+<div class="figure align-default" id="image9">
+<a class="reference internal image-reference" href="../../../_images/image9.png"><img alt="../../../_images/image9.png" src="../../../_images/image9.png" style="height: 150px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_*\)</span> and (b) <span class="math notranslate nohighlight">\(q_*\)</span></span><a class="headerlink" href="#image9" title="Permalink to this image">¶</a></p>
+</div>
+<p>The backup diagrams above show graphically the spans of future
+states and actions considered in the Bellman optimality equations for <span class="math notranslate nohighlight">\(v_*\)</span> and
+<span class="math notranslate nohighlight">\(q_*\)</span>. These are the same as the backup diagrams for <span class="math notranslate nohighlight">\(v\)</span> and
+<span class="math notranslate nohighlight">\(q\)</span> except that arcs have been added at the agent’s choice points to represent that the maximum
+over that choice is taken rather than the expected value given some policy. Figure(a) graphically represents the Bellman optimality equation <a class="reference internal" href="#equation-eq16">(16)</a>.</p>
+<p>For finite MDPs, the Bellman optimality equation <a class="reference internal" href="#equation-eq16">(16)</a> has a unique solution
+independent of the policy. The Bellman optimality equation is actually
+a system of equations, one for each state, so if there are N states, then there
+are N equations in N unknowns. If the dynamics of the environment are
+known <span class="math notranslate nohighlight">\((p(s^\prime; r|s, a))\)</span>, then in principle one can solve this system of equations for <span class="math notranslate nohighlight">\(v_*\)</span> using any one of a variety of methods for solving systems of nonlinear
+equations. One can solve a related set of equations for <span class="math notranslate nohighlight">\(q_*\)</span>.</p>
+<p>Once one has <span class="math notranslate nohighlight">\(v_*\)</span>, it is relatively easy to determine an optimal policy. For each state <span class="math notranslate nohighlight">\(s\)</span>, there will be one or more actions at which the maximum is obtained
+in the Bellman optimality equation. Any policy that assigns nonzero probability only to these actions is an optimal policy. You can think of this
+as a one-step search. If you have the optimal value function,<span class="math notranslate nohighlight">\(v_*\)</span>, then the
+actions that appear best after a one-step search will be optimal actions. Another
+way of saying this is that any policy that is greedy with respect to
+the optimal evaluation function <span class="math notranslate nohighlight">\(v_*\)</span> is an optimal policy. The term greedy is
+used in computer science to describe any search or decision procedure that
+selects alternatives based only on local or immediate considerations, without
+considering the possibility that such a selection may prevent future access to
+even better alternatives. Consequently, it describes policies that select actions
+based only on their short-term consequences. The beauty of <span class="math notranslate nohighlight">\(v_*\)</span> is that if one
+uses it to evaluate the short-term consequences of actions– specifically, the
+one-step consequences– then a greedy policy is actually optimal in the longterm
+sense in which we are interested because <span class="math notranslate nohighlight">\(v_*\)</span> already takes into account
+the reward consequences of all possible future behavior. By means of <span class="math notranslate nohighlight">\(v_*\)</span>, the
+optimal expected long-term return is turned into a quantity that is locally and
+immediately available for each state. Hence, a one-step-ahead search yields
+the long-term optimal actions.</p>
+<p>Having <span class="math notranslate nohighlight">\(q_*\)</span> makes choosing optimal actions still easier. With <span class="math notranslate nohighlight">\(q_*\)</span>, the agent
+does not even have to do a one-step-ahead search: for any state s, it can simply
+find any action that maximizes <span class="math notranslate nohighlight">\(q_*(s, a)\)</span>. The action-value function effectively
+caches the results of all one-step-ahead searches. It provides the optimal expected
+long-term return as a value that is locally and immediately available
+for each state{action pair. Hence, at the cost of representing a function of
+state{action pairs, instead of just of states, the optimal action-value function
+allows optimal actions to be selected without having to know anything about
+possible successor states and their values, that is, without having to know anything about the environment’s dynamics.</p>
 </div>
 </div>
 </div>
@@ -721,7 +783,7 @@ from that state:</p>
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./contents/Reinforcement Learning/Finite Markov Decision Processes"
+            path: "./contents\Reinforcement Learning\Finite Markov Decision Processes"
         },
         predefinedOutput: true
     }

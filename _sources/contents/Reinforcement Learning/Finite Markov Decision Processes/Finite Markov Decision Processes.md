@@ -464,4 +464,75 @@ the Bellman optimality equation expresses the fact that the value of a state
 under an optimal policy must equal the expected return for the best action
 from that state:
 
+$$
+\begin{align*}
+v_{*}(s) = max_{a∈A(s)} q_{\pi_*}(s,a)\\
+&= max_{a} E_{\pi_*}[G_t | S_t = s, A_t = a]\\
+&= max_{a} E_{\pi_*}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s, A_t = a\Big]\\
+&= max_{a} E_{\pi_*}\Big[R_{t+1} + \gamma\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_t =s, A_t = a\Big]\\
+&= max_{a} E[R_{t+1} + \gamma v_*(S_{t+1}) | S_t =s, A_t = a\Big]\\
+&= max_{a∈A(s)} \sum_{s^\prime, r}p(s^\prime, r|s,a)[r + \gamma v_{*}(s^\prime)]
+\end{align*}
+$$ (eq16)
 
+
+The last two equations are two forms of the Bellman optimality equation for $v_*$. The Bellman optimality equation for $q_*$ is
+
+
+$$
+\begin{align*}
+q_{*}(s, a) = E[R_{t+1} + \gamma * max_a^\prime q_*(S_{t+1}, a^\prime) | S_t =s, A_t = a\Big]\\
+&= \sum_{s^\prime, r}p(s^\prime, r|s,a)[r + \gamma * max_a^\prime q_* (s^\prime, a^\prime)]
+\end{align*}
+$$ (eq17)
+
+
+```{figure} ./image9.png
+---
+height: 150px
+name: image9
+---
+Backup diagrams for (a) $v_*$ and (b) $q_*$
+```
+
+The backup diagrams above show graphically the spans of future
+states and actions considered in the Bellman optimality equations for $v_*$ and
+$q_*$. These are the same as the backup diagrams for $v$ and
+$q$ except that arcs have been added at the agent's choice points to represent that the maximum
+over that choice is taken rather than the expected value given some policy. Figure(a) graphically represents the Bellman optimality equation {eq}`eq16`.
+
+For finite MDPs, the Bellman optimality equation {eq}`eq16` has a unique solution
+independent of the policy. The Bellman optimality equation is actually
+a system of equations, one for each state, so if there are N states, then there
+are N equations in N unknowns. If the dynamics of the environment are
+known $(p(s^\prime; r|s, a))$, then in principle one can solve this system of equations for $v_*$ using any one of a variety of methods for solving systems of nonlinear
+equations. One can solve a related set of equations for $q_*$.
+
+Once one has $v_*$, it is relatively easy to determine an optimal policy. For each state $s$, there will be one or more actions at which the maximum is obtained
+in the Bellman optimality equation. Any policy that assigns nonzero probability only to these actions is an optimal policy. You can think of this
+as a one-step search. If you have the optimal value function,$v_*$, then the
+actions that appear best after a one-step search will be optimal actions. Another
+way of saying this is that any policy that is greedy with respect to
+the optimal evaluation function $v_*$ is an optimal policy. The term greedy is
+used in computer science to describe any search or decision procedure that
+selects alternatives based only on local or immediate considerations, without
+considering the possibility that such a selection may prevent future access to
+even better alternatives. Consequently, it describes policies that select actions
+based only on their short-term consequences. The beauty of $v_*$ is that if one
+uses it to evaluate the short-term consequences of actions-- specifically, the
+one-step consequences-- then a greedy policy is actually optimal in the longterm
+sense in which we are interested because $v_*$ already takes into account
+the reward consequences of all possible future behavior. By means of $v_*$, the
+optimal expected long-term return is turned into a quantity that is locally and
+immediately available for each state. Hence, a one-step-ahead search yields
+the long-term optimal actions.
+
+Having $q_*$ makes choosing optimal actions still easier. With $q_*$, the agent
+does not even have to do a one-step-ahead search: for any state s, it can simply
+find any action that maximizes $q_*(s, a)$. The action-value function effectively
+caches the results of all one-step-ahead searches. It provides the optimal expected
+long-term return as a value that is locally and immediately available
+for each state{action pair. Hence, at the cost of representing a function of
+state{action pairs, instead of just of states, the optimal action-value function
+allows optimal actions to be selected without having to know anything about
+possible successor states and their values, that is, without having to know anything about the environment's dynamics.
