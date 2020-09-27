@@ -536,3 +536,203 @@ for each state{action pair. Hence, at the cost of representing a function of
 state{action pairs, instead of just of states, the optimal action-value function
 allows optimal actions to be selected without having to know anything about
 possible successor states and their values, that is, without having to know anything about the environment's dynamics.
+
+### Example: Bellman Optimality Equations for the Recycling Robot
+
+
+Using {eq}`eq17`, we can explicitly give the Bellman optimality equation
+for the recycling robot example. To make things more compact, we abbreviate
+the states high and low, and the actions search, wait, and recharge
+respectively by h, l, s, w, and re. Since there are only two states, the Bellman
+optimality equation consists of two equations. The equation for $v_*(h)$ can be
+written as follows:
+
+$$
+v_*(h) \\
+&= max
+\begin{cases}
+      & p(h|h,s)[r(h,s,h) + \gamma v_*(h)] + p(l|h,s)[r(h,s,l) + \gamma v_*(l)]\\
+      & p(h|h,w)[r(h,w,h) + \gamma v_*(h)] + p(l|h,w)[r(h,w,l) + \gamma v_*(l)]\\
+\end{cases}\\
+ &= max
+\begin{cases}
+      & \alpha[r_s + \gamma v_*(h)] + (1-\alpha)[r_s + \gamma v_*(l)]\\
+      & 1*[r_w + \gamma v_*(h)] + 0*[r_w + \gamma v_*(l)]\\
+\end{cases}\\
+ &= max
+\begin{cases}
+      & r_s + \gamma[\alpha v_*(h) + (1-\alpha)v_*(l)]\\
+      & r_w + \gamma v_*(h)\\
+\end{cases}
+$$
+
+Following the same procedure for $v_*(l)$ yields the equation
+
+$$
+v_*(l) = max
+\begin{cases}
+      & \beta r_s - 3(1-\beta) + \gamma[(1-\beta)v_*(h) + \beta v_*(l)]\\
+      & r_w + \gamma v_*(l)\\
+      & \gamma v_*(h)\\
+\end{cases}\\
+$$
+
+For any choice of $r_s, r_w, \alpha, \beta$ and $\gamma$, with $0 \leq \gamma \leq 1, 0 \leq \alpha, \beta \leq 1$, there is
+exactly one pair of numbers, $v_*(h)$ and $v_*(l)$, that simultaneously satisfy these
+two nonlinear equations.
+
+
+### Example: Solving the Gridworld
+
+
+```{figure} ./image10.png
+---
+height: 150px
+name: image10
+---
+Optimal solutions to the gridworld example.
+```
+
+Suppose we solve the Bellman
+equation for $v_*$ for the simple grid task introduced earlier. Recall that state $A$ is followed by a reward of $+10$ and
+transition to state $A^\prime$, while state $B$ is followed by a reward of $+5$ and transition
+to state $B^\prime$. Figure(b) shows the optimal value function, and Figure(c)
+shows the corresponding optimal policies. Where there are multiple arrows in
+a cell, any of the corresponding actions is optimal.
+
+Explicitly solving the Bellman optimality equation provides one route to
+finding an optimal policy, and thus to solving the reinforcement learning problem.
+However, this solution is rarely directly useful. It is akin to an exhaustive
+search, looking ahead at all possibilities, computing their probabilities of occurrence
+and their desirabilities in terms of expected rewards. This solution
+relies on at least three assumptions that are rarely true in practice: (1) we
+accurately know the dynamics of the environment; (2) we have enough computational
+resources to complete the computation of the solution; and (3) the
+Markov property. For the kinds of tasks in which we are interested, one is generally not able to implement this solution exactly because various combinations
+of these assumptions are violated. For example, although the first
+and third assumptions present no problems for the game of backgammon, the
+second is a major impediment. Since the game has about $10^{20}$ states, it would
+take thousands of years on today's fastest computers to solve the Bellman
+equation for $v_*$, and the same is true for finding $q_*$. In reinforcement learning
+one typically has to settle for approximate solutions.
+
+Many different decision-making methods can be viewed as ways of approximately
+solving the Bellman optimality equation. For example, heuristic
+search methods can be viewed as expanding the right-hand side of {eq}`eq17` several
+times, up to some depth, forming a "tree" of possibilities, and then using
+a heuristic evaluation function to approximate $v_*$ at the "leaf" nodes. (Heuristic
+search methods such as $A^*$ are almost always based on the episodic case.)
+The methods of dynamic programming can be related even more closely to
+the Bellman optimality equation. Many reinforcement learning methods can
+be clearly understood as approximately solving the Bellman optimality equation,
+using actual experienced transitions in place of knowledge of the expected
+transitions. We consider a variety of such methods in the following chapters.
+
+## Optimality and Approximation
+
+We have defined optimal value functions and optimal policies. Clearly, an
+agent that learns an optimal policy has done very well, but in practice this
+rarely happens. For the kinds of tasks in which we are interested, optimal
+policies can be generated only with extreme computational cost. A well-defined
+notion of optimality organizes the approach to learning we describe in this book
+and provides a way to understand the theoretical properties of various learning
+algorithms, but it is an ideal that agents can only approximate to varying
+degrees. As we discussed above, even if we have a complete and accurate
+model of the environment's dynamics, it is usually not possible to simply compute an optimal policy by solving the Bellman optimality equation. For
+example, board games such as chess are a tiny fraction of human experience,
+yet large, custom-designed computers still cannot compute the optimal moves.
+A critical aspect of the problem facing the agent is always the computational
+power available to it, in particular, the amount of computation it can perform
+in a single time step.
+
+The memory available is also an important constraint. A large amount
+of memory is often required to build up approximations of value functions,
+policies, and models. In tasks with small, definite state sets, it is possible to
+form these approximations using arrays or tables with one entry for each state
+(or state-action pair). This we call the tabular case, and the corresponding
+methods we call tabular methods. In many cases of practical interest, however,
+there are far more states than could possibly be entries in a table. In these
+cases the functions must be approximated, using some sort of more compact
+parameterized function representation.
+
+Our framing of the reinforcement learning problem forces us to settle for
+approximations. However, it also presents us with some unique opportunities
+for achieving useful approximations. For example, in approximating optimal
+behavior, there may be many states that the agent faces with such a low
+probability that selecting suboptimal actions for them has little impact on the
+amount of reward the agent receives. Tesauro's backgammon player, for example,
+plays with exceptional skill even though it might make very bad decisions
+on board configurations that never occur in games against experts. In fact, it
+is possible that TD-Gammon makes bad decisions for a large fraction of the
+game's state set. The on-line nature of reinforcement learning makes it possible
+to approximate optimal policies in ways that put more effort into learning
+to make good decisions for frequently encountered states, at the expense of
+less effort for infrequently encountered states. This is one key property that
+distinguishes reinforcement learning from other approaches to approximately
+solving MDPs.
+
+## Summary
+
+Let us summarize the elements of the reinforcement learning problem that
+we have presented in this chapter. Reinforcement learning is about learning
+from interaction how to behave in order to achieve a goal. The reinforcement
+learning agent and its environment interact over a sequence of discrete time
+steps. The specification of their interface defines a particular task: the actions
+are the choices made by the agent; the states are the basis for making the
+choices; and the rewards are the basis for evaluating the choices. Everything inside the agent is completely known and controllable by the agent; everything
+outside is incompletely controllable but may or may not be completely known.
+A policy is a stochastic rule by which the agent selects actions as a function of
+states. The agent's objective is to maximize the amount of reward it receives
+over time.
+
+The return is the function of future rewards that the agent seeks to maximize.
+It has several different definitions depending upon the nature of the
+task and whether one wishes to discount delayed reward. The undiscounted
+formulation is appropriate for episodic tasks, in which the agent{environment
+interaction breaks naturally into episodes; the discounted formulation is appropriate
+for continuing tasks, in which the interaction does not naturally break
+into episodes but continues without limit.
+
+An environment satisfies the Markov property if its state signal compactly
+summarizes the past without degrading the ability to predict the future. This
+is rarely exactly true, but often nearly so; the state signal should be chosen or
+constructed so that the Markov property holds as nearly as possible. In this
+book we assume that this has already been done and focus on the decisionmaking
+problem: how to decide what to do as a function of whatever state
+signal is available. If the Markov property does hold, then the environment is
+called a Markov decision process (MDP). A finite MDP is an MDP with finite
+state and action sets. Most of the current theory of reinforcement learning is
+restricted to finite MDPs, but the methods and ideas apply more generally.
+
+A policy's value functions assign to each state, or state{action pair, the
+expected return from that state, or state{action pair, given that the agent uses
+the policy. The optimal value functions assign to each state, or state{action
+pair, the largest expected return achievable by any policy. A policy whose value
+functions are optimal is an optimal policy. Whereas the optimal value functions
+for states and state{action pairs are unique for a given MDP, there can be many
+optimal policies. Any policy that is greedy with respect to the optimal value
+functions must be an optimal policy. The Bellman optimality equations are
+special consistency condition that the optimal value functions must satisfy and
+that can, in principle, be solved for the optimal value functions, from which
+an optimal policy can be determined with relative ease.
+
+A reinforcement learning problem can be posed in a variety of different ways
+depending on assumptions about the level of knowledge initially available to
+the agent. In problems of complete knowledge, the agent has a complete and
+accurate model of the environment's dynamics. If the environment is an MDP,
+then such a model consists of the one-step transition probabilities and expected
+rewards for all states and their allowable actions. In problems of incomplete
+knowledge, a complete and perfect model of the environment is not available.
+
+Even if the agent is typically unable to perform enough computation per time step to fully
+use it. The memory available is also an important constraint. Memory may
+be required to build up accurate approximations of value functions, policies,
+and models. In most cases of practical interest there are far more states than
+could possibly be entries in a table, and approximations must be made.
+
+A well-defined notion of optimality organizes the approach to learning we
+describe in this book and provides a way to understand the theoretical properties
+of various learning algorithms, but it is an ideal that reinforcement
+learning agents can only approximate to varying degrees. In reinforcement
+learning we are very much concerned with cases in which optimal solutions
+cannot be found but must be approximated in some way.

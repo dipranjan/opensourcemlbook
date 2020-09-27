@@ -9,7 +9,7 @@
 :class: dropdown
 **Andrej Karpathy** (born October 23, 1986) is the director of artificial intelligence and Autopilot Vision at Tesla. He specializes in deep learning and image recognition and understanding.
 
-Andrej Karpathy was born in Slovakia and moved with his family to Toronto when he was 15. He completed his Computer Science and Physics bachelor's degree at University of Toronto in 2009 and completed his master's degree at University of British Columbia in 2011, where he worked on physically-simulated figures. He graduated with PhD from Stanford University in 2015 under the supervision of **Fei-Fei Li**, focusing on the intersection of natural language processing and computer vision, and deep learning models suited for this task. He joined the artificial intelligence group OpenAI as a research scientist in September 2016[10] and became Tesla's director of artificial intelligence in June 2017.
+Andrej Karpathy was born in Slovakia and moved with his family to Toronto when he was 15. He completed his Computer Science and Physics bachelor's degree at University of Toronto in 2009 and completed his master's degree at University of British Columbia in 2011, where he worked on physically-simulated figures. He graduated with PhD from Stanford University in 2015 under the supervision of **Fei-Fei Li**, focusing on the intersection of natural language processing and computer vision, and deep learning models suited for this task. He joined the artificial intelligence group OpenAI as a research scientist in September 2016 and became Tesla's director of artificial intelligence in June 2017.
 
 Karpathy was named one of the MIT Technology Review Innovators Under 35 for the year 2020.
 ```
