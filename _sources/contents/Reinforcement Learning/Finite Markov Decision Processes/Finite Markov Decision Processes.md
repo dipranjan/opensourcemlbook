@@ -311,6 +311,14 @@ We will use this kind of merged sum often to simplify formulas. Note how
 the final expression can be read very easily as an expected value. It is really
 a sum over all values of the three variables, $a$, $s^\prime$ , and $r$.
 
+```{figure} ./image11.png
+---
+height: 300px
+name: image11
+---
+[Source](https://towardsdatascience.com/reinforcement-learning-rl-101-with-python-e1aa0d37d43b)
+```
+
 ```{note}
 For each triple, we compute its probability, $\pi(a|s)p(s^\prime, r|s,a)$ i.e probability $\pi(a|s)$ of taking action $a$ when in state $s$ and
 given any state & action($s, a$) the probability of each possible pair of next state and reward, $(s′,r)$; weight the quantity in brackets by
@@ -330,7 +338,7 @@ possibilities, weighting each by its probability of occurring. It states that th
 
 ```{figure} ./image6.png
 ---
-height: 150px
+height: 200px
 name: image6
 ---
 Backup diagrams for (a) $v_\pi$ and (b) $q_\pi$
@@ -367,6 +375,27 @@ and take the agent to $B^\prime$.
 Suppose the agent selects all four actions with equal probability in all
 states. Figure(b) shows the value function, $v_\pi$ , for this policy, for the discounted reward case with $\gamma = 0.9$. This value function was computed by solving the system of equations {eq}`eq12`. Notice the negative values near the lower edge; these are the result of the high probability of hitting the edge of the grid there under the random policy. State $A$ is the best state to be in under this policy, but its expected return is less than $10$, its immediate reward, because from $A$ the agent is taken to $A^\prime$ , from which it is likely to run into the edge of the grid. State $B$, on the other hand, is valued more than $5$, its immediate reward, because from $B$ the agent is taken to $B^\prime$ , which has a positive value. From $B^\prime$ the expected penalty (negative reward) for possibly running into an edge is more
 than compensated for by the expected gain for possibly stumbling onto $A$ or $B$.
+
+```{admonition} Calculation:
+:class: dropdown
+
+$$
+v_{center} = \frac{0.9 * (2.3 + 0.7 - 0.4 + 0.4)}{4} = 0.7
+
+v_{lefttopcorner} = \frac{0.9 * (8.8 + 1.5) + (-1 + 0.9 * 3.3) * 2}{4} = 3.3
+$$
+
+The last calculation requires some explanation:
+
+- $0.9*(8.8+1.5)$ because $\gamma = 0.9, r = 0$ if agent is not off grid and not transitioning from special states $A$ or $B$, and $v(s^\prime)$ is $8.8$ and $1.5$ for a left and down move respectively.
+
+- $(-1+0.9*3.3)*2$ because $r = -1$ if agent steps off grid (AKA left or up move), $0.9$ because that's $\gamma$, $3.3$ because $v(s^\prime) = v(s)$ as agent remains in its previous state if it steps off grid. Multiplied by $2$ because there are $2$ possibilities(left/up move) to for agent to step off grid.
+
+- Dividing the sum of part 1 and 2 by $1/4$ because $\pi(a|s) = 1/4$ for all actions.
+
+
+```
+
 
 ### Example: Golf
 
@@ -725,3 +754,7 @@ of various learning algorithms, but it is an ideal that reinforcement
 learning agents can only approximate to varying degrees. In reinforcement
 learning we are very much concerned with cases in which optimal solutions
 cannot be found but must be approximated in some way.
+
+## Additional Resources
+- [Python replication for Sutton & Barto's book](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)
+- [GridWorld: Dynamic Programming Demo](https://cs.stanford.edu/people/karpathy/reinforcejs/gridworld_dp.html)
