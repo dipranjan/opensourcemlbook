@@ -327,6 +327,11 @@
    Summary
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-resources">
+   Additional Resources
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -596,6 +601,10 @@ the other over all values of <span class="math notranslate nohighlight">\(r\)</s
 We will use this kind of merged sum often to simplify formulas. Note how
 the final expression can be read very easily as an expected value. It is really
 a sum over all values of the three variables, <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(s^\prime\)</span> , and <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<div class="figure align-default" id="image11">
+<a class="reference internal image-reference" href="../../../_images/image111.png"><img alt="../../../_images/image111.png" src="../../../_images/image111.png" style="height: 300px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text"><a class="reference external" href="https://towardsdatascience.com/reinforcement-learning-rl-101-with-python-e1aa0d37d43b">Source</a></span><a class="headerlink" href="#image11" title="Permalink to this image">¶</a></p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For each triple, we compute its probability, <span class="math notranslate nohighlight">\(\pi(a|s)p(s^\prime, r|s,a)\)</span> i.e probability <span class="math notranslate nohighlight">\(\pi(a|s)\)</span> of taking action <span class="math notranslate nohighlight">\(a\)</span> when in state <span class="math notranslate nohighlight">\(s\)</span> and
@@ -612,8 +621,8 @@ each of these, the environment could respond with one of several next states,
 <span class="math notranslate nohighlight">\(s^\prime\)</span> , along with a reward, <span class="math notranslate nohighlight">\(r\)</span>. The Bellman equation <a class="reference internal" href="#equation-eq12">(12)</a> averages over all the
 possibilities, weighting each by its probability of occurring. It states that the value of the start state must equal the (discounted) value of the expected next state, plus the reward expected along the way.</span></p>
 <div class="figure align-default" id="image6">
-<a class="reference internal image-reference" href="../../../_images/image61.png"><img alt="../../../_images/image61.png" src="../../../_images/image61.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_\pi\)</span> and (b) <span class="math notranslate nohighlight">\(q_\pi\)</span></span><a class="headerlink" href="#image6" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../../_images/image61.png"><img alt="../../../_images/image61.png" src="../../../_images/image61.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_\pi\)</span> and (b) <span class="math notranslate nohighlight">\(q_\pi\)</span></span><a class="headerlink" href="#image6" title="Permalink to this image">¶</a></p>
 </div>
 <p>The value function <span class="math notranslate nohighlight">\(v_\pi\)</span>is the unique solution to its Bellman equation. We
 show in subsequent chapters how this Bellman equation forms the basis of a
@@ -627,7 +636,7 @@ explicit arrowheads because time always flows downward in a backup diagram.)</p>
 <h3>Example: Gridworld<a class="headerlink" href="#example-gridworld" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default" id="image7">
 <a class="reference internal image-reference" href="../../../_images/image7.png"><img alt="../../../_images/image7.png" src="../../../_images/image7.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Grid example: (a) exceptional reward dynamics; (b) state-value function for the equiprobable random policy.</span><a class="headerlink" href="#image7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">Grid example: (a) exceptional reward dynamics; (b) state-value function for the equiprobable random policy.</span><a class="headerlink" href="#image7" title="Permalink to this image">¶</a></p>
 </div>
 <p>The above figure uses a rectangular grid to illustrate
 value functions for a simple finite MDP. The cells of the grid correspond to
@@ -642,12 +651,25 @@ and take the agent to <span class="math notranslate nohighlight">\(B^\prime\)</s
 <p>Suppose the agent selects all four actions with equal probability in all
 states. Figure(b) shows the value function, <span class="math notranslate nohighlight">\(v_\pi\)</span> , for this policy, for the discounted reward case with <span class="math notranslate nohighlight">\(\gamma = 0.9\)</span>. This value function was computed by solving the system of equations <a class="reference internal" href="#equation-eq12">(12)</a>. Notice the negative values near the lower edge; these are the result of the high probability of hitting the edge of the grid there under the random policy. State <span class="math notranslate nohighlight">\(A\)</span> is the best state to be in under this policy, but its expected return is less than <span class="math notranslate nohighlight">\(10\)</span>, its immediate reward, because from <span class="math notranslate nohighlight">\(A\)</span> the agent is taken to <span class="math notranslate nohighlight">\(A^\prime\)</span> , from which it is likely to run into the edge of the grid. State <span class="math notranslate nohighlight">\(B\)</span>, on the other hand, is valued more than <span class="math notranslate nohighlight">\(5\)</span>, its immediate reward, because from <span class="math notranslate nohighlight">\(B\)</span> the agent is taken to <span class="math notranslate nohighlight">\(B^\prime\)</span> , which has a positive value. From <span class="math notranslate nohighlight">\(B^\prime\)</span> the expected penalty (negative reward) for possibly running into an edge is more
 than compensated for by the expected gain for possibly stumbling onto <span class="math notranslate nohighlight">\(A\)</span> or <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Calculation:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}
+v_{center} = \frac{0.9 * (2.3 + 0.7 - 0.4 + 0.4)}{4} = 0.7\\v_{lefttopcorner} = \frac{0.9 * (8.8 + 1.5) + (-1 + 0.9 * 3.3) * 2}{4} = 3.3
+\end{aligned}\end{align} \]</div>
+<p>The last calculation requires some explanation:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(0.9*(8.8+1.5)\)</span> because <span class="math notranslate nohighlight">\(\gamma = 0.9, r = 0\)</span> if agent is not off grid and not transitioning from special states <span class="math notranslate nohighlight">\(A\)</span> or <span class="math notranslate nohighlight">\(B\)</span>, and <span class="math notranslate nohighlight">\(v(s^\prime)\)</span> is <span class="math notranslate nohighlight">\(8.8\)</span> and <span class="math notranslate nohighlight">\(1.5\)</span> for a left and down move respectively.</p></li>
+<li><p><span class="math notranslate nohighlight">\((-1+0.9*3.3)*2\)</span> because <span class="math notranslate nohighlight">\(r = -1\)</span> if agent steps off grid (AKA left or up move), <span class="math notranslate nohighlight">\(0.9\)</span> because that’s <span class="math notranslate nohighlight">\(\gamma\)</span>, <span class="math notranslate nohighlight">\(3.3\)</span> because <span class="math notranslate nohighlight">\(v(s^\prime) = v(s)\)</span> as agent remains in its previous state if it steps off grid. Multiplied by <span class="math notranslate nohighlight">\(2\)</span> because there are <span class="math notranslate nohighlight">\(2\)</span> possibilities(left/up move) to for agent to step off grid.</p></li>
+<li><p>Dividing the sum of part 1 and 2 by <span class="math notranslate nohighlight">\(1/4\)</span> because <span class="math notranslate nohighlight">\(\pi(a|s) = 1/4\)</span> for all actions.</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="example-golf">
 <h3>Example: Golf<a class="headerlink" href="#example-golf" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default" id="image8">
 <a class="reference internal image-reference" href="../../../_images/image81.png"><img alt="../../../_images/image81.png" src="../../../_images/image81.png" style="height: 400px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">A golf example: the state-value function for putting (above) and the optimal action-value function for using the driver (below).</span><a class="headerlink" href="#image8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">A golf example: the state-value function for putting (above) and the optimal action-value function for using the driver (below).</span><a class="headerlink" href="#image8" title="Permalink to this image">¶</a></p>
 </div>
 <p>To formulate playing a hole of golf as a reinforcement learning task, we count a penalty (negative reward) of <span class="math notranslate nohighlight">\(−1\)</span> for each stroke until
 we hit the ball into the hole. The state is the location of the ball. The value of
@@ -741,7 +763,7 @@ q_{*}(s, a) = E[R_{t+1} + \gamma * max_a^\prime q_*(S_{t+1}, a^\prime) | S_t =s,
 \end{split}\]</div>
 <div class="figure align-default" id="image9">
 <a class="reference internal image-reference" href="../../../_images/image9.png"><img alt="../../../_images/image9.png" src="../../../_images/image9.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_*\)</span> and (b) <span class="math notranslate nohighlight">\(q_*\)</span></span><a class="headerlink" href="#image9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_*\)</span> and (b) <span class="math notranslate nohighlight">\(q_*\)</span></span><a class="headerlink" href="#image9" title="Permalink to this image">¶</a></p>
 </div>
 <p>The backup diagrams above show graphically the spans of future
 states and actions considered in the Bellman optimality equations for <span class="math notranslate nohighlight">\(v_*\)</span> and
@@ -827,7 +849,7 @@ two nonlinear equations.</p>
 <h3>Example: Solving the Gridworld<a class="headerlink" href="#example-solving-the-gridworld" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default" id="image10">
 <a class="reference internal image-reference" href="../../../_images/image10.png"><img alt="../../../_images/image10.png" src="../../../_images/image10.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Optimal solutions to the gridworld example.</span><a class="headerlink" href="#image10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Optimal solutions to the gridworld example.</span><a class="headerlink" href="#image10" title="Permalink to this image">¶</a></p>
 </div>
 <p>Suppose we solve the Bellman
 equation for <span class="math notranslate nohighlight">\(v_*\)</span> for the simple grid task introduced earlier. Recall that state <span class="math notranslate nohighlight">\(A\)</span> is followed by a reward of <span class="math notranslate nohighlight">\(+10\)</span> and
@@ -962,6 +984,13 @@ of various learning algorithms, but it is an ideal that reinforcement
 learning agents can only approximate to varying degrees. In reinforcement
 learning we are very much concerned with cases in which optimal solutions
 cannot be found but must be approximated in some way.</p>
+</div>
+<div class="section" id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ShangtongZhang/reinforcement-learning-an-introduction">Python replication for Sutton &amp; Barto’s book</a></p></li>
+<li><p><a class="reference external" href="https://cs.stanford.edu/people/karpathy/reinforcejs/gridworld_dp.html">GridWorld: Dynamic Programming Demo</a></p></li>
+</ul>
 </div>
 </div>
 
