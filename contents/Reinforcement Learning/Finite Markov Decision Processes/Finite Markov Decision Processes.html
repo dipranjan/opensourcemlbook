@@ -355,7 +355,7 @@ tension and discuss some of the trade-offs and challenges that it implies.</p>
 <p>The reinforcement learning problem is meant to be a straightforward framing of the problem of learning from interaction to achieve a goal. <span style="color:blue">The learner and decision-maker is called the agent. The thing it interacts with, comprising everything outside the <strong>agent</strong>, is called the <strong>environment</strong>. These interact continually, the agent selecting actions and the environment responding to those actions and presenting new situations to the agent. The environment also gives rise to rewards, special numerical values that the agent tries to maximize over time.</span> A complete specification of an environment defines a task , one instance of the reinforcement learning problem.</p>
 <p>More specifically, the agent and environment interact at each of a sequence of discrete time steps, <span class="math notranslate nohighlight">\(t = 0, 1, 2, 3, ....\)</span> At each time step <span class="math notranslate nohighlight">\(t\)</span>, the agent receives some representation of the environment’s <strong>state</strong>, <span class="math notranslate nohighlight">\(S_t ∈ S\)</span>, where <span class="math notranslate nohighlight">\(S\)</span> is the set of possible states, and on that basis selects an action, <span class="math notranslate nohighlight">\(A_t ∈ A(S_t),\)</span> where <span class="math notranslate nohighlight">\(A(S_t)\)</span> is the set of actions available in state <span class="math notranslate nohighlight">\(S_t\)</span> . One time step later, in part as a consequence of its action, the agent receives a numerical reward , <span class="math notranslate nohighlight">\(R_{t+1} ∈ \mathbb{R}\)</span>, and finds itself in a new state, <span class="math notranslate nohighlight">\(S_{t+1}\)</span>.</p>
 <div class="figure align-default" id="image1">
-<a class="reference internal image-reference" href="../../../_images/image11.png"><img alt="../../../_images/image11.png" src="../../../_images/image11.png" style="height: 150px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/image11.png"><img alt="../../../_images/image11.png" src="../../../_images/image11.png" style="height: 180px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">The agent–environment interaction in reinforcement learning.</span><a class="headerlink" href="#image1" title="Permalink to this image">¶</a></p>
 </div>
 <p><span style="color:blue">At each time step, the agent implements a mapping from states to probabilities of selecting each possible action. This mapping is called the agent’s <strong>policy</strong> and is denoted <span class="math notranslate nohighlight">\(\pi_t\)</span> , where <span class="math notranslate nohighlight">\(\pi_t(a|s)\)</span> is the probability that <span class="math notranslate nohighlight">\(A_t = a\)</span> if <span class="math notranslate nohighlight">\(S_t = s\)</span>. Reinforcement learning methods specify how the agent changes its policy as a result of its experience.</span> The agent’s goal, roughly speaking, is to maximize the total amount of reward it receives over the long run. This framework is abstract and flexible and can be applied to many different problems in many different ways. For example, the time steps need not refer to fixed intervals of real time; they can refer to arbitrary successive stages of decision-making and acting. The actions can be low-level controls, such as the voltages applied to the motors of a robot arm, or high-level decisions, such
@@ -399,7 +399,9 @@ an arm and gripper that can pick them up and place them in an onboard bin; it ru
 <div class="section" id="goals-and-rewards">
 <h2>Goals and Rewards<a class="headerlink" href="#goals-and-rewards" title="Permalink to this headline">¶</a></h2>
 <p>In reinforcement learning, the purpose or goal of the agent is formalized in terms of a special reward signal passing from the environment to the agent. At each time step, the reward is a simple number, <span class="math notranslate nohighlight">\(R_t ∈ \mathbb{R}\)</span>. Informally, <span style="color:blue">the agent’s goal is to maximize the total amount of reward it receives. This means maximizing not immediate reward, but cumulative reward in the long run.</span> We can clearly state this informal idea as the reward hypothesis:</p>
-<p><em>That all of what we mean by goals and purposes can be well thought of as the maximization of the expected value of the cumulative sum of 	a received scalar signal (called reward).</em></p>
+<blockquote class="epigraph">
+<div><p>That all of what we mean by goals and purposes can be well thought of as the maximization of the expected value of the cumulative sum of 	a received scalar signal (called reward).</p>
+</div></blockquote>
 <p>The use of a reward signal to formalize the idea of a goal is one of the most distinctive features of reinforcement learning.</p>
 <p>Although formulating goals in terms of reward signals might at first appear limiting, in practice it has proved to be flexible and widely applicable. The best way to see this is to consider examples of how it has been, or could be, used. For example, to make a robot learn to walk, researchers have provided reward on each time step proportional to the robot’s forward motion. In making a robot learn how to escape from a maze, the reward is often <span class="math notranslate nohighlight">\(−1\)</span> for every time step that passes prior to escape; this encourages the agent to escape as quickly as possible. To make a robot learn to find and collect empty soda cans for recycling, one might give it a reward of zero most of the time, and then a reward of <span class="math notranslate nohighlight">\(+1\)</span> for each can collected. One might also want to give the robot negative rewards when it bumps into things or when somebody yells at it. For an agent to learn to play checkers or chess, the natural rewards are <span class="math notranslate nohighlight">\(+1\)</span> for winning, <span class="math notranslate nohighlight">\(−1\)</span> for losing, and <span class="math notranslate nohighlight">\(0\)</span> for drawing and for all nonterminal positions.</p>
 <p>You can see what is happening in all of these examples. The agent always learns to maximize its reward. If we want it to do something for us, we must provide rewards to it in such a way that in maximizing them the agent will also achieve our goals. <span style="color:blue">It is thus critical that the rewards we set up truly indicate what we want accomplished. In particular, the reward signal is not the place to impart to the agent prior knowledge about how to achieve what we want it to do.</span> For example, a chess-playing agent should be rewarded only for actually winning, not for achieving subgoals such taking its opponent’s pieces or gaining control of the center of the board. If achieving these sorts of subgoals were rewarded, then the agent might find a way to achieve them without achieving the real goal. For example, it might find a way to take the opponent’s pieces even at the cost of losing the game. The reward signal is your way of communicating to the robot <em>what</em> you want it to achieve, not <em>how</em> you want it achieved.</p>
@@ -418,7 +420,7 @@ sensors for recognizing food, hunger, pain, and pleasure. Nevertheless, as we di
 G_t = R_{t+1} + R_{t+2}· · · + R_T
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(T\)</span> is a final time step. <span style="color:blue">This approach makes sense in applications in which there is a natural notion of final time step, that is, when the agent–environment interaction breaks naturally into subsequences, which we call <strong>episodes or trials</strong>, such as plays of a game, trips through a maze, or any sort of repeated interactions. Each episode ends in a special state called the terminal state, followed by a reset to a standard starting state or to a sample from a standard distribution of starting states. Tasks with episodes of this kind are called <em>episodic tasks</em>. In episodic tasks we sometimes need to distinguish the set of all nonterminal states, denoted <span class="math notranslate nohighlight">\(S\)</span>, from the set of all states plus the terminal state, denoted <span class="math notranslate nohighlight">\(S^+\)</span> . </span></p>
-<p>On the other hand, in many cases the agent–environment interaction does not break naturally into identifiable episodes, but goes on continually without limit. For example, this would be the natural way to formulate a continual process-control task, or an application to a robot with a long life span. We call these continuing tasks. <span style="color:blue">The return formulation is problematic for continuing tasks because the final time step would be <span class="math notranslate nohighlight">\(T = \infty\)</span>, and the return, which is what we are trying to maximize, could itself easily be infinite.</span> (For example, suppose the agent receives a reward of <span class="math notranslate nohighlight">\(+1\)</span> at each time step.) Thus, in this book we usually use a definition of return that is slightly more complex conceptually but much simpler mathematically.</p>
+<p>On the other hand, in many cases the agent–environment interaction does not break naturally into identifiable episodes, but goes on continually without limit. For example, this would be the natural way to formulate a continual process-control task, or an application to a robot with a long life span. We call these continuing tasks. <span style="color:blue">The return formulation is problematic for continuing tasks because the final time step would be <span class="math notranslate nohighlight">\(T = \infty\)</span>, and the return, which is what we are trying to maximize, could itself easily be infinite.</span> (For example, suppose the agent receives a reward of <span class="math notranslate nohighlight">\(+1\)</span> at each time step.) Thus, here we usually use a definition of return that is slightly more complex conceptually but much simpler mathematically.</p>
 <p><span style="color:blue">The additional concept that we need is that of discounting. According to this approach, the agent tries to select actions so that the sum of the discounted rewards it receives over the future is maximized.</span> In particular, it chooses <span class="math notranslate nohighlight">\(A_t\)</span> to maximize the expected discounted return:</p>
 <div class="math notranslate nohighlight" id="equation-eq2">
 <span class="eqno">(2)<a class="headerlink" href="#equation-eq2" title="Permalink to this equation">¶</a></span>\[
@@ -455,9 +457,9 @@ G_t = \sum_{k=0}^{T-t-1}\gamma^kR_{t+k+1}
 <div class="section" id="the-markov-property">
 <h2>The Markov Property<a class="headerlink" href="#the-markov-property" title="Permalink to this headline">¶</a></h2>
 <p>In the reinforcement learning framework, the agent makes its decisions as a function of a signal from the environment called the environment’s state. In this section we discuss what is required of the state signal, and what kind of information we should and should not expect it to provide. In particular, we formally define a property of environments and their state signals that is of particular interest, called the <strong>Markov property.</strong></p>
-<p>Here, by “the state” we mean whatever information is available to the agent. We assume that the state is given by some preprocessing system that is nominally part of the environment. We do not address the issues of constructing, changing, or learning the state signal in this book. We take this approach not because we consider state representation to be unimportant, but in order to focus fully on the decision-making issues. In other words, our main concern is not with designing the state signal, but with deciding what action to take as a function of whatever state signal is available.</p>
+<p>Here, by “the state” we mean whatever information is available to the agent. We assume that the state is given by some preprocessing system that is nominally part of the environment. We do not address the issues of constructing, changing, or learning the state signal here. We take this approach not because we consider state representation to be unimportant, but in order to focus fully on the decision-making issues. In other words, our main concern is not with designing the state signal, but with deciding what action to take as a function of whatever state signal is available.</p>
 <p>Certainly the state signal should include immediate sensations such as sensory measurements, but it can contain much more than that. State representations can be highly processed versions of original sensations, or they can be complex structures built up over time from the sequence of sensations. For example, we can move our eyes over a scene, with only a tiny spot corresponding to the fovea visible in detail at any one time, yet build up a rich and detailed representation of a scene. Or, more obviously, we can look at an object, then look away, and know that it is still there. We can hear the word “yes” and consider ourselves to be in totally different states depending on the question that came before and which is no longer audible. At a more mundane level, a control system can measure position at two different times to produce a state
-representation including information about velocity. In all of these cases the state is constructed and maintained on the basis of immediate sensations together with the previous state or some other memory of past sensations. In this book, we do not explore how that is done, but certainly it can be and has been done. There is no reason to restrict the state representation to immediate sensations; in typical applications we should expect the state representation to be able to inform the agent of more than that.</p>
+representation including information about velocity. In all of these cases the state is constructed and maintained on the basis of immediate sensations together with the previous state or some other memory of past sensations. Here, we do not explore how that is done, but certainly it can be and has been done. There is no reason to restrict the state representation to immediate sensations; in typical applications we should expect the state representation to be able to inform the agent of more than that.</p>
 <p>On the other hand, the state signal should not be expected to inform the agent of everything about the environment, or even everything that would be useful to it in making decisions. If the agent is playing blackjack, we should not expect it to know what the next card in the deck is. If the agent is answering the phone, we should not expect it to know in advance who the caller is. If the agent is a paramedic called to a road accident, we should not expect it to know immediately the internal injuries of an unconscious victim. In all of these cases there is hidden state information in the environment, and that information would be useful if the agent knew it, but the agent cannot know it because it has never received any relevant sensations. In short, we don’t fault an agent for not knowing something that matters, but only for having known something and then forgotten it!</p>
 <p><span style="color:blue">What we would like, ideally, is a state signal that summarizes past sensations compactly, yet in such a way that all relevant information is retained. This normally requires more than the immediate sensations, but never more than the complete history of all past sensations. <strong>A state signal that succeeds in retaining all relevant information is said to be Markov</strong>, or to have the Markov property</span> (we define this formally below). For example, a checkers position—the current configuration of all the pieces on the board—would serve as a Markov state because it summarizes everything important about the complete sequence of positions that led to it. Much of the information about the sequence is lost, but all that really matters for the future of the game is retained. Similarly, the current position and velocity of a cannonball is all that matters for its future flight. It doesn’t matter how that position and velocity came about. <span style="color:blue"><em>This is sometimes also referred to as an “independence of path” property because all that matters is in the current state signal; its meaning is independent of the “path,” or history, of signals that have led up to it.</em></span></p>
 <p>We now formally define the Markov property for the reinforcement learning problem. To keep the mathematics simple, we assume here that there are a
@@ -578,7 +580,8 @@ states:</p>
 <div class="math notranslate nohighlight" id="equation-eq12">
 <span class="eqno">(12)<a class="headerlink" href="#equation-eq12" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
-v_{\pi}(s) = E_{\pi}[G_t | S_t = s]\\
+v_{\pi}(s)\\
+&amp;= E_{\pi}[G_t | S_t = s]\\
 &amp;= E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s\Big]\\
 &amp;= E_{\pi}\Big[R_{t+1} + \gamma\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_t =s\Big]\\
 &amp;= \sum_a \pi(a|s)\sum_{s^\prime}\sum_r p(s^\prime, r|s,a)\Big[r + \gamma E_{\pi}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_{t+1} =s^\prime\Big]\Big]\\
@@ -592,23 +595,14 @@ last equation we have merged the two sums, one over all the values of <span clas
 the other over all values of <span class="math notranslate nohighlight">\(r\)</span>, into one sum over all possible values of both.
 We will use this kind of merged sum often to simplify formulas. Note how
 the final expression can be read very easily as an expected value. It is really
-a sum over all values of the three variables, <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(s^\prime\)</span> , and <span class="math notranslate nohighlight">\(r\)</span>. For each triple, we
-compute its probability, <span class="math notranslate nohighlight">\(\pi(a|s)p(s^\prime, r|s,a)\)</span>, weight the quantity in brackets by
+a sum over all values of the three variables, <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(s^\prime\)</span> , and <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For each triple, we compute its probability, <span class="math notranslate nohighlight">\(\pi(a|s)p(s^\prime, r|s,a)\)</span> i.e probability <span class="math notranslate nohighlight">\(\pi(a|s)\)</span> of taking action <span class="math notranslate nohighlight">\(a\)</span> when in state <span class="math notranslate nohighlight">\(s\)</span> and
+given any state &amp; action(<span class="math notranslate nohighlight">\(s, a\)</span>) the probability of each possible pair of next state and reward, <span class="math notranslate nohighlight">\((s′,r)\)</span>; weight the quantity in brackets by
 that probability, then sum over all possibilities to get an expected value.</p>
-<div class="tip admonition">
-<p class="admonition-title">Problem</p>
-<p>Suppose an agent goes through one episode. And it gets the following immediate rewards for the following states:</p>
-<div class="math notranslate nohighlight">
-\[
-S_0, R_0 = 1; S_1, R_1 = 2; S_2, R_2 = -1; S_3, R_3 = 0
-\]</div>
-<p>Assume the policy is deterministic and the environment is stochastic and it ends up in different states and rewards. Also, <span class="math notranslate nohighlight">\(S_3\)</span> is a terminal state. Assume <span class="math notranslate nohighlight">\(\gamma = 0.7\)</span> and that one episode is sufficient to derive the expected value.
-What is <span class="math notranslate nohighlight">\(v(S_0), v(S_1), v(S_2)\)</span>?</p>
-<p><span class="math notranslate nohighlight">\(v(S_0) = 1 + 0.7 * 2 + 0.7^2 * (-1)\)</span></p>
-<p><span class="math notranslate nohighlight">\(v(S_1) = 2 + 0.7 * (-1)\)</span></p>
-<p><span class="math notranslate nohighlight">\(v(S_2) = -1\)</span></p>
 </div>
-<p>Equation <a class="reference internal" href="#equation-eq12">(12)</a> is the <strong>Bellman equation</strong> for <span class="math notranslate nohighlight">\(v_\pi\)</span>. It expresses a relationship
+<p>Equation <a class="reference internal" href="#equation-eq12">(12)</a> is the <strong>Bellman equation</strong> for <span class="math notranslate nohighlight">\(v_\pi\)</span>. <span style="color:blue">It expresses a relationship
 between the value of a state and the values of its successor states. Think of
 looking ahead from one state to its possible successor states, as suggested by
 the figure below. Each open circle represents a state and each solid circle represents
@@ -616,7 +610,7 @@ a state–action pair. Starting from state <span class="math notranslate nohighl
 could take any of some set of actions—three are shown in Figure(a). From
 each of these, the environment could respond with one of several next states,
 <span class="math notranslate nohighlight">\(s^\prime\)</span> , along with a reward, <span class="math notranslate nohighlight">\(r\)</span>. The Bellman equation <a class="reference internal" href="#equation-eq12">(12)</a> averages over all the
-possibilities, weighting each by its probability of occurring. It states that the value of the start state must equal the (discounted) value of the expected next state, plus the reward expected along the way.</p>
+possibilities, weighting each by its probability of occurring. It states that the value of the start state must equal the (discounted) value of the expected next state, plus the reward expected along the way.</span></p>
 <div class="figure align-default" id="image6">
 <a class="reference internal image-reference" href="../../../_images/image61.png"><img alt="../../../_images/image61.png" src="../../../_images/image61.png" style="height: 150px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_\pi\)</span> and (b) <span class="math notranslate nohighlight">\(q_\pi\)</span></span><a class="headerlink" href="#image6" title="Permalink to this image">¶</a></p>
@@ -626,7 +620,7 @@ show in subsequent chapters how this Bellman equation forms the basis of a
 number of ways to compute, approximate, and learn <span class="math notranslate nohighlight">\(v_\pi\)</span> . We call diagrams
 like those shown in the above figure as backup diagrams because they diagram relationships that form the basis of the update or backup operations that are at the heart of reinforcement learning methods. These operations transfer value
 information back to a state (or a state–action pair) from its successor states (or
-state–action pairs). We use backup diagrams throughout the book to provide
+state–action pairs). We use backup diagrams throughout the chapter to provide
 graphical summaries of the algorithms we discuss. (Note that unlike transition graphs, the state nodes of backup diagrams do not necessarily represent distinct states; for example, a state might be its own successor. We also omit
 explicit arrowheads because time always flows downward in a backup diagram.)</p>
 <div class="section" id="example-gridworld">
@@ -728,7 +722,8 @@ from that state:</p>
 <div class="math notranslate nohighlight" id="equation-eq16">
 <span class="eqno">(16)<a class="headerlink" href="#equation-eq16" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
-v_{*}(s) = max_{a∈A(s)} q_{\pi_*}(s,a)\\
+v_{*}(s)\\
+&amp;= max_{a∈A(s)} q_{\pi_*}(s,a)\\
 &amp;= max_{a} E_{\pi_*}[G_t | S_t = s, A_t = a]\\
 &amp;= max_{a} E_{\pi_*}\Big[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} | S_t =s, A_t = a\Big]\\
 &amp;= max_{a} E_{\pi_*}\Big[R_{t+1} + \gamma\sum_{k=0}^{\infty}\gamma^k R_{t+k+2} | S_t =s, A_t = a\Big]\\
@@ -874,7 +869,7 @@ transitions. We consider a variety of such methods in the following chapters.</p
 agent that learns an optimal policy has done very well, but in practice this
 rarely happens. For the kinds of tasks in which we are interested, optimal
 policies can be generated only with extreme computational cost. A well-defined
-notion of optimality organizes the approach to learning we describe in this book
+notion of optimality organizes the approach to learning we describe here
 and provides a way to understand the theoretical properties of various learning
 algorithms, but it is an ideal that agents can only approximate to varying
 degrees. As we discussed above, even if we have a complete and accurate
@@ -932,8 +927,7 @@ into episodes but continues without limit.</p>
 <p>An environment satisfies the Markov property if its state signal compactly
 summarizes the past without degrading the ability to predict the future. This
 is rarely exactly true, but often nearly so; the state signal should be chosen or
-constructed so that the Markov property holds as nearly as possible. In this
-book we assume that this has already been done and focus on the decisionmaking
+constructed so that the Markov property holds as nearly as possible. Here we assume that this has already been done and focus on the decisionmaking
 problem: how to decide what to do as a function of whatever state
 signal is available. If the Markov property does hold, then the environment is
 called a Markov decision process (MDP). A finite MDP is an MDP with finite
@@ -963,7 +957,7 @@ be required to build up accurate approximations of value functions, policies,
 and models. In most cases of practical interest there are far more states than
 could possibly be entries in a table, and approximations must be made.</p>
 <p>A well-defined notion of optimality organizes the approach to learning we
-describe in this book and provides a way to understand the theoretical properties
+describe here and provides a way to understand the theoretical properties
 of various learning algorithms, but it is an ideal that reinforcement
 learning agents can only approximate to varying degrees. In reinforcement
 learning we are very much concerned with cases in which optimal solutions
