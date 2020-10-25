@@ -423,7 +423,8 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
 <h2>Many input variables<a class="headerlink" href="#many-input-variables" title="Permalink to this headline">¶</a></h2>
 <p>The idea pitched above is appicable for 2 input variables as well, just that in that case there will be an increase in dimensionality.</p>
 <div class="figure align-default" id="image21">
-<a class="reference internal image-reference" href="../../_images/image211.png"><img alt="../../_images/image211.png" src="../../_images/image211.png" style="height: 250px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image211.png"><img alt="../../_images/image211.png" src="../../_images/image211.png" style="height: 350px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">(a) Bump changes to tower in higher dimension (b) Many such towers</span><a class="headerlink" href="#image21" title="Permalink to this image">¶</a></p>
 </div>
 <p>By gluing together many such networks we can get as many towers as we want, and so approximate an arbitrary function of three variables. Exactly the same idea works in <span class="math notranslate nohighlight">\(m\)</span> dimensions. The only change needed is to make the output bias <span class="math notranslate nohighlight">\((−m+1/2)h\)</span>, in order to get the right kind of sandwiching behavior to level the plateau.</p>
 <p>Okay, so we now know how to use neural networks to approximate a real-valued function of many variables. What about vector-valued functions <span class="math notranslate nohighlight">\(f(x_1,…,x_m)\epsilon R_n\)</span>? Of course, such a function can be regarded as just <span class="math notranslate nohighlight">\(n\)</span> separate real-valued functions, <span class="math notranslate nohighlight">\(f^1(x_1,…,x_m),f^2(x_1,…,x_m)\)</span>, and so on. So we create a network approximating <span class="math notranslate nohighlight">\(f_1\)</span>, another network for <span class="math notranslate nohighlight">\(f_2\)</span>, and so on. And then we simply glue all the networks together. So that’s also easy to cope with.</p>
@@ -534,7 +535,7 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
 <div class="card-body docutils">
 <div class="figure align-default" id="id4">
 <img alt="../../_images/image1.gif" src="../../_images/image1.gif" />
-<p class="caption"><span class="caption-number">Fig. 23 </span><span class="caption-text">A Neural Network slowly approximating the function</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 23 </span><span class="caption-text">A Neural Network slowly approximating the Sine function</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
