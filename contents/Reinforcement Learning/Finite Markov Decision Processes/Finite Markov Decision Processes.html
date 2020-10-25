@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 <html>
@@ -7,9 +6,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Finite Markov Decision Processes &#8212; The Open Source Machine Learning Book</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
-    <link href="../../../_static/css/index.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css" type="text/css" />
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -17,6 +33,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -25,8 +44,8 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -41,8 +60,8 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="prev" title="Understanding Convolutions in Depth" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20Convolutions%20in%20Depth.html" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="docsearch:language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
 
 
 
@@ -76,6 +95,18 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../../../intro.html">
    About this Book
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Neural Network
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Neural%20Network/Neural%20Networks%20as%20Universal%20Approximators.html">
+   Neural Networks as Universal Approximators
   </a>
  </li>
 </ul>
@@ -191,7 +222,8 @@
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
@@ -200,6 +232,7 @@
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
         <div class="tocsection onthispage pt-5 pb-3">
             <i class="fas fa-list"></i> Contents
         </div>
@@ -335,6 +368,7 @@
 </ul>
 
         </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -361,7 +395,7 @@ tension and discuss some of the trade-offs and challenges that it implies.</p>
 <p>More specifically, the agent and environment interact at each of a sequence of discrete time steps, <span class="math notranslate nohighlight">\(t = 0, 1, 2, 3, ....\)</span> At each time step <span class="math notranslate nohighlight">\(t\)</span>, the agent receives some representation of the environment’s <strong>state</strong>, <span class="math notranslate nohighlight">\(S_t ∈ S\)</span>, where <span class="math notranslate nohighlight">\(S\)</span> is the set of possible states, and on that basis selects an action, <span class="math notranslate nohighlight">\(A_t ∈ A(S_t),\)</span> where <span class="math notranslate nohighlight">\(A(S_t)\)</span> is the set of actions available in state <span class="math notranslate nohighlight">\(S_t\)</span> . One time step later, in part as a consequence of its action, the agent receives a numerical reward , <span class="math notranslate nohighlight">\(R_{t+1} ∈ \mathbb{R}\)</span>, and finds itself in a new state, <span class="math notranslate nohighlight">\(S_{t+1}\)</span>.</p>
 <div class="figure align-default" id="image1">
 <a class="reference internal image-reference" href="../../../_images/image11.png"><img alt="../../../_images/image11.png" src="../../../_images/image11.png" style="height: 180px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">The agent–environment interaction in reinforcement learning.</span><a class="headerlink" href="#image1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 32 </span><span class="caption-text">The agent–environment interaction in reinforcement learning.</span><a class="headerlink" href="#image1" title="Permalink to this image">¶</a></p>
 </div>
 <p><span style="color:blue">At each time step, the agent implements a mapping from states to probabilities of selecting each possible action. This mapping is called the agent’s <strong>policy</strong> and is denoted <span class="math notranslate nohighlight">\(\pi_t\)</span> , where <span class="math notranslate nohighlight">\(\pi_t(a|s)\)</span> is the probability that <span class="math notranslate nohighlight">\(A_t = a\)</span> if <span class="math notranslate nohighlight">\(S_t = s\)</span>. Reinforcement learning methods specify how the agent changes its policy as a result of its experience.</span> The agent’s goal, roughly speaking, is to maximize the total amount of reward it receives over the long run. This framework is abstract and flexible and can be applied to many different problems in many different ways. For example, the time steps need not refer to fixed intervals of real time; they can refer to arbitrary successive stages of decision-making and acting. The actions can be low-level controls, such as the voltages applied to the motors of a robot arm, or high-level decisions, such
 as whether or not to have lunch or to go to graduate school. Similarly, the states can take a wide variety of forms. They can be completely determined by low-level sensations, such as direct sensor readings, or they can be more high-level and abstract, such as symbolic descriptions of objects in a room. Some of what makes up a state could be based on memory of past sensations or even be entirely mental or subjective. For example, an agent could be in the state of not being sure where an object is, or of having just been surprised in some clearly defined sense. Similarly, some actions might be totally mental or computational. For example, some actions might control what an agent chooses to think about, or where it focuses its attention. In general, actions can be any decisions we want to learn how to make, and the states can be anything we can know that might be useful in making them. In particular, the boundary between agent and environment is not often the same as the physical boundary of a robot’s or animal’s body. Usually, the boundary is drawn closer to the agent than that. For example, the motors and mechanical linkages of a robot and its sensing hardware should usually be considered parts of the environment rather than parts of the agent. Similarly, if we apply the framework to a person or animal, the muscles, skeleton, and sensory organs should be considered part of the environment. Rewards, too,
@@ -439,7 +473,7 @@ maximize immediate reward can reduce access to future rewards so that the return
 <h3>Example: Pole-Balancing State<a class="headerlink" href="#example-pole-balancing-state" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default" id="image2">
 <a class="reference internal image-reference" href="../../../_images/image21.png"><img alt="../../../_images/image21.png" src="../../../_images/image21.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">The pole-balancing task.</span><a class="headerlink" href="#image2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 33 </span><span class="caption-text">The pole-balancing task.</span><a class="headerlink" href="#image2" title="Permalink to this image">¶</a></p>
 </div>
 <p>The above figure shows a task that served as an early illustration of reinforcement learning. The objective here is to apply forces to a cart moving along a track so as to keep a pole hinged to the cart from falling over. A failure is said to occur if the pole falls past a given angle from vertical or if the cart runs off the track. The pole is reset to vertical after each failure. This task could be treated as episodic, where the natural episodes are the repeated attempts to balance the pole. The reward in this case could be <span class="math notranslate nohighlight">\(+1\)</span> for every time step on which failure did not occur, so that the return at each time would be the number of steps until failure. Alternatively, we could treat pole-balancing as a continuing task, using discounting. In this case the reward would be <span class="math notranslate nohighlight">\(−1\)</span> on each failure and zero at all other times. The return at each time would then be related to <span class="math notranslate nohighlight">\(-\gamma^K\)</span> , where <span class="math notranslate nohighlight">\(K\)</span> is the number of time steps before failure. In either case, the return is maximized by keeping the pole balanced for as long as possible.</p>
 </div>
@@ -450,7 +484,7 @@ maximize immediate reward can reduce access to future rewards so that the return
 <p>We need one other convention to obtain a single notation that covers both episodic and continuing tasks. We have defined the return as a sum over a finite number of terms in one case <a class="reference internal" href="#equation-eq1">(1)</a> and as a sum over an infinite number of terms in the other <a class="reference internal" href="#equation-eq2">(2)</a>. These can be unified by considering episode termination to be the entering of a special absorbing state that transitions only to itself and that generates only rewards of zero. For example, consider the state transition diagram:</p>
 <div class="figure align-default" id="image3">
 <a class="reference internal image-reference" href="../../../_images/image31.png"><img alt="../../../_images/image31.png" src="../../../_images/image31.png" style="height: 100px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">State Transition diagram</span><a class="headerlink" href="#image3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 34 </span><span class="caption-text">State Transition diagram</span><a class="headerlink" href="#image3" title="Permalink to this image">¶</a></p>
 </div>
 <p>Here the solid square represents the special absorbing state corresponding to the end of an episode. Starting from <span class="math notranslate nohighlight">\(S_0\)</span> , we get the reward sequence <span class="math notranslate nohighlight">\(+1, +1, +1, 0, 0, 0, . . .\)</span>. Summing these, we get the same return whether we sum over the first <span class="math notranslate nohighlight">\(T\)</span> rewards (here <span class="math notranslate nohighlight">\(T\)</span> = 3) or over the full infinite sequence. This remains true even if we introduce discounting. Thus, we can define the return, in general, using the convention of omitting episode numbers when they are not needed, and including the possibility that <span class="math notranslate nohighlight">\(\gamma = 1\)</span> if the sum remains defined (e.g., because all episodes terminate). Alternatively, we can also write the return as</p>
 <div class="math notranslate nohighlight" id="equation-eq3">
@@ -546,7 +580,7 @@ A(low) = \{search, wait, recharge\}
 <p>If the energy level is high, then a period of active search can always be completed without risk of depleting the battery. A period of searching that begins with a high energy level leaves the energy level high with probability <span class="math notranslate nohighlight">\(\alpha\)</span> and reduces it to low with probability <span class="math notranslate nohighlight">\(1- \alpha\)</span>. On the other hand, a period of searching undertaken when the energy level is low leaves it low with probability <span class="math notranslate nohighlight">\(\beta\)</span> and depletes the battery with probability <span class="math notranslate nohighlight">\(1- \beta\)</span>. In the latter case, the robot must be rescued, and the battery is then recharged back to high. Each can collected by the robot counts as <span class="math notranslate nohighlight">\(+1\)</span> reward, whereas a reward of <span class="math notranslate nohighlight">\(−3\)</span> results whenever the robot has to be rescued. Let <span class="math notranslate nohighlight">\(r_{search}\)</span> and <span class="math notranslate nohighlight">\(r_{wait} \)</span>, with <span class="math notranslate nohighlight">\(r_{search} &gt; r_{wait} \)</span> , respectively denote the expected number of cans the robot will collect (and hence the expected reward) while searching and while waiting. Finally, to keep things simple, suppose that no cans can be collected during a run home for recharging, and that no cans can be collected on a step in which the battery is depleted. This system is then a finite MDP, and we can write down the transition probabilities and the expected rewards, as in the below table</p>
 <div class="figure align-default" id="image4">
 <a class="reference internal image-reference" href="../../../_images/image41.png"><img alt="../../../_images/image41.png" src="../../../_images/image41.png" style="height: 250px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Transition probabilities and expected rewards for the finite MDP of the recycling robot example. There is a row for each possible combination
+<p class="caption"><span class="caption-number">Fig. 35 </span><span class="caption-text">Transition probabilities and expected rewards for the finite MDP of the recycling robot example. There is a row for each possible combination
 of current state, <span class="math notranslate nohighlight">\(s\)</span>, next state, <span class="math notranslate nohighlight">\(s^\prime\)</span> , and action possible in the current state, <span class="math notranslate nohighlight">\(a ∈ A(s)\)</span>.</span><a class="headerlink" href="#image4" title="Permalink to this image">¶</a></p>
 </div>
 <p>A transition graph is a useful way to summarize the dynamics of a finite MDP. Figure below shows the transition graph for the recycling robot example. There are two kinds of nodes:</p>
@@ -556,7 +590,7 @@ of current state, <span class="math notranslate nohighlight">\(s\)</span>, next 
 </ul>
 <div class="figure align-default" id="image5">
 <a class="reference internal image-reference" href="../../../_images/image51.png"><img alt="../../../_images/image51.png" src="../../../_images/image51.png" style="height: 250px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">Transition graph for the recycling robot example</span><a class="headerlink" href="#image5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 36 </span><span class="caption-text">Transition graph for the recycling robot example</span><a class="headerlink" href="#image5" title="Permalink to this image">¶</a></p>
 </div>
 <p>There is a state node for each possible state (a large open circle labeled by the name of the state), and an action node for each state–action pair (a small solid circle labeled by the name of the action and connected by a line to the state node). Starting in state <span class="math notranslate nohighlight">\(s\)</span> and taking action <span class="math notranslate nohighlight">\(a\)</span> moves you along the line from state node <span class="math notranslate nohighlight">\(s\)</span> to action node <span class="math notranslate nohighlight">\((s, a)\)</span>. Then the environment responds with a transition to the next state’s node via one of the arrows leaving action node <span class="math notranslate nohighlight">\((s, a)\)</span>. Each arrow corresponds to a triple <span class="math notranslate nohighlight">\((s, s^\prime, a)\)</span>, where <span class="math notranslate nohighlight">\(s^\prime\)</span> is the next state, and we label the arrow with the transition probability, <span class="math notranslate nohighlight">\(p(s^\prime |s, a)\)</span>, and the expected reward for that transition <span class="math notranslate nohighlight">\(r(s, a, s^\prime)\)</span>. Note that the transition probabilities labeling the arrows leaving an action node always sum to <span class="math notranslate nohighlight">\(1\)</span>.</p>
 </div>
@@ -603,7 +637,7 @@ the final expression can be read very easily as an expected value. It is really
 a sum over all values of the three variables, <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(s^\prime\)</span> , and <span class="math notranslate nohighlight">\(r\)</span>.</p>
 <div class="figure align-default" id="image11">
 <a class="reference internal image-reference" href="../../../_images/image111.png"><img alt="../../../_images/image111.png" src="../../../_images/image111.png" style="height: 300px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text"><a class="reference external" href="https://towardsdatascience.com/reinforcement-learning-rl-101-with-python-e1aa0d37d43b">Source</a></span><a class="headerlink" href="#image11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 37 </span><span class="caption-text"><a class="reference external" href="https://towardsdatascience.com/reinforcement-learning-rl-101-with-python-e1aa0d37d43b">Source</a></span><a class="headerlink" href="#image11" title="Permalink to this image">¶</a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -622,7 +656,7 @@ each of these, the environment could respond with one of several next states,
 possibilities, weighting each by its probability of occurring. It states that the value of the start state must equal the (discounted) value of the expected next state, plus the reward expected along the way.</span></p>
 <div class="figure align-default" id="image6">
 <a class="reference internal image-reference" href="../../../_images/image61.png"><img alt="../../../_images/image61.png" src="../../../_images/image61.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_\pi\)</span> and (b) <span class="math notranslate nohighlight">\(q_\pi\)</span></span><a class="headerlink" href="#image6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 38 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_\pi\)</span> and (b) <span class="math notranslate nohighlight">\(q_\pi\)</span></span><a class="headerlink" href="#image6" title="Permalink to this image">¶</a></p>
 </div>
 <p>The value function <span class="math notranslate nohighlight">\(v_\pi\)</span>is the unique solution to its Bellman equation. We
 show in subsequent chapters how this Bellman equation forms the basis of a
@@ -636,7 +670,7 @@ explicit arrowheads because time always flows downward in a backup diagram.)</p>
 <h3>Example: Gridworld<a class="headerlink" href="#example-gridworld" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default" id="image7">
 <a class="reference internal image-reference" href="../../../_images/image7.png"><img alt="../../../_images/image7.png" src="../../../_images/image7.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">Grid example: (a) exceptional reward dynamics; (b) state-value function for the equiprobable random policy.</span><a class="headerlink" href="#image7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 39 </span><span class="caption-text">Grid example: (a) exceptional reward dynamics; (b) state-value function for the equiprobable random policy.</span><a class="headerlink" href="#image7" title="Permalink to this image">¶</a></p>
 </div>
 <p>The above figure uses a rectangular grid to illustrate
 value functions for a simple finite MDP. The cells of the grid correspond to
@@ -669,7 +703,7 @@ v_{center} = \frac{0.9 * (2.3 + 0.7 - 0.4 + 0.4)}{4} = 0.7\\v_{lefttopcorner} = 
 <h3>Example: Golf<a class="headerlink" href="#example-golf" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default" id="image8">
 <a class="reference internal image-reference" href="../../../_images/image81.png"><img alt="../../../_images/image81.png" src="../../../_images/image81.png" style="height: 400px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">A golf example: the state-value function for putting (above) and the optimal action-value function for using the driver (below).</span><a class="headerlink" href="#image8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 40 </span><span class="caption-text">A golf example: the state-value function for putting (above) and the optimal action-value function for using the driver (below).</span><a class="headerlink" href="#image8" title="Permalink to this image">¶</a></p>
 </div>
 <p>To formulate playing a hole of golf as a reinforcement learning task, we count a penalty (negative reward) of <span class="math notranslate nohighlight">\(−1\)</span> for each stroke until
 we hit the ball into the hole. The state is the location of the ball. The value of
@@ -763,7 +797,7 @@ q_{*}(s, a) = E[R_{t+1} + \gamma * max_a^\prime q_*(S_{t+1}, a^\prime) | S_t =s,
 \end{split}\]</div>
 <div class="figure align-default" id="image9">
 <a class="reference internal image-reference" href="../../../_images/image9.png"><img alt="../../../_images/image9.png" src="../../../_images/image9.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_*\)</span> and (b) <span class="math notranslate nohighlight">\(q_*\)</span></span><a class="headerlink" href="#image9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 41 </span><span class="caption-text">Backup diagrams for (a) <span class="math notranslate nohighlight">\(v_*\)</span> and (b) <span class="math notranslate nohighlight">\(q_*\)</span></span><a class="headerlink" href="#image9" title="Permalink to this image">¶</a></p>
 </div>
 <p>The backup diagrams above show graphically the spans of future
 states and actions considered in the Bellman optimality equations for <span class="math notranslate nohighlight">\(v_*\)</span> and
@@ -849,7 +883,7 @@ two nonlinear equations.</p>
 <h3>Example: Solving the Gridworld<a class="headerlink" href="#example-solving-the-gridworld" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default" id="image10">
 <a class="reference internal image-reference" href="../../../_images/image10.png"><img alt="../../../_images/image10.png" src="../../../_images/image10.png" style="height: 150px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Optimal solutions to the gridworld example.</span><a class="headerlink" href="#image10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 42 </span><span class="caption-text">Optimal solutions to the gridworld example.</span><a class="headerlink" href="#image10" title="Permalink to this image">¶</a></p>
 </div>
 <p>Suppose we solve the Bellman
 equation for <span class="math notranslate nohighlight">\(v_*\)</span> for the simple grid task introduced earlier. Recall that state <span class="math notranslate nohighlight">\(A\)</span> is followed by a reward of <span class="math notranslate nohighlight">\(+10\)</span> and
@@ -1041,7 +1075,10 @@ cannot be found but must be approximated in some way.</p>
       </div>
     </div>
 
-    <script src="../../../_static/js/index.js"></script>
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
     
   </body>
 </html>
