@@ -231,9 +231,10 @@ The idea pitched above is appicable for 2 input variables as well, just that in 
 
 ```{figure} ./image21.png
 ---
-height: 250px
+height: 350px
 name: image21
 ---
+(a) Bump changes to tower in higher dimension (b) Many such towers
 ```
 
 By gluing together many such networks we can get as many towers as we want, and so approximate an arbitrary function of three variables. Exactly the same idea works in $m$ dimensions. The only change needed is to make the output bias $(−m+1/2)h$, in order to get the right kind of sandwiching behavior to level the plateau.
@@ -373,7 +374,7 @@ for i in range(0,20): # for loop is needed just to visualize the training progre
 ---
 
 ```{figure} ./image1.gif
-A Neural Network slowly approximating the function
+A Neural Network slowly approximating the Sine function
 ```
 ````
 
