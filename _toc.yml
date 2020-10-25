@@ -1,4 +1,7 @@
 - file: intro
+- part: Neural Network
+  chapters:
+  - file: contents/Neural Network/Neural Networks as Universal Approximators
 - part: Convolutional Neural Networks
   chapters:
   - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Convolutional Neural Networks for Visual Recognition
