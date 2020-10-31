@@ -268,7 +268,7 @@ What properties does s(z) need to satisfy in order for this to work?
  - We also need to assume that these limits are different from one another. If they weren't, there'd be no step, simply a flat graph! But provided the activation function $s(z)$ satisfies these properties, neurons based on such an activation function are universal for computation.
 
 ```{note}
-Rectified Linear Unit(ReLU) don't satisfy the conditions just given for universality.
+Rectified Linear Unit(ReLU) does not satisfy the conditions just given for universality.
 ```
 
 ## Fixing up the step functions
@@ -357,7 +357,7 @@ def plotgraph(X, Y, res,i): # to plot the graph
     plt.legend()
     plt.show()    
 
-for i in range(0,20): # for loop is needed just to visualize the training progress, it can be removed
+for i in range(0,10): # for loop is needed just to visualize the training progress, it can be removed
     
     model = Sequential()
     model.add(Dense(50, input_dim=X.shape[1], activation='relu'))
