@@ -59,7 +59,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Convolutional Neural Networks" href="../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html" />
-    <link rel="prev" title="About this Book" href="../../intro.html" />
+    <link rel="prev" title="Linked Lists" href="../Python/Linked%20Lists/Linked%20Lists.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -101,7 +101,24 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Neural Network
+  Python
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Python/Classes%20and%20Objects/Classes%20and%20Objects.html">
+   Classes and Objects
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Python/Linked%20Lists/Linked%20Lists.html">
+   Linked Lists
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Neural Networks
  </span>
 </p>
 <ul class="current nav sidenav_l1">
@@ -308,16 +325,16 @@ Few materials are of my own</p>
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>One of the most striking facts about neural networks is that they can compute any function at all. That is, suppose someone hands you some complicated, wiggly function, <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
 <div class="figure align-default" id="image2">
-<a class="reference internal image-reference" href="../../_images/image22.png"><img alt="../../_images/image22.png" src="../../_images/image22.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)\)</span></span><a class="headerlink" href="#image2" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/image21.png"><img alt="../../_images/image21.png" src="../../_images/image21.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)\)</span></span><a class="headerlink" href="#image2" title="Permalink to this image">¶</a></p>
 </div>
 <p>No matter what the function, there is guaranteed to be a neural network so that for every possible input, <span class="math notranslate nohighlight">\(x\)</span>, the value <span class="math notranslate nohighlight">\(f(x)\)</span> (or some close approximation) is output from the network, e.g.:</p>
 <div class="figure align-default" id="image3">
-<a class="reference internal image-reference" href="../../_images/image32.png"><img alt="../../_images/image32.png" src="../../_images/image32.png" style="height: 200px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image31.png"><img alt="../../_images/image31.png" src="../../_images/image31.png" style="height: 200px;" /></a>
 </div>
 <p>This result holds even if the function has many inputs, <span class="math notranslate nohighlight">\(f=f(x_1,…,x_m)\)</span>, and many outputs. For instance, here’s a network computing a function with <span class="math notranslate nohighlight">\(m=3\)</span> inputs and <span class="math notranslate nohighlight">\(n=2\)</span> outputs:</p>
 <div class="figure align-default" id="image4">
-<a class="reference internal image-reference" href="../../_images/image42.png"><img alt="../../_images/image42.png" src="../../_images/image42.png" style="height: 250px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image41.png"><img alt="../../_images/image41.png" src="../../_images/image41.png" style="height: 250px;" /></a>
 </div>
 <p>This result tells us that neural networks have a kind of universality. No matter what function we want to compute, we know that there is a neural network which can do the job.</p>
 <p>What’s more, this universality theorem holds even if we restrict our networks to have just a single layer intermediate between the input and the output neurons - a so-called single hidden layer. So even very simple network architectures can be extremely powerful.</p>
@@ -331,7 +348,7 @@ Few materials are of my own</p>
 <p>Before explaining why the universality theorem is true, I want to mention two caveats to the informal statement “a neural network can compute any function”.</p>
 <p><span style="color:blue">First, this doesn’t mean that a network can be used to exactly compute any function. Rather, we can get an approximation that is as good as we want.</span> By increasing the number of hidden neurons we can improve the approximation. For instance, earlier I illustrated a network computing some function <span class="math notranslate nohighlight">\(f(x)\)</span> using three hidden neurons. For most functions only a low-quality approximation will be possible using three hidden neurons. By increasing the number of hidden neurons (say, to five) we can typically get a better approximation:</p>
 <div class="figure align-default" id="image5">
-<a class="reference internal image-reference" href="../../_images/image52.png"><img alt="../../_images/image52.png" src="../../_images/image52.png" style="height: 250px;" /></a>
+<a class="reference internal image-reference" href="../../_images/image51.png"><img alt="../../_images/image51.png" src="../../_images/image51.png" style="height: 250px;" /></a>
 </div>
 <p>And we can do still better by further increasing the number of hidden neurons.</p>
 <p>To make this statement more precise, suppose we’re given a function <span class="math notranslate nohighlight">\(f(x)\)</span> which we’d like to compute to within some desired accuracy <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span>. The guarantee is that by using enough hidden neurons we can always find a neural network whose output <span class="math notranslate nohighlight">\(g(x)\)</span> satisfies <span class="math notranslate nohighlight">\(|g(x)−f(x)|&lt;\epsilon\)</span>, for all inputs <span class="math notranslate nohighlight">\(x\)</span>. In other words, the approximation will be good to within the desired accuracy for every possible input.</p>
@@ -342,38 +359,38 @@ Few materials are of my own</p>
 <h2>Universality with one input and one output<a class="headerlink" href="#universality-with-one-input-and-one-output" title="Permalink to this headline">¶</a></h2>
 <p>To understand why the universality theorem is true, let’s start by understanding how to construct a neural network which approximates a function with just one input and one output:</p>
 <div class="figure align-default" id="id1">
-<a class="reference internal image-reference" href="../../_images/image22.png"><img alt="../../_images/image22.png" src="../../_images/image22.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)\)</span></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/image21.png"><img alt="../../_images/image21.png" src="../../_images/image21.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text"><span class="math notranslate nohighlight">\(f(x)\)</span></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>It turns out that this is the core of the problem of universality. Once we’ve understood this special case it’s actually pretty easy to extend to functions with many inputs and many outputs.</p>
 <p>To build insight into how to construct a network to compute <span class="math notranslate nohighlight">\(f\)</span>, let’s start with a network containing just a single hidden layer, with two hidden neurons and an output layer containing a single output neuron:</p>
 <div class="figure align-default" id="image6">
-<a class="reference internal image-reference" href="../../_images/image62.png"><img alt="../../_images/image62.png" src="../../_images/image62.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">A network containing just a single hidden layer, with two hidden neurons and an output layer containing a single output neuron</span><a class="headerlink" href="#image6" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/image61.png"><img alt="../../_images/image61.png" src="../../_images/image61.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">A network containing just a single hidden layer, with two hidden neurons and an output layer containing a single output neuron</span><a class="headerlink" href="#image6" title="Permalink to this image">¶</a></p>
 </div>
 <p>To get a feel for how components in the network work, let’s focus on the top hidden neuron.</p>
 <div class="figure align-default" id="image7">
 <a class="reference internal image-reference" href="../../_images/image71.gif"><img alt="../../_images/image71.gif" src="../../_images/image71.gif" style="height: 250px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">What’s being computed by the hidden neuron is <span class="math notranslate nohighlight">\(σ(wx+b)\)</span>, where <span class="math notranslate nohighlight">\(σ(z)≡1/(1+e^{−z})\)</span> is the sigmoid function.
+<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">What’s being computed by the hidden neuron is <span class="math notranslate nohighlight">\(σ(wx+b)\)</span>, where <span class="math notranslate nohighlight">\(σ(z)≡1/(1+e^{−z})\)</span> is the sigmoid function.
 As the bias <span class="math notranslate nohighlight">\(b\)</span> increases the graph moves to the left, but its shape doesn’t change and as the bias decreases the graph moves to the right, but, again, its shape doesn’t change.
 As we decrease the weight, the curve broadens out and if we increase the weight up past <span class="math notranslate nohighlight">\(w=100\)</span>, the curve gets steeper, until eventually it begins to look like a step function.</span><a class="headerlink" href="#image7" title="Permalink to this image">¶</a></p>
 </div>
 <p>We can simplify our analysis quite a bit by increasing the weight so much that the output really is a step function, to a very good approximation. Below I’ve plotted the output from the top hidden neuron when the weight is <span class="math notranslate nohighlight">\(w=999\)</span>.</p>
 <div class="figure align-default" id="image8">
-<a class="reference internal image-reference" href="../../_images/image82.png"><img alt="../../_images/image82.png" src="../../_images/image82.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Output as a step function</span><a class="headerlink" href="#image8" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/image81.png"><img alt="../../_images/image81.png" src="../../_images/image81.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Output as a step function</span><a class="headerlink" href="#image8" title="Permalink to this image">¶</a></p>
 </div>
 <p>It’s actually quite a bit easier to work with step functions than general sigmoid functions. The reason is that in the output layer we add up contributions from all the hidden neurons. It’s easy to analyze the sum of a bunch of step functions, but rather more difficult to reason about what happens when you add up a bunch of sigmoid shaped curves. And so it makes things much easier to assume that our hidden neurons are outputting step functions. More concretely, we do this by fixing the weight w to be some very large value, and then setting the position of the step by modifying the bias. Of course, treating the output as a step function is an approximation, but it’s a very good approximation, and for now we’ll treat it as exact. I’ll come back later to discuss the impact of deviations from this approximation.</p>
 <p>At what value of <span class="math notranslate nohighlight">\(x\)</span> does the step occur? Put another way, how does the position of the step depend upon the weight and bias? With a little work you should be able to convince yourself that the position of the step is proportional to <span class="math notranslate nohighlight">\(b\)</span>, and inversely proportional to <span class="math notranslate nohighlight">\(w\)</span>. In fact, the step is at position <span class="math notranslate nohighlight">\(s=−b/w\)</span>, as you can see by modifying the weight and bias in the following diagram:</p>
 <div class="figure align-default" id="image9">
-<a class="reference internal image-reference" href="../../_images/image91.png"><img alt="../../_images/image91.png" src="../../_images/image91.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text"><span class="math notranslate nohighlight">\(s=−b/w\)</span></span><a class="headerlink" href="#image9" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/image9.png"><img alt="../../_images/image9.png" src="../../_images/image9.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text"><span class="math notranslate nohighlight">\(s=−b/w\)</span></span><a class="headerlink" href="#image9" title="Permalink to this image">¶</a></p>
 </div>
 <p>It will greatly simplify our lives to describe hidden neurons using just a single parameter, <span class="math notranslate nohighlight">\(s\)</span>, which is the step position, <span class="math notranslate nohighlight">\(s=−b/w\)</span>.</p>
 <p>Up to now we’ve been focusing on the output from just the top hidden neuron. Let’s take a look at the behavior of the entire network. In particular, we’ll suppose the hidden neurons are computing step functions parameterized by step points <span class="math notranslate nohighlight">\(s_1\)</span> (top neuron) and <span class="math notranslate nohighlight">\(s_2\)</span> (bottom neuron). And they’ll have respective output weights <span class="math notranslate nohighlight">\(w1\)</span> and <span class="math notranslate nohighlight">\(w2\)</span>. Here’s the network:</p>
 <div class="figure align-default" id="image10">
 <a class="reference internal image-reference" href="../../_images/image10.gif"><img alt="../../_images/image10.gif" src="../../_images/image10.gif" style="height: 250px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">What’s being plotted on the right is the weighted output <span class="math notranslate nohighlight">\(w_1 a_1+w_2 a_2\)</span> from the hidden layer. Here, <span class="math notranslate nohighlight">\(a_1\)</span> and <span class="math notranslate nohighlight">\(a_2\)</span> are the outputs from the top and bottom hidden neurons, respectively. These outputs are denoted with as because they’re often known as the neurons’ activations.</span><a class="headerlink" href="#image10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">What’s being plotted on the right is the weighted output <span class="math notranslate nohighlight">\(w_1 a_1+w_2 a_2\)</span> from the hidden layer. Here, <span class="math notranslate nohighlight">\(a_1\)</span> and <span class="math notranslate nohighlight">\(a_2\)</span> are the outputs from the top and bottom hidden neurons, respectively. These outputs are denoted with as because they’re often known as the neurons’ activations.</span><a class="headerlink" href="#image10" title="Permalink to this image">¶</a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -382,17 +399,17 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
 <p>Of course, we can rescale the bump to have any height at all. Let’s use a single parameter, <span class="math notranslate nohighlight">\(h\)</span>, to denote the height. To reduce clutter we’ll also remove the <span class="math notranslate nohighlight">\(s_1...\)</span> and <span class="math notranslate nohighlight">\(w_1...\)</span> notations.</p>
 <div class="figure align-default" id="image11">
 <a class="reference internal image-reference" href="../../_images/image11.gif"><img alt="../../_images/image11.gif" src="../../_images/image11.gif" style="height: 250px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Changing the value of <span class="math notranslate nohighlight">\(h\)</span> up and down, to see how the height of the bump changes</span><a class="headerlink" href="#image11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Changing the value of <span class="math notranslate nohighlight">\(h\)</span> up and down, to see how the height of the bump changes</span><a class="headerlink" href="#image11" title="Permalink to this image">¶</a></p>
 </div>
 <p>We can use our bump-making trick to get two bumps, by gluing two pairs of hidden neurons together into the same network. More generally, we can use this idea to get as many peaks as we want, of any height. In particular, we can divide the interval <span class="math notranslate nohighlight">\([0,1]\)</span> up into a large number, <span class="math notranslate nohighlight">\(N\)</span>, of subintervals, and use <span class="math notranslate nohighlight">\(N\)</span> pairs of hidden neurons to set up peaks of any desired height. Let’s see how this works for <span class="math notranslate nohighlight">\(N=5\)</span>.</p>
 <div class="figure align-default" id="image12">
 <a class="reference internal image-reference" href="../../_images/image12.png"><img alt="../../_images/image12.png" src="../../_images/image12.png" style="height: 350px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">You can see that there are five pairs of hidden neurons. The step points for the respective pairs of neurons are <span class="math notranslate nohighlight">\(0,1/5\)</span>, then <span class="math notranslate nohighlight">\(1/5,2/5\)</span>, and so on, out to <span class="math notranslate nohighlight">\(4/5,5/5\)</span>. These values are fixed - they make it so we get five evenly spaced bumps on the graph.</span><a class="headerlink" href="#image12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">You can see that there are five pairs of hidden neurons. The step points for the respective pairs of neurons are <span class="math notranslate nohighlight">\(0,1/5\)</span>, then <span class="math notranslate nohighlight">\(1/5,2/5\)</span>, and so on, out to <span class="math notranslate nohighlight">\(4/5,5/5\)</span>. These values are fixed - they make it so we get five evenly spaced bumps on the graph.</span><a class="headerlink" href="#image12" title="Permalink to this image">¶</a></p>
 </div>
 <p>Let’s think back to the function I plotted at the beginning of the chapter:</p>
 <div class="figure align-default" id="id2">
-<a class="reference internal image-reference" href="../../_images/image22.png"><img alt="../../_images/image22.png" src="../../_images/image22.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">The function is actually <span class="math notranslate nohighlight">\(f(x)=0.2+0.4x^2+0.3xsin(15x)+0.05cos(50x)\)</span> plotted over <span class="math notranslate nohighlight">\(x\)</span> from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(1\)</span>, and with the <span class="math notranslate nohighlight">\(y\)</span> axis taking values from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(1\)</span>.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/image21.png"><img alt="../../_images/image21.png" src="../../_images/image21.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 20 </span><span class="caption-text">The function is actually <span class="math notranslate nohighlight">\(f(x)=0.2+0.4x^2+0.3xsin(15x)+0.05cos(50x)\)</span> plotted over <span class="math notranslate nohighlight">\(x\)</span> from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(1\)</span>, and with the <span class="math notranslate nohighlight">\(y\)</span> axis taking values from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(1\)</span>.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>That’s obviously not a trivial function. We are going to figure out how to compute it using a neural network.</p>
 <p>In our networks above we’ve been analyzing the weighted combination <span class="math notranslate nohighlight">\(\sum w_ja_j\)</span> output from the hidden neurons. We now know how to get a lot of control over this quantity. But, as I noted earlier, this quantity is not what’s output from the network. What’s output from the network is <span class="math notranslate nohighlight">\(σ(∑w_j a_j+b)\)</span> where <span class="math notranslate nohighlight">\(b\)</span> is the bias on the output neuron. Is there some way we can achieve control over the actual output from the network?</p>
@@ -424,7 +441,7 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
 <p>The idea pitched above is appicable for 2 input variables as well, just that in that case there will be an increase in dimensionality.</p>
 <div class="figure align-default" id="image21">
 <a class="reference internal image-reference" href="../../_images/image211.png"><img alt="../../_images/image211.png" src="../../_images/image211.png" style="height: 350px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">(a) Bump changes to tower in higher dimension (b) Many such towers</span><a class="headerlink" href="#image21" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 23 </span><span class="caption-text">(a) Bump changes to tower in higher dimension (b) Many such towers</span><a class="headerlink" href="#image21" title="Permalink to this image">¶</a></p>
 </div>
 <p>By gluing together many such networks we can get as many towers as we want, and so approximate an arbitrary function of three variables. Exactly the same idea works in <span class="math notranslate nohighlight">\(m\)</span> dimensions. The only change needed is to make the output bias <span class="math notranslate nohighlight">\((−m+1/2)h\)</span>, in order to get the right kind of sandwiching behavior to level the plateau.</p>
 <p>Okay, so we now know how to use neural networks to approximate a real-valued function of many variables. What about vector-valued functions <span class="math notranslate nohighlight">\(f(x_1,…,x_m)\epsilon R_n\)</span>? Of course, such a function can be regarded as just <span class="math notranslate nohighlight">\(n\)</span> separate real-valued functions, <span class="math notranslate nohighlight">\(f^1(x_1,…,x_m),f^2(x_1,…,x_m)\)</span>, and so on. So we create a network approximating <span class="math notranslate nohighlight">\(f_1\)</span>, another network for <span class="math notranslate nohighlight">\(f_2\)</span>, and so on. And then we simply glue all the networks together. So that’s also easy to cope with.</p>
@@ -434,12 +451,12 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
 <p>We’ve proved that networks made up of sigmoid neurons can compute any function. Recall that in a sigmoid neuron the inputs <span class="math notranslate nohighlight">\(x_1,x_2,…\)</span> result in the output <span class="math notranslate nohighlight">\(σ(∑w_jx_j+b)\)</span>, where <span class="math notranslate nohighlight">\(w_j\)</span> are the weights, <span class="math notranslate nohighlight">\(b\)</span> is the bias, and <span class="math notranslate nohighlight">\(σ\)</span> is the sigmoid function. What if we consider a different type of neuron, one using some other activation function, <span class="math notranslate nohighlight">\(s(z)\)</span>?</p>
 <div class="figure align-default" id="id3">
 <a class="reference internal image-reference" href="../../_images/image15.png"><img alt="../../_images/image15.png" src="../../_images/image15.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text"><span class="math notranslate nohighlight">\(σ\)</span> vs <span class="math notranslate nohighlight">\(s(z)\)</span></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 24 </span><span class="caption-text"><span class="math notranslate nohighlight">\(σ\)</span> vs <span class="math notranslate nohighlight">\(s(z)\)</span></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <p>We can use this activation function to get a step function, just as we did with the sigmoid.</p>
 <div class="figure align-default" id="image16">
 <a class="reference internal image-reference" href="../../_images/image16.gif"><img alt="../../_images/image16.gif" src="../../_images/image16.gif" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Just as with the sigmoid, this causes the activation function to contract, and ultimately <span class="math notranslate nohighlight">\(s(z)\)</span> becomes a very good approximation to a step function.</span><a class="headerlink" href="#image16" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 25 </span><span class="caption-text">Just as with the sigmoid, this causes the activation function to contract, and ultimately <span class="math notranslate nohighlight">\(s(z)\)</span> becomes a very good approximation to a step function.</span><a class="headerlink" href="#image16" title="Permalink to this image">¶</a></p>
 </div>
 <p>What properties does s(z) need to satisfy in order for this to work?</p>
 <ul class="simple">
@@ -448,7 +465,7 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Rectified Linear Unit(ReLU) don’t satisfy the conditions just given for universality.</p>
+<p>Rectified Linear Unit(ReLU) does not satisfy the conditions just given for universality.</p>
 </div>
 </div>
 <div class="section" id="fixing-up-the-step-functions">
@@ -512,7 +529,7 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">):</span> <span class="c1"># for loop is needed just to visualize the training progress, it can be removed</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span> <span class="c1"># for loop is needed just to visualize the training progress, it can be removed</span>
     
     <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
     <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
@@ -535,7 +552,7 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
 <div class="card-body docutils">
 <div class="figure align-default" id="id4">
 <img alt="../../_images/image1.gif" src="../../_images/image1.gif" />
-<p class="caption"><span class="caption-number">Fig. 23 </span><span class="caption-text">A Neural Network slowly approximating the Sine function</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 30 </span><span class="caption-text">A Neural Network slowly approximating the Sine function</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -573,7 +590,7 @@ As we decrease the weight, the curve broadens out and if we increase the weight 
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../../intro.html" title="previous page">About this Book</a>
+    <a class='left-prev' id="prev-link" href="../Python/Linked%20Lists/Linked%20Lists.html" title="previous page">Linked Lists</a>
     <a class='right-next' id="next-link" href="../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html" title="next page">Convolutional Neural Networks</a>
 
     </div>

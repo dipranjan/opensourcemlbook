@@ -1,0 +1,738 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linked Lists &#8212; The Open Source Machine Learning Book</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../../_static/logo.gif"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Neural Networks as Universal Approximators" href="../../Neural%20Network/Neural%20Networks%20as%20Universal%20Approximators.html" />
+    <link rel="prev" title="Classes and Objects" href="../Classes%20and%20Objects/Classes%20and%20Objects.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/logo.gif" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">The Open Source Machine Learning Book</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../intro.html">
+   About this Book
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Python
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Classes%20and%20Objects/Classes%20and%20Objects.html">
+   Classes and Objects
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Linked Lists
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Neural Networks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Neural%20Network/Neural%20Networks%20as%20Universal%20Approximators.html">
+   Neural Networks as Universal Approximators
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Convolutional Neural Networks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html">
+   Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20and%20Visualizing%20Convolutional%20Neural%20Networks.html">
+   Understanding and Visualizing Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Transfer%20Learning%20and%20Fine-tuning%20Convolutional%20Neural%20Networks.html">
+   Transfer Learning and Fine-tuning Convolutional Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20Convolutions%20in%20Depth.html">
+   Understanding Convolutions in Depth
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Reinforcement Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Reinforcement%20Learning/Finite%20Markov%20Decision%20Processes/Finite%20Markov%20Decision%20Processes.html">
+   Finite Markov Decision Processes
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/contents/Python/Linked Lists/Linked Lists.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/dipranjan/opensourcemlbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/dipranjan/opensourcemlbook/issues/new?title=Issue%20on%20page%20%2Fcontents/Python/Linked Lists/Linked Lists.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/dipranjan/opensourcemlbook/edit/master/contents/Python/Linked Lists/Linked Lists.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#main-concepts">
+   Main Concepts
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practical-applications">
+   Practical Applications
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#queues-or-stacks">
+     Queues or Stacks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#graphs-wip">
+     Graphs (WIP)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performance-comparison-lists-vs-linked-lists-wip">
+   Performance Comparison: Lists vs Linked Lists (WIP)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#insertion-and-deletion-of-elements">
+     Insertion and Deletion of Elements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#retrieval-of-elements">
+     Retrieval of Elements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introducing-collections-deque">
+   Introducing
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     collections.deque
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-to-use-collections-deque">
+     How to Use collections.deque
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-to-implement-queues-and-stacks">
+     How to Implement Queues and Stacks#
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#queues">
+       Queues
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#stacks">
+       Stacks
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementing-your-own-linked-list">
+   Implementing Your Own Linked List
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="linked-lists">
+<h1>Linked Lists<a class="headerlink" href="#linked-lists" title="Permalink to this headline">¶</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Original Source:</p>
+<p><a class="reference external" href="https://realpython.com/linked-lists-python/">Linked Lists in Python: An Introduction</a></p>
+</div>
+<p>Linked lists are like a lesser-known cousin of lists. They’re not as popular or as cool, and you might not even remember them from your algorithms class. But in the right context, they can really shine.</p>
+<p>Linked lists are an ordered collection of objects. So what makes them different from normal lists? Linked lists differ from lists in the way that they store elements in memory. While lists use a continuous memory block to store references to their data, linked lists store references as part of their own elements.</p>
+<div class="section" id="main-concepts">
+<h2>Main Concepts<a class="headerlink" href="#main-concepts" title="Permalink to this headline">¶</a></h2>
+<p>Before going more in depth on what linked lists are and how you can use them, you should first learn how they are structured. Each element of a linked list is called a node, and every node has two different fields:</p>
+<ul class="simple">
+<li><p><strong>Data</strong> contains the value to be stored in the node.</p></li>
+<li><p><strong>Next</strong> contains a reference to the next node on the list.</p></li>
+</ul>
+<p>Here’s what a typical node looks like:</p>
+<div class="figure align-default" id="image1">
+<a class="reference internal image-reference" href="../../../_images/image14.png"><img alt="../../../_images/image14.png" src="../../../_images/image14.png" style="height: 100px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Node</span><a class="headerlink" href="#image1" title="Permalink to this image">¶</a></p>
+</div>
+<p>A linked list is a collection of nodes. <span style="color:blue">The first node is called the <strong>head</strong>, and it’s used as the starting point for any iteration through the list. The last node must have its next reference pointing to <strong>None</strong> to determine the end of the list.</span> Here’s how it looks:</p>
+<div class="figure align-default" id="image2">
+<a class="reference internal image-reference" href="../../../_images/image23.png"><img alt="../../../_images/image23.png" src="../../../_images/image23.png" style="height: 150px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Linked List</span><a class="headerlink" href="#image2" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="practical-applications">
+<h2>Practical Applications<a class="headerlink" href="#practical-applications" title="Permalink to this headline">¶</a></h2>
+<p>Linked lists serve a variety of purposes in the real world. They can be used to implement queues or stacks as well as graphs. They’re also useful for much more complex tasks, such as lifecycle management for an operating system application.</p>
+<div class="section" id="queues-or-stacks">
+<h3>Queues or Stacks<a class="headerlink" href="#queues-or-stacks" title="Permalink to this headline">¶</a></h3>
+<p><span style="color:blue">Queues and stacks differ only in the way elements are retrieved. For a queue, you use a First-In/First-Out (FIFO) approach.</span> That means that the first element inserted in the list is the first one to be retrieved:</p>
+<div class="figure align-default" id="image3">
+<a class="reference internal image-reference" href="../../../_images/image32.png"><img alt="../../../_images/image32.png" src="../../../_images/image32.png" style="height: 100px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Queue</span><a class="headerlink" href="#image3" title="Permalink to this image">¶</a></p>
+</div>
+<p>In the diagram above, you can see the front and rear elements of the queue. When you append new elements to the queue, they’ll go to the rear end. When you retrieve elements, they’ll be taken from the front of the queue.</p>
+<p><span style="color:blue">For a stack, you use a Last-In/Fist-Out (LIFO) approach,</span> meaning that the last element inserted in the list is the first to be retrieved:</p>
+<div class="figure align-default" id="image4">
+<a class="reference internal image-reference" href="../../../_images/image42.png"><img alt="../../../_images/image42.png" src="../../../_images/image42.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Stack</span><a class="headerlink" href="#image4" title="Permalink to this image">¶</a></p>
+</div>
+<p>In the above diagram you can see that the first element inserted on the stack (index 0) is at the bottom, and the last element inserted is at the top. Since stacks use the LIFO approach, the last element inserted (at the top) will be the first to be retrieved.</p>
+<p>Because of the way you insert and retrieve elements from the edges of queues and stacks, linked lists are one of the most convenient ways to implement these data structures.</p>
+</div>
+<div class="section" id="graphs-wip">
+<h3>Graphs (WIP)<a class="headerlink" href="#graphs-wip" title="Permalink to this headline">¶</a></h3>
+<p>Graphs can be used to show relationships between objects or to represent different types of networks. For example, a visual representation of a graph—say a directed acyclic graph (DAG)—might look like this:</p>
+<div class="figure align-default" id="image5">
+<a class="reference internal image-reference" href="../../../_images/image52.png"><img alt="../../../_images/image52.png" src="../../../_images/image52.png" style="height: 180px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">DAG</span><a class="headerlink" href="#image5" title="Permalink to this image">¶</a></p>
+</div>
+<p>There are different ways to implement graphs like the above, but one of the most common is to use an adjacency list. An adjacency list is, in essence, a list of linked lists where each vertex of the graph is stored alongside a collection of connected vertices:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Vertex</p></th>
+<th class="head"><p>Linked List of Vertices</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2 → 3 → None</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>4 → None</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>5 → 6 → None</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>6 → None</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+<p>In the table above, each vertex of your graph is listed in the left column. The right column contains a series of linked lists storing the other vertices connected with the corresponding vertex in the left column. This adjacency list could also be represented in code using a dict:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+	<span class="mi">2</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+	<span class="mi">3</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">],</span>
+	<span class="mi">4</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+	<span class="mi">5</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+	<span class="mi">6</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The keys of this dictionary are the source vertices, and the value for each key is a list. This list is usually implemented as a linked list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the above example you could avoid storing the <code class="docutils literal notranslate"><span class="pre">None</span></code> values, but we’ve retained them here for clarity and consistency with later examples.</p>
+</div>
+<p><span style="color:blue">In terms of both speed and memory, implementing graphs using adjacency lists is very efficient in comparison with, for example, an adjacency matrix. That’s why linked lists are so useful for graph implementation.</span></p>
+</div>
+</div>
+<div class="section" id="performance-comparison-lists-vs-linked-lists-wip">
+<h2>Performance Comparison: Lists vs Linked Lists (WIP)<a class="headerlink" href="#performance-comparison-lists-vs-linked-lists-wip" title="Permalink to this headline">¶</a></h2>
+<p>In most programming languages, there are clear differences in the way linked lists and arrays are stored in memory. In Python, however, lists are dynamic arrays. That means that the memory usage of both lists and linked lists is very similar.</p>
+<p>Since the difference in memory usage between lists and linked lists is so insignificant, it’s better if you focus on their performance differences when it comes to time complexity.</p>
+<div class="section" id="insertion-and-deletion-of-elements">
+<h3>Insertion and Deletion of Elements<a class="headerlink" href="#insertion-and-deletion-of-elements" title="Permalink to this headline">¶</a></h3>
+<p>In Python, you can insert elements into a list using <code class="docutils literal notranslate"><span class="pre">.insert()</span></code> or <code class="docutils literal notranslate"><span class="pre">.append()</span></code>. For removing elements from a list, you can use their counterparts: <code class="docutils literal notranslate"><span class="pre">.remove()</span></code> and <code class="docutils literal notranslate"><span class="pre">.pop()</span></code>.</p>
+<p>The main difference between these methods is that you use <code class="docutils literal notranslate"><span class="pre">.insert()</span></code> and <code class="docutils literal notranslate"><span class="pre">.remove()</span></code> to insert or remove elements at a specific position in a list, but you use <code class="docutils literal notranslate"><span class="pre">.append()</span></code> and <code class="docutils literal notranslate"><span class="pre">.pop()</span></code> only to insert or remove elements at the end of a list.</p>
+<p>Now, something you need to know about Python lists is that inserting or removing elements that are not at the end of the list requires some element shifting in the background, making the operation more complex in terms of time spent.</p>
+<p>With all this in mind, even though inserting elements at the end of a list using <code class="docutils literal notranslate"><span class="pre">.append()</span></code> or <code class="docutils literal notranslate"><span class="pre">.insert()</span></code> will have constant time, <strong>O(1)</strong>, when you try inserting an element closer to or at the beginning of the list, the average time complexity will grow along with the size of the list: <strong>O(n)</strong>.</p>
+<p><span style="color:blue">Linked lists, on the other hand, are much more straightforward when it comes to insertion and deletion of elements at the beginning or end of a list, where their time complexity is always constant: <strong>O(1)</strong>.</span></p>
+<p>For this reason, linked lists have a performance advantage over normal lists when implementing a queue (FIFO), in which elements are continuously inserted and removed at the beginning of the list. But they perform similarly to a list when implementing a stack (LIFO), in which elements are inserted and removed at the end of the list.</p>
+</div>
+<div class="section" id="retrieval-of-elements">
+<h3>Retrieval of Elements<a class="headerlink" href="#retrieval-of-elements" title="Permalink to this headline">¶</a></h3>
+<p><span style="color:blue">When it comes to element lookup, lists perform much better than linked lists. When you know which element you want to access, lists can perform this operation in <strong>O(1)</strong> time. Trying to do the same with a linked list would take <strong>O(n)</strong> because you need to traverse the whole list to find the element.</span></p>
+<p><span style="color:blue"> When searching for a specific element, however, both lists and linked lists perform very similarly, with a time complexity of <strong>O(n)</strong>. In both cases, you need to iterate through the entire list to find the element you’re looking for.</span></p>
+</div>
+</div>
+<div class="section" id="introducing-collections-deque">
+<h2>Introducing <code class="docutils literal notranslate"><span class="pre">collections.deque</span></code><a class="headerlink" href="#introducing-collections-deque" title="Permalink to this headline">¶</a></h2>
+<p>In Python, there’s a specific object in the collections module that you can use for linked lists called <code class="docutils literal notranslate"><span class="pre">deque</span></code> (pronounced “deck”), which stands for double-ended queue.</p>
+<p><code class="docutils literal notranslate"><span class="pre">collections.deque</span></code> uses an implementation of a linked list in which you can access, insert, or remove elements from the beginning or end of a list with constant O(1) performance.</p>
+<div class="section" id="how-to-use-collections-deque">
+<h3>How to Use collections.deque<a class="headerlink" href="#how-to-use-collections-deque" title="Permalink to this headline">¶</a></h3>
+<p>There are quite a few methods that come, by default, with a deque object. However, here you’ll only touch on a few of them, mostly for adding or removing elements.</p>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;First, you need to create a linked list. </span>
+<span class="sd">You can use the following piece of code to </span>
+<span class="sd">do that with deque:&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">deque</span>
+<span class="n">deque</span><span class="p">()</span>
+
+<span class="sd">&#39;&#39;&#39;The code above will create an empty linked list. </span>
+<span class="sd">If you want to populate it at creation, then you can </span>
+<span class="sd">give it an iterable as input:&#39;&#39;&#39;</span>
+
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="n">deque</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+<span class="n">deque</span><span class="p">([{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><strong>Output:</strong></p>
+<ul class="simple">
+<li><p class="card-text">deque([])</p></li>
+<li><p class="card-text">deque([‘a’, ‘b’, ‘c’])</p></li>
+<li><p class="card-text">deque([‘a’, ‘b’, ‘c’])</p></li>
+<li><p class="card-text">deque([{‘data’: ‘a’}, {‘data’: ‘b’}])</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>When initializing a deque object, you can pass any iterable as an input, such as a string (also an iterable) or a list of objects.</p>
+<p>Now that you know how to create a deque object, you can interact with it by adding or removing elements. You can create an <code class="docutils literal notranslate"><span class="pre">abcde</span></code> linked list and add a new element <code class="docutils literal notranslate"><span class="pre">f</span></code> like this:</p>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">deque</span>
+
+<span class="sd">&#39;&#39;&#39;Creating the linked list&#39;&#39;&#39;</span>
+<span class="n">linkedlist</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="s2">&quot;abcde&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">linkedlist</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Appending f to the right&#39;&#39;&#39;</span>
+<span class="n">linkedlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">linkedlist</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Removing f from the right&#39;&#39;&#39;</span>
+<span class="n">linkedlist</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">linkedlist</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Appending x to the left&#39;&#39;&#39;</span>
+<span class="n">linkedlist</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">linkedlist</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Removing x from the right&#39;&#39;&#39;</span>
+<span class="n">linkedlist</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">linkedlist</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Just the popped element&#39;&#39;&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">linkedlist</span><span class="o">.</span><span class="n">popleft</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">linkedlist</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><strong>Output:</strong></p>
+<ul class="simple">
+<li><p class="card-text">deque([‘a’, ‘b’, ‘c’, ‘d’, ‘e’])</p></li>
+<li><p class="card-text">deque([‘a’, ‘b’, ‘c’, ‘d’, ‘e’, ‘f’])</p></li>
+<li><p class="card-text">deque([‘a’, ‘b’, ‘c’, ‘d’, ‘e’])</p></li>
+<li><p class="card-text">deque([‘x’, ‘a’, ‘b’, ‘c’, ‘d’, ‘e’])</p></li>
+<li><p class="card-text">deque([‘a’, ‘b’, ‘c’, ‘d’, ‘e’])</p></li>
+<li><p class="card-text">a</p></li>
+<li><p class="card-text">e</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="how-to-implement-queues-and-stacks">
+<h3>How to Implement Queues and Stacks#<a class="headerlink" href="#how-to-implement-queues-and-stacks" title="Permalink to this headline">¶</a></h3>
+<p>As you learned above, the main difference between a queue and a stack is the way you retrieve elements from each. Next, you’ll find out how to use collections.deque to implement both data structures.</p>
+<div class="section" id="queues">
+<h4>Queues<a class="headerlink" href="#queues" title="Permalink to this headline">¶</a></h4>
+<p>With queues, you want to add values to a list (enqueue), and when the timing is right, you want to remove the element that has been on the list the longest (dequeue). For example, imagine a queue at a trendy and fully booked restaurant. If you were trying to implement a fair system for seating guests:</p>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">deque</span>
+
+<span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+
+<span class="sd">&#39;&#39;&#39;Add people as they come to the restaurant</span>
+<span class="sd">most recent being last element&#39;&#39;&#39;</span>
+
+<span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Rahul&quot;</span><span class="p">)</span>
+<span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Gayle&quot;</span><span class="p">)</span>
+<span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Shelly&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Once a table is empty you can quickly check</span>
+<span class="sd">who should it be ssigned to and remove them from queue(FIFO)&#39;&#39;&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">())</span>
+
+<span class="sd">&#39;&#39;&#39;Updated queue&#39;&#39;&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><strong>Output:</strong></p>
+<ul class="simple">
+<li><p class="card-text">deque([‘Rahul’, ‘Gayle’, ‘Shelly’])</p></li>
+<li><p class="card-text">Rahul</p></li>
+<li><p class="card-text">deque([‘Gayle’, ‘Shelly’])</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="stacks">
+<h4>Stacks<a class="headerlink" href="#stacks" title="Permalink to this headline">¶</a></h4>
+<p>What if you wanted to create a stack instead? Well, the idea is more or less the same as with the queue. The only difference is that the stack uses the LIFO approach, meaning that the last element to be inserted in the stack should be the first to be removed.</p>
+<p>Imagine you’re creating a web browser’s history functionality in which store every page a user visits so they can go back in time easily. Assume these are the actions a random user takes on their browser:</p>
+<ul class="simple">
+<li><p>Visits Real Python’s website</p></li>
+<li><p>Navigates to Pandas: How to Read and Write Files</p></li>
+<li><p>Clicks on a link for Reading and Writing CSV Files in Python</p></li>
+<li><p>If you’d like to map this behavior into a stack, then you could do something like this:</p></li>
+</ul>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">deque</span>
+
+<span class="sd">&#39;&#39;&#39;Store History most recent being first element&#39;&#39;&#39;</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+<span class="n">history</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="s2">&quot;https://realpython.com/&quot;</span><span class="p">)</span>
+<span class="n">history</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="s2">&quot;https://realpython.com/pandas-read-write-files/&quot;</span><span class="p">)</span>
+<span class="n">history</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="s2">&quot;https://realpython.com/python-csv/&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">history</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Now suppose user presses the back button</span>
+<span class="sd">then the last page should open up not the first page(LIFO)&#39;&#39;&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">popleft</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">popleft</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">history</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><strong>Output:</strong></p>
+<ul class="simple">
+<li><p class="card-text">deque([‘https://realpython.com/python-csv/’, ‘https://realpython.com/pandas-read-write-files/’, ‘https://realpython.com/’])</p></li>
+<li><p class="card-text">https://realpython.com/python-csv/</p></li>
+<li><p class="card-text">https://realpython.com/pandas-read-write-files/</p></li>
+<li><p class="card-text">deque([‘https://realpython.com/’])</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>From the examples above, you can see how useful it can be to have collections.deque in your toolbox, so make sure to use it the next time you have a queue- or stack-based challenge to solve.</p>
+</div>
+</div>
+</div>
+<div class="section" id="implementing-your-own-linked-list">
+<h2>Implementing Your Own Linked List<a class="headerlink" href="#implementing-your-own-linked-list" title="Permalink to this headline">¶</a></h2>
+<p>Now that you know how to use collections.deque for handling linked lists, you might be wondering why you would ever implement your own linked list in Python. There are a few reasons to do it:</p>
+<ul class="simple">
+<li><p>Practicing your Python algorithm skills</p></li>
+<li><p>Learning about data structure theory</p></li>
+<li><p>Preparing for job interviews</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./contents\Python\Linked Lists"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../Classes%20and%20Objects/Classes%20and%20Objects.html" title="previous page">Classes and Objects</a>
+    <a class='right-next' id="next-link" href="../../Neural%20Network/Neural%20Networks%20as%20Universal%20Approximators.html" title="next page">Neural Networks as Universal Approximators</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Open Source Community<br/>
+        
+            &copy; Copyright MIT License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

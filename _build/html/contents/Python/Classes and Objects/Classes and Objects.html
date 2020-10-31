@@ -1,0 +1,571 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classes and Objects &#8212; The Open Source Machine Learning Book</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../../_static/logo.gif"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Linked Lists" href="../Linked%20Lists/Linked%20Lists.html" />
+    <link rel="prev" title="About this Book" href="../../../intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/logo.gif" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">The Open Source Machine Learning Book</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../intro.html">
+   About this Book
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Python
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Classes and Objects
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Linked%20Lists/Linked%20Lists.html">
+   Linked Lists
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Neural Networks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Neural%20Network/Neural%20Networks%20as%20Universal%20Approximators.html">
+   Neural Networks as Universal Approximators
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Convolutional Neural Networks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition.html">
+   Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20and%20Visualizing%20Convolutional%20Neural%20Networks.html">
+   Understanding and Visualizing Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Transfer%20Learning%20and%20Fine-tuning%20Convolutional%20Neural%20Networks.html">
+   Transfer Learning and Fine-tuning Convolutional Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Deep%20Learning/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition/Understanding%20Convolutions%20in%20Depth.html">
+   Understanding Convolutions in Depth
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Reinforcement Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Reinforcement%20Learning/Finite%20Markov%20Decision%20Processes/Finite%20Markov%20Decision%20Processes.html">
+   Finite Markov Decision Processes
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/contents/Python/Classes and Objects/Classes and Objects.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/dipranjan/opensourcemlbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/dipranjan/opensourcemlbook/issues/new?title=Issue%20on%20page%20%2Fcontents/Python/Classes and Objects/Classes and Objects.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/dipranjan/opensourcemlbook/edit/master/contents/Python/Classes and Objects/Classes and Objects.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#class">
+   Class
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objects">
+   Objects
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#declaring-objects-also-called-instantiating-a-class">
+     Declaring Objects (Also called instantiating a class)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#self">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     self
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#init-method">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     __init__
+    </span>
+    <span class="pre">
+     method
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#class-and-instance-variables">
+   Class and Instance Variables
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="classes-and-objects">
+<h1>Classes and Objects<a class="headerlink" href="#classes-and-objects" title="Permalink to this headline">¶</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Original Source:</p>
+<p><a class="reference external" href="https://www.geeksforgeeks.org/python-classes-and-objects/">https://www.geeksforgeeks.org/python-classes-and-objects/</a></p>
+</div>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<p>A class is a user-defined blueprint or prototype from which objects are created. Classes provide a means of bundling data and functionality together. Creating a new class creates a new type of object, allowing new instances of that type to be made. Each class instance can have attributes attached to it for maintaining its state. Class instances can also have methods (defined by its class) for modifying its state.</p>
+<p>To understand the need for creating a class let’s consider an example, let’s say you wanted to track the number of dogs which may have different attributes like breed, age. If a list is used, the first element could be the dog’s breed while the second element could represent its age. Let’s suppose there are 100 different dogs, then how would you know which element is supposed to be which? What if you wanted to add other properties to these dogs? This lacks organization and it’s the exact need for classes.</p>
+<p>Class creates a user-defined data structure, which holds its own data members and member functions, which can be accessed and used by creating an instance of that class. A class is like a blueprint for an object.</p>
+<p>Some points on Python class:</p>
+<ul class="simple">
+<li><p>Classes are created by keyword <code class="docutils literal notranslate"><span class="pre">class</span></code>.</p></li>
+<li><p>Attributes are the variables that belong to class.</p></li>
+<li><p>Attributes are always public and can be accessed using dot (.) operator. Eg.: Myclass.Myattribute</p></li>
+</ul>
+</div>
+<div class="section" id="objects">
+<h2>Objects<a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h2>
+<p>An Object is an instance of a Class. A class is like a blueprint while an instance is a copy of the class with actual values. It’s not an idea anymore, it’s an actual dog, like a dog of breed pug who’s seven years old. You can have many dogs to create many different instances, but without the class as a guide, you would be lost, not knowing what information is required.</p>
+<p>An object consists of :</p>
+<ul class="simple">
+<li><p>State : It is represented by attributes of an object. It also reflects the properties of an object.</p></li>
+<li><p>Behavior : It is represented by methods of an object. It also reflects the response of an object with other objects.</p></li>
+<li><p>Identity : It gives a unique name to an object and enables one object to interact with other objects.</p></li>
+</ul>
+<div class="figure align-default" id="image1">
+<a class="reference internal image-reference" href="../../../_images/image11.png"><img alt="../../../_images/image11.png" src="../../../_images/image11.png" style="height: 150px;" /></a>
+</div>
+<div class="section" id="declaring-objects-also-called-instantiating-a-class">
+<h3>Declaring Objects (Also called instantiating a class)<a class="headerlink" href="#declaring-objects-also-called-instantiating-a-class" title="Permalink to this headline">¶</a></h3>
+<p>When an object of a class is created, the class is said to be instantiated. All the instances share the attributes and the behavior of the class. But the values of those attributes, i.e. the state are unique for each object. A single class may have any number of instances.</p>
+<div class="figure align-default" id="image2">
+<a class="reference internal image-reference" href="../../../_images/image22.png"><img alt="../../../_images/image22.png" src="../../../_images/image22.png" style="height: 250px;" /></a>
+</div>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
+    
+    <span class="sd">&#39;&#39;&#39;Attributes of the class&#39;&#39;&#39;</span>
+    <span class="n">attribute1</span> <span class="o">=</span> <span class="s2">&quot;Mammal&quot;</span>
+    <span class="n">attribute2</span> <span class="o">=</span> <span class="s2">&quot;Dog&quot;</span>
+    
+    <span class="sd">&#39;&#39;&#39;Functions&#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">who_am_i</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I am a &quot;</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">attribute1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I am a &quot;</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">attribute2</span><span class="p">)</span>
+        
+<span class="sd">&#39;&#39;&#39;Creating an object of the class&#39;&#39;&#39;</span>    
+<span class="n">Tommy</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+
+<span class="sd">&#39;&#39;&#39;Accessing the characteristics of Tommy&#39;&#39;&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">Tommy</span><span class="o">.</span><span class="n">attribute1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Tommy</span><span class="o">.</span><span class="n">attribute2</span><span class="p">)</span>
+
+<span class="n">Tommy</span><span class="o">.</span><span class="n">who_am_i</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><strong>Output:</strong></p>
+<ul class="simple">
+<li><p class="card-text">Mammal</p></li>
+<li><p class="card-text">Dog</p></li>
+<li><p class="card-text">I am a Mammal</p></li>
+<li><p class="card-text">I am a Dog</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="self">
+<h2><code class="docutils literal notranslate"><span class="pre">self</span></code><a class="headerlink" href="#self" title="Permalink to this headline">¶</a></h2>
+<p>self represents the instance of the class. By using the <code class="docutils literal notranslate"><span class="pre">self</span></code> keyword we can access the attributes and methods of the class in python. It binds the attributes with the given arguments.</p>
+<p>The reason you need to use <code class="docutils literal notranslate"><span class="pre">self</span></code> is because Python does not use the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> syntax to refer to instance attributes. Python decided to do methods in a way that makes the instance to which the method belongs be passed automatically, but not received automatically: the first parameter of methods is the instance the method is called on.</p>
+<p>When we call a method of any object as <code class="docutils literal notranslate"><span class="pre">myobject.method(arg1,</span> <span class="pre">arg2)</span></code>, this is automatically converted by Python into <code class="docutils literal notranslate"><span class="pre">MyClass.method(myobject,</span> <span class="pre">arg1,</span> <span class="pre">arg2)</span></code> – this is all the special <code class="docutils literal notranslate"><span class="pre">self</span></code> is about. This is similar to <code class="docutils literal notranslate"><span class="pre">this</span></code> pointer in C++ and <code class="docutils literal notranslate"><span class="pre">this</span></code> reference in Java.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Self</span></code> is a convention and not a real python keyword</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">self</span></code> is parameter in function and user can use another parameter name in place of it. But it is advisable to use <code class="docutils literal notranslate"><span class="pre">self</span></code> because it increase the readability of code.</p>
+</div>
+</div>
+<div class="section" id="init-method">
+<h2><code class="docutils literal notranslate"><span class="pre">__init__</span> <span class="pre">method</span></code><a class="headerlink" href="#init-method" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">__init__</span> <span class="pre">method</span></code> is similar to constructors in C++ and Java. Constructors are used to initialize the object’s state. The task of constructors is to initialize(assign values) to the data members of the class when an object of class is created. Like methods, a constructor also contains collection of statements(i.e. instructions) that are executed at time of Object creation. It is run as soon as an object of a class is instantiated. The method is useful to do any initialization you want to do with your object</p>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">person</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Initilizing the name of the object&#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        
+    <span class="k">def</span> <span class="nf">say_hi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello! I am &quot;</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="n">person1</span> <span class="o">=</span> <span class="n">person</span><span class="p">(</span><span class="s2">&quot;Rahul&quot;</span><span class="p">)</span>
+<span class="n">person1</span><span class="o">.</span><span class="n">say_hi</span><span class="p">()</span>
+
+<span class="sd">&#39;&#39;&#39;This will throw an error&#39;&#39;&#39;</span>
+<span class="n">person2</span> <span class="o">=</span> <span class="n">person</span><span class="p">()</span>
+<span class="n">person2</span><span class="o">.</span><span class="n">say_hi</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><strong>Output:</strong></p>
+<ul class="simple">
+<li><p class="card-text">Hello! I am Rahul</p></li>
+<li><p class="card-text"><code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">__init__()</span> <span class="pre">missing</span> <span class="pre">1</span> <span class="pre">required</span> <span class="pre">positional</span> <span class="pre">argument:</span> <span class="pre">'name'</span></code></p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="class-and-instance-variables">
+<h2>Class and Instance Variables<a class="headerlink" href="#class-and-instance-variables" title="Permalink to this headline">¶</a></h2>
+<p>Instance variables are for data unique to each instance and class variables are for attributes and methods shared by all instances of the class. Instance variables are variables whose value is assigned inside a constructor or method with <code class="docutils literal notranslate"><span class="pre">self</span></code> whereas class variables are variables whose value is assigned in the class.</p>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;Class for Dog&#39;&#39;&#39;</span> 
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>  
+
+    <span class="sd">&#39;&#39;&#39;This is the class variable</span>
+<span class="sd">    Every instance will have the same value&#39;&#39;&#39;</span>
+    <span class="n">animal</span> <span class="o">=</span> <span class="s1">&#39;dog&#39;</span>             
+    
+    <span class="sd">&#39;&#39;&#39;The init method or constructor&#39;&#39;&#39;</span> 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">breed</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>  
+      
+        <span class="sd">&#39;&#39;&#39;These are the instance variable</span>
+<span class="sd">    Every object will have the different value&#39;&#39;&#39;</span>      
+        <span class="bp">self</span><span class="o">.</span><span class="n">breed</span> <span class="o">=</span> <span class="n">breed</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>         
+     
+<span class="sd">&#39;&#39;&#39;Objects of Dog class&#39;&#39;&#39;</span>
+<span class="n">Rodger</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s2">&quot;Pug&quot;</span><span class="p">,</span> <span class="s2">&quot;brown&quot;</span><span class="p">)</span>  
+<span class="n">Buzo</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s2">&quot;Bulldog&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>  
+
+<span class="sd">&#39;&#39;&#39;Each object will have same class variable: Dog</span>
+<span class="sd">But will have different instance variable: Breed/Color&#39;&#39;&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Rodger details:&#39;</span><span class="p">)</span>    
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Rodger is a&#39;</span><span class="p">,</span> <span class="n">Rodger</span><span class="o">.</span><span class="n">animal</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Breed: &#39;</span><span class="p">,</span> <span class="n">Rodger</span><span class="o">.</span><span class="n">breed</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Color: &#39;</span><span class="p">,</span> <span class="n">Rodger</span><span class="o">.</span><span class="n">color</span><span class="p">)</span> 
+  
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Buzo details:&#39;</span><span class="p">)</span>    
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Buzo is a&#39;</span><span class="p">,</span> <span class="n">Buzo</span><span class="o">.</span><span class="n">animal</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Breed: &#39;</span><span class="p">,</span> <span class="n">Buzo</span><span class="o">.</span><span class="n">breed</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Color: &#39;</span><span class="p">,</span> <span class="n">Buzo</span><span class="o">.</span><span class="n">color</span><span class="p">)</span> 
+  
+<span class="sd">&#39;&#39;&#39;Class variables can be accessed using class name also&#39;&#39;&#39;</span>  
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accessing class variable using class name: &quot;</span><span class="o">+</span> <span class="n">Dog</span><span class="o">.</span><span class="n">animal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<p class="card-text"><strong>Output:</strong></p>
+<ul class="simple">
+<li><p class="card-text">Rodger details:</p></li>
+<li><p class="card-text">Rodger is a dog</p></li>
+<li><p class="card-text">Breed:  Pug</p></li>
+<li><p class="card-text">Color:  brown</p></li>
+<li><p class="card-text">Buzo details:</p></li>
+<li><p class="card-text">Buzo is a dog</p></li>
+<li><p class="card-text">Breed:  Bulldog</p></li>
+<li><p class="card-text">Color:  black</p></li>
+<li><p class="card-text">Accessing class variable using class name: dog</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./contents\Python\Classes and Objects"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../../../intro.html" title="previous page">About this Book</a>
+    <a class='right-next' id="next-link" href="../Linked%20Lists/Linked%20Lists.html" title="next page">Linked Lists</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Open Source Community<br/>
+        
+            &copy; Copyright MIT License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

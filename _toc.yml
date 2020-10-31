@@ -1,5 +1,9 @@
 - file: intro
-- part: Neural Network
+- part: Python
+  chapters:
+  - file: contents/Python/Classes and Objects/Classes and Objects
+  - file: contents/Python/Linked Lists/Linked Lists
+- part: Neural Networks
   chapters:
   - file: contents/Neural Network/Neural Networks as Universal Approximators
 - part: Convolutional Neural Networks
@@ -8,7 +12,6 @@
   - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Understanding and Visualizing Convolutional Neural Networks
   - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Transfer Learning and Fine-tuning Convolutional Neural Networks
   - file: contents/Deep Learning/Convolutional Neural Networks for Visual Recognition/Understanding Convolutions in Depth
-  
 - part: Reinforcement Learning
   chapters:
   - file: contents/Reinforcement Learning/Finite Markov Decision Processes/Finite Markov Decision Processes
